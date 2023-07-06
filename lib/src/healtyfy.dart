@@ -7,6 +7,7 @@ class Healtyfy extends StatefulHookConsumerWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _HealtyfyState();
 }
+
 class _HealtyfyState extends ConsumerState<Healtyfy> {
   @override
   Widget build(BuildContext context) {
