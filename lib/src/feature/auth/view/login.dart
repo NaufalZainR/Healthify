@@ -83,7 +83,7 @@ class _LoginState extends ConsumerState<Login> {
                   height: 54,
                   width: double.maxFinite,
                   decoration: const BoxDecoration(
-                    color: Color(AppColors.bgButton),
+                    color: Color(AppColors.bgPrimary),
                     borderRadius: BorderRadius.all(Radius.circular(5))
                   ),
                   child: Center(

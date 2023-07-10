@@ -5,5 +5,9 @@ class AppColors {
   static const fontGreen = 0xff388463;
 
   static const bgTextField = 0xffE9E9E9;
+  static const bgPrimary = 0xff213363;
   static const bgButton = 0xff213363;
+  static const  bgPrimarySoft = 0xff39508C;
+  static const bgWhite = 0xffFFFFFF;
+  static const greyColor = 0xffbdbdbd;
 }
