@@ -39,6 +39,7 @@ class _TugasViewState extends ConsumerState<TugasView> {
                   return CustomBigTileWidget(
                     title: 'Apasaja',
                     score: 20,
+                    tabCheck: 'tantangan',
                   );
                 },
                 separatorBuilder: (context, index) {

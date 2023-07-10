@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:healtyfy/src/feature/kalkulator/view/bmi/HitungBMI.dart';
+import 'package:healtyfy/src/feature/kalkulator/view/kalori/HitungKalori.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../widgets/AppBarWidget.dart';
@@ -9,11 +11,14 @@ class KalkulatorView extends StatefulHookConsumerWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _KalkulatorViewState();
 }
+
 class _KalkulatorViewState extends ConsumerState<KalkulatorView> {
-   List<String> tabItem = [
+  List<String> tabItem = [
     'Hitung BMI',
     'Hitung Kalori Harian',
   ];
+
+  List<Widget> viewItem = [const HitungBMI(), const HitungKalori()];
 
   var selectedTab = 0;
 
@@ -22,16 +27,14 @@ class _KalkulatorViewState extends ConsumerState<KalkulatorView> {
     return Column(
       children: [
         AppBarWidget(
-          tabItem: tabItem,
-          selectedCallback: (value){
-            setState(() {
-              selectedTab = value;
-            });
-          }
-        ),
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: Container(),
+            tabItem: tabItem,
+            selectedCallback: (value) {
+              setState(() {
+                selectedTab = value;
+              });
+            }),
+        Expanded(
+          child: viewItem[selectedTab],
         ),
       ],
     );
