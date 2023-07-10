@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/widgets/CustomGridBoxWidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+
+import '../../../../utils/AppColors.dart';
+import '../../../../widgets/CustomBigTileWidget.dart';
 
 class LencanaView extends StatefulHookConsumerWidget {
   const LencanaView({super.key});
@@ -10,8 +16,42 @@ class LencanaView extends StatefulHookConsumerWidget {
 class _LencanaViewState extends ConsumerState<LencanaView> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text('LENCANA VIEW'),
+    return Container(
+      padding: const EdgeInsets.all(15),
+      color: Colors.white,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 16,),
+          Expanded(
+              child: Text(
+                'Daftar Lencana',
+                style: GoogleFonts.poppins(
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                ),
+              )),
+          Expanded(
+              flex: 10,
+              child: GridView.builder(
+                padding: const EdgeInsets.all(0),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10
+                ),
+                itemBuilder: (context, index) {
+                  return CustomGridBoxWidget(
+                      namaLencana: 'Testing'
+                  );
+                },
+                itemCount: 3,
+                scrollDirection: Axis.vertical,
+                shrinkWrap: true,
+              )
+          )
+        ],
+      ),
     );
   }
 }

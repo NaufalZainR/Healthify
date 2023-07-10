@@ -44,9 +44,8 @@ class _TantanganViewState extends ConsumerState<TantanganView> {
             });
           }
         ),
-        Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: viewItem[selectedTab],
+        Expanded(
+          child:viewItem[selectedTab],
         ),
       ],
     );

@@ -9,5 +9,7 @@ class AppColors {
   static const bgButton = 0xff213363;
   static const  bgPrimarySoft = 0xff39508C;
   static const bgWhite = 0xffFFFFFF;
+  static const bgSoftGrey = 0xffE0E0E0;
+  static const bgGrey = 0xff828282;
   static const greyColor = 0xffbdbdbd;
 }
