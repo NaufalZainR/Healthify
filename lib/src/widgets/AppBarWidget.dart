@@ -9,11 +9,8 @@ class AppBarWidget extends StatefulHookConsumerWidget {
   List<String> tabItem;
   Function selectedCallback;
 
-  AppBarWidget({
-    super.key,
-    required this.tabItem,
-    required this.selectedCallback
-  });
+  AppBarWidget(
+      {super.key, required this.tabItem, required this.selectedCallback});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _AppBarWidgetState();
@@ -26,11 +23,9 @@ class _AppBarWidgetState extends ConsumerState<AppBarWidget> {
   Widget build(BuildContext context) {
     return Container(
       height: ScreenSize.screenHeight(context) * 0.17,
-      width: double.maxFinite,
+      width: ScreenSize.screenWidth(context),
       padding: const EdgeInsets.all(15),
-      decoration: const BoxDecoration(
-        color: Color(AppColors.bgPrimarySoft)
-      ),
+      decoration: const BoxDecoration(color: Color(AppColors.bgPrimarySoft)),
       child: SafeArea(
         child: Center(
           child: ListView.separated(
@@ -44,18 +39,24 @@ class _AppBarWidgetState extends ConsumerState<AppBarWidget> {
                 },
                 child: Center(
                   child: Container(
-                    width: 85,
+                    width: ScreenSize.screenWidth(context) *
+                        0.8 /
+                        widget.tabItem.length,
                     height: 40,
                     decoration: BoxDecoration(
-                      color: Color(selectedTab == index ? AppColors.bgWhite : AppColors.bgPrimary),
-                      borderRadius: const BorderRadius.all(Radius.circular(13))
-                    ),
-                    child: Center(
+                        color: Color(selectedTab == index
+                            ? AppColors.bgWhite
+                            : AppColors.bgPrimary),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(13))),
+                    child: Align(
                       child: Text(
                         widget.tabItem[index],
+                        textAlign: TextAlign.center,
                         style: GoogleFonts.poppins(
-                          color: Color(selectedTab == index ? AppColors.bgPrimary : AppColors.bgWhite)
-                        ),
+                            color: Color(selectedTab == index
+                                ? AppColors.bgPrimary
+                                : AppColors.bgWhite)),
                       ),
                     ),
                   ),
@@ -63,8 +64,11 @@ class _AppBarWidgetState extends ConsumerState<AppBarWidget> {
               );
             },
             separatorBuilder: (context, index) {
-              return SizedBox(width: ScreenSize.screenWidth(context) * 0.02,);
+              return SizedBox(
+                width: ScreenSize.screenWidth(context) * 0.02,
+              );
             },
+            physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             itemCount: widget.tabItem.length,
             scrollDirection: Axis.horizontal,
