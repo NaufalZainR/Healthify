@@ -10,9 +10,13 @@ class ResepView extends StatefulHookConsumerWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ResepViewState();
 }
-
 class _ResepViewState extends ConsumerState<ResepView> {
-  List<String> tabItem = ['All', 'Sarapan', 'Makan Siang', 'Makan Malam'];
+  List<String> tabItem = [
+    'All',
+    'Sarapan',
+    'Makan Siang',
+    'Makan Malam'
+  ];
 
   var selectedTab = 0;
 
@@ -21,12 +25,13 @@ class _ResepViewState extends ConsumerState<ResepView> {
     return Column(
       children: [
         AppBarWidget(
-            tabItem: tabItem,
-            selectedCallback: (value) {
-              setState(() {
-                selectedTab = value;
-              });
-            }),
+          tabItem: tabItem,
+          selectedCallback: (value){
+            setState(() {
+              selectedTab = value;
+            });
+          }
+        ),
         Expanded(
           child: Container(
             color: Colors.white,
@@ -42,9 +47,7 @@ class _ResepViewState extends ConsumerState<ResepView> {
                 );
               },
               separatorBuilder: (context, index) {
-                return const SizedBox(
-                  height: 15,
-                );
+                return const SizedBox(height: 15,);
               },
               itemCount: 10,
               physics: const BouncingScrollPhysics(),

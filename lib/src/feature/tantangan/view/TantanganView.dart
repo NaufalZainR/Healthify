@@ -45,7 +45,7 @@ class _TantanganViewState extends ConsumerState<TantanganView> {
           }
         ),
         Expanded(
-          child:viewItem[selectedTab],
+          child: viewItem[selectedTab],
         ),
       ],
     );

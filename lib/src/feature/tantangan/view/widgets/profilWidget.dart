@@ -25,39 +25,35 @@ class ProfilWidget extends HookConsumerWidget {
         Text(
           '$peringkat',
           style: GoogleFonts.poppins(
-              color: const Color(AppColors.bgWhite),
-              fontSize: 12,
-              fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          height: 5,
-        ),
-        Container(
-          decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(100)),
-              color: Colors.black),
-          child: Icon(
-            MdiIcons.account,
-            size: peringkat == 1 ? 85 : 70,
-            color: Colors.white,
+            color: const Color(AppColors.bgWhite),
+            fontSize: 12,
+            fontWeight: FontWeight.bold
           ),
         ),
-        const SizedBox(
-          height: 5,
+        const SizedBox(height: 5,),
+        Container(
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+            color: Colors.black
+          ),
+          child: Icon(MdiIcons.account, size: peringkat == 1 ? 85 : 70, color: Colors.white,),
         ),
+        const SizedBox(height: 5,),
         Text(
           '$score Pt',
           style: GoogleFonts.poppins(
-              color: const Color(AppColors.bgWhite),
-              fontSize: 12,
-              fontWeight: FontWeight.normal),
+            color: const Color(AppColors.bgWhite),
+            fontSize: 12,
+            fontWeight: FontWeight.normal
+          ),
         ),
         Text(
           username,
           style: GoogleFonts.poppins(
-              color: const Color(AppColors.bgWhite),
-              fontSize: 10,
-              fontWeight: FontWeight.normal),
+            color: const Color(AppColors.bgWhite),
+            fontSize: 10,
+            fontWeight: FontWeight.normal
+          ),
         ),
       ],
     );

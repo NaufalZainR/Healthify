@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:healtyfy/src/utils/AppColors.dart';
-import 'package:healtyfy/src/feature/auth/view/widget/textFieldWidget.dart';
+import '../../../utils/AppColors.dart';
+import 'widget/textFieldWidget.dart';
 
 class Register extends StatefulHookConsumerWidget {
   const Register({super.key});
@@ -84,7 +84,7 @@ class _RegisterState extends ConsumerState<Register> {
                   height: 54,
                   width: double.maxFinite,
                   decoration: const BoxDecoration(
-                      color: Color(AppColors.bgButton),
+                      color: Color(AppColors.bgPrimary),
                       borderRadius: BorderRadius.all(Radius.circular(5))),
                   child: Center(
                     child: Text(

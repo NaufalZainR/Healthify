@@ -6,8 +6,7 @@ class AppColors {
 
   static const bgTextField = 0xffE9E9E9;
   static const bgPrimary = 0xff213363;
-  static const bgButton = 0xff213363;
-  static const  bgPrimarySoft = 0xff39508C;
+  static const bgPrimarySoft = 0xff39508C;
   static const bgWhite = 0xffFFFFFF;
   static const bgSoftGrey = 0xffE0E0E0;
   static const bgGrey = 0xff828282;
