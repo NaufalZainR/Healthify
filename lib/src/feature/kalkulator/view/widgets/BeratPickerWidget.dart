@@ -18,7 +18,7 @@ class BeratPickerWidget extends ConsumerStatefulWidget {
 }
 
 class _BeratPickerWidgetState extends ConsumerState<BeratPickerWidget> {
-  var beratValue = 1;
+  var beratValue = 55;
 
   @override
   Widget build(BuildContext context) {

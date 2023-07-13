@@ -19,7 +19,7 @@ class UmurPickerWidget extends ConsumerStatefulWidget {
 }
 
 class _UmurPickerWidgetState extends ConsumerState<UmurPickerWidget> {
-  var umurValue = 1;
+  var umurValue = 18;
 
   @override
   Widget build(BuildContext context) {
