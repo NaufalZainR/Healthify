@@ -15,7 +15,7 @@ class _LoginState extends ConsumerState<Login> {
   GlobalKey loginKey = GlobalKey();
   GlobalKey<FormState> formKey = GlobalKey();
 
-  String? usernameController;
+  String? emailController;
   String? passwordController;
 
   @override
@@ -39,11 +39,11 @@ class _LoginState extends ConsumerState<Login> {
               ),
               const SizedBox(height: 23,),
               TextFieldWidget(
-                labelTitle: 'Username',
-                labelField: 'Masukkan username anda',
+                labelTitle: 'Email',
+                labelField: 'Masukkan email anda',
                 onChanged: (val){
                   setState(() {
-                    usernameController = val;
+                    emailController = val;
                   });
                 },
               ),

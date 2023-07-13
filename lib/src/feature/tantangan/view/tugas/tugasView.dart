@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/feature/tantangan/view/tugas/tugasDetailView.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:healtyfy/src/widgets/CustomBigTileWidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,9 +22,7 @@ class _TugasViewState extends ConsumerState<TugasView> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(
-            height: 16,
-          ),
+          const SizedBox(height: 16,),
           Expanded(
               child: Text(
             'Daftar Tugas',
@@ -36,10 +35,20 @@ class _TugasViewState extends ConsumerState<TugasView> {
               flex: 10,
               child: ListView.separated(
                 itemBuilder: (context, index) {
-                  return CustomBigTileWidget(
-                    title: 'Apasaja',
-                    score: 20,
-                    tabCheck: 'tantangan',
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => TugasDetailView(),
+                          )
+                      );
+                    },
+                    child: CustomBigTileWidget(
+                      title: 'Apasaja',
+                      score: 20,
+                      tabCheck: 'tantangan',
+                    ),
                   );
                 },
                 separatorBuilder: (context, index) {
