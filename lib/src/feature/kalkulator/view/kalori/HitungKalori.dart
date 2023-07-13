@@ -20,8 +20,8 @@ class HitungKalori extends ConsumerStatefulWidget {
 class _HitungKaloriState extends ConsumerState<HitungKalori> {
   var jenisKelaminIndex = 0; // 0 - pria / 1 - wanita
   var sliderValue = 170.0;
-  var umurValue = 1;
-  var beratValue = 30;
+  var umurValue = 18;
+  var beratValue = 55;
 
   @override
   Widget build(BuildContext context) {
@@ -75,10 +75,18 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
           const SizedBox(height: 27,),
           GestureDetector(
             onTap: () {
+              late var hitung;
+              if(jenisKelaminIndex == 0){
+                hitung = (88.4 + 13.4 * beratValue) + (4.8 * sliderValue.toInt()) - (5.68 * umurValue);
+                debugPrint('DEBUG ${hitung}');
+              } else {
+                hitung = (447.6 + 9.25 * beratValue) + (3.10 * sliderValue.toInt()) - (4.33 * umurValue);
+                debugPrint('DEBUG ${hitung}');
+              }
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HitungKaloriResult(),
+                    builder: (context) => HitungKaloriResult(hasil: hitung,),
                   )
               );
             },

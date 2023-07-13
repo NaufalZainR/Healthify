@@ -6,7 +6,9 @@ import '../../../../utils/AppColors.dart';
 import '../../../../widgets/AppBarBackWidget.dart';
 
 class HitungKaloriResult extends ConsumerWidget {
-  const HitungKaloriResult({super.key});
+  double hasil;
+
+  HitungKaloriResult({super.key, this.hasil = 0});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +28,7 @@ class HitungKaloriResult extends ConsumerWidget {
             height: 38,
           ),
           Text(
-            '2000 KKAL',
+            '${hasil.toInt()} KKAL',
             style: GoogleFonts.poppins(
                 fontSize: 40,
                 fontWeight: FontWeight.w500,
@@ -50,6 +52,9 @@ class HitungKaloriResult extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
                 child: Container(
                   width: 135,
                   padding: const EdgeInsets.symmetric(vertical: 10),
