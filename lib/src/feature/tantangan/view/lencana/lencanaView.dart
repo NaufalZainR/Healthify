@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/feature/tantangan/view/lencana/lencanaDetailView.dart';
 import 'package:healtyfy/src/widgets/CustomGridBoxWidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -41,8 +42,18 @@ class _LencanaViewState extends ConsumerState<LencanaView> {
                     mainAxisSpacing: 10
                 ),
                 itemBuilder: (context, index) {
-                  return CustomGridBoxWidget(
-                      namaLencana: 'Testing'
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => LencanaDetailView(),
+                          )
+                      );
+                    },
+                    child: CustomGridBoxWidget(
+                        namaLencana: 'Testing'
+                    ),
                   );
                 },
                 itemCount: 3,
