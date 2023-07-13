@@ -6,19 +6,18 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class JenisPickerWidget extends ConsumerStatefulWidget {
   Function onTap;
 
-  JenisPickerWidget({
-    super.key,
-    required this.onTap
-  });
+  JenisPickerWidget({super.key, required this.onTap});
 
   @override
   ConsumerState createState() => _JenisPickerWidgetState();
 }
 
 class _JenisPickerWidgetState extends ConsumerState<JenisPickerWidget> {
-  List<String> jenisKelamin = [
-    'Laki laki',
-    'Perempuan'
+  List<String> jenisKelamin = ['Laki laki', 'Perempuan'];
+
+  List<String> imageAssets = [
+    'assets/images/male.png',
+    'assets/images/female.png'
   ];
 
   var jenisKelaminIndex = 0;
@@ -28,10 +27,7 @@ class _JenisPickerWidgetState extends ConsumerState<JenisPickerWidget> {
     return GridView.builder(
       padding: const EdgeInsets.all(60),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          crossAxisSpacing: 24,
-          mainAxisSpacing: 10
-      ),
+          crossAxisCount: 2, crossAxisSpacing: 24, mainAxisSpacing: 10),
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () {
@@ -41,24 +37,21 @@ class _JenisPickerWidgetState extends ConsumerState<JenisPickerWidget> {
           },
           child: Container(
             width: 107,
-            decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                      blurRadius: 17,
-                      color: Colors.black.withOpacity(0.25)
-                  )
-                ]),
+            decoration: BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(blurRadius: 17, color: Colors.black.withOpacity(0.25))
+            ]),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(MdiIcons.account, size: 60,),
+                Image.asset(
+                  imageAssets[index],
+                  width: 57,
+                  height: 57,
+                ),
                 Text(
                   jenisKelamin[index],
                   style: GoogleFonts.poppins(
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal
-                  ),
+                      fontSize: 15, fontWeight: FontWeight.normal),
                 )
               ],
             ),

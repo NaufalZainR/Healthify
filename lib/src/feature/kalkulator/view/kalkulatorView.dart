@@ -11,14 +11,16 @@ class KalkulatorView extends StatefulHookConsumerWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _KalkulatorViewState();
 }
-
 class _KalkulatorViewState extends ConsumerState<KalkulatorView> {
   List<String> tabItem = [
     'Hitung BMI',
     'Hitung Kalori Harian',
   ];
 
-  List<Widget> viewItem = [const HitungBMI(), const HitungKalori()];
+  List<Widget> viewItem = [
+    const HitungBMI(),
+    const HitungKalori()
+  ];
 
   var selectedTab = 0;
 
@@ -27,12 +29,13 @@ class _KalkulatorViewState extends ConsumerState<KalkulatorView> {
     return Column(
       children: [
         AppBarWidget(
-            tabItem: tabItem,
-            selectedCallback: (value) {
-              setState(() {
-                selectedTab = value;
-              });
-            }),
+          tabItem: tabItem,
+          selectedCallback: (value){
+            setState(() {
+              selectedTab = value;
+            });
+          }
+        ),
         Expanded(
           child: viewItem[selectedTab],
         ),
