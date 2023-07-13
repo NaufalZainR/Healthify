@@ -67,6 +67,9 @@ class HitungBMIResult extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
                 child: Container(
                   width: 135,
                   padding: const EdgeInsets.symmetric(vertical: 10),
