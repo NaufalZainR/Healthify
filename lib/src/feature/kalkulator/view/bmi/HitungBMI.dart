@@ -21,8 +21,8 @@ class HitungBMI extends ConsumerStatefulWidget {
 class _HitungBMIState extends ConsumerState<HitungBMI> {
   var jenisKelaminIndex = 0; // 0 - pria / 1 - wanita
   var sliderValue = 170.0;
-  var umurValue = 1;
-  var beratValue = 30;
+  var umurValue = 18;
+  var beratValue = 55;
   
   @override
   Widget build(BuildContext context) {
@@ -76,10 +76,14 @@ class _HitungBMIState extends ConsumerState<HitungBMI> {
           const SizedBox(height: 27,),
           GestureDetector(
             onTap: () {
+              var hitung = beratValue / ((sliderValue.toInt() / 100) * (sliderValue.toInt() / 100));
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HitungBMIResult(),
+                    builder: (context) => HitungBMIResult(
+                      gender: jenisKelaminIndex,
+                      hasil: hitung.toInt(),
+                    ),
                   )
               );
             },

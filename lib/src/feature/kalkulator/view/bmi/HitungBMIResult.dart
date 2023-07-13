@@ -5,7 +5,22 @@ import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:healtyfy/src/widgets/AppBarBackWidget.dart';
 
 class HitungBMIResult extends ConsumerWidget {
-  const HitungBMIResult({super.key});
+  final int gender;
+  final int hasil;
+
+  const HitungBMIResult({
+    Key? key,
+    required this.gender,
+    required this.hasil,
+  }) : super(key: key);
+
+  Widget CustomText(String text, int color) {
+    return Text(
+      text,
+      style: GoogleFonts.poppins(
+          fontSize: 20, fontWeight: FontWeight.w600, color: Color(color)),
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -21,13 +36,19 @@ class HitungBMIResult extends ConsumerWidget {
             style:
                 GoogleFonts.poppins(fontSize: 32, fontWeight: FontWeight.w500),
           ),
-          Text(
-            'Normal',
-            style: GoogleFonts.poppins(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
+          if (gender == 0) ...[
+            if (hasil < 18.5) CustomText('Kurus', 0xfff24336),
+            if (hasil >= 18.5 && hasil < 24.9) CustomText('Normal', 0xff4cb050),
+            if (hasil >= 25 && hasil < 29.9)
+              CustomText('Kelebihan Berat Badan', 0xffff9700),
+            if (hasil >= 30) CustomText('Obesitas', 0xffea1e63)
+          ] else ...[
+            if (hasil < 18.5) CustomText('Kurus', 0xfff24336),
+            if (hasil >= 18.5 && hasil < 23.9) CustomText('Normal', 0xff4cb050),
+            if (hasil >= 24 && hasil < 29.9)
+              CustomText('Kelebihan Berat Badan', 0xffff9700),
+            if (hasil >= 30) CustomText('Obesitas', 0xffea1e63)
+          ],
           const SizedBox(
             height: 14,
           ),
