@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../widgets/AppBarWidget.dart';
 import '../../../widgets/CustomBigTileWidget.dart';
+import 'ResepDetailView.dart';
 
 class ResepView extends StatefulHookConsumerWidget {
   const ResepView({super.key});
@@ -39,11 +40,21 @@ class _ResepViewState extends ConsumerState<ResepView> {
             child: ListView.separated(
               padding: const EdgeInsets.all(0),
               itemBuilder: (context, index) {
-                return CustomBigTileWidget(
-                  title: 'makanan ber gizi',
-                  subTitle: '200 kkal',
-                  tabCheck: 'resep',
-                  namaKategori: 'Sarapan',
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ResepDetailView(),
+                        )
+                    );
+                  },
+                  child: CustomBigTileWidget(
+                    title: 'makanan ber gizi',
+                    subTitle: '200 kkal',
+                    tabCheck: 'resep',
+                    namaKategori: 'Sarapan',
+                  ),
                 );
               },
               separatorBuilder: (context, index) {
