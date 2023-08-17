@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "603668459865",
+    "firebase_url": "https://healthyfy-85a54-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "healthyfy-85a54",
+    "storage_bucket": "healthyfy-85a54.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:603668459865:android:9f4e25146a2fc1ce4e1c48",
+        "android_client_info": {
+          "package_name": "com.healtyfy.healtyfy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "603668459865-3s8d0pbmcqdooamticgm99mlqfdvorr0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.healtyfy.healtyfy",
+            "certificate_hash": "db2a962b356c1ffb6509d9b2ac9c4f32c9e72845"
+          }
+        },
+        {
+          "client_id": "603668459865-tve09enh59phej26spjf8p4nhvqt05lk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOKzJ-L5YsAYsXE2OZ1GCH7HbE2LoRTIM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "603668459865-tve09enh59phej26spjf8p4nhvqt05lk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "603668459865-sag0ape9bjuu6kbh7rd08746rgoa8rt2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.healtyfy.healtyfy"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -44,43 +44,44 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyARB8XPwVr-PxLlqaA8j3htoUK574HgV-Y',
-    appId: '1:199756302480:web:3bd189a56012d44f9df015',
-    messagingSenderId: '199756302480',
-    projectId: 'healtyfy-pal',
-    authDomain: 'healtyfy-pal.firebaseapp.com',
-    databaseURL: 'https://healtyfy-pal-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'healtyfy-pal.appspot.com',
+    apiKey: 'AIzaSyA4m9892MMC-1tB64WoEYDEpV475ESTeDw',
+    appId: '1:603668459865:web:1e7800a5627f58f04e1c48',
+    messagingSenderId: '603668459865',
+    projectId: 'healthyfy-85a54',
+    authDomain: 'healthyfy-85a54.firebaseapp.com',
+    databaseURL: 'https://healthyfy-85a54-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'healthyfy-85a54.appspot.com',
+    measurementId: 'G-6T44LKGGYW',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDBt87_5vhMFymmHCwZR5A0Av18I-Hh80A',
-    appId: '1:199756302480:android:875a8d54bf10da059df015',
-    messagingSenderId: '199756302480',
-    projectId: 'healtyfy-pal',
-    databaseURL: 'https://healtyfy-pal-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'healtyfy-pal.appspot.com',
+    apiKey: 'AIzaSyBOKzJ-L5YsAYsXE2OZ1GCH7HbE2LoRTIM',
+    appId: '1:603668459865:android:9f4e25146a2fc1ce4e1c48',
+    messagingSenderId: '603668459865',
+    projectId: 'healthyfy-85a54',
+    databaseURL: 'https://healthyfy-85a54-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'healthyfy-85a54.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyClGUtLE3vcURCfi-9jcqf8jiIhbT4hJRk',
-    appId: '1:199756302480:ios:407f1f6b27bcca4f9df015',
-    messagingSenderId: '199756302480',
-    projectId: 'healtyfy-pal',
-    databaseURL: 'https://healtyfy-pal-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'healtyfy-pal.appspot.com',
-    iosClientId: '199756302480-iro3se0qdha57f0hfekd3rvm3h0se9ml.apps.googleusercontent.com',
-    iosBundleId: 'com.example.healtyfyPal',
+    apiKey: 'AIzaSyDWXKR7EJqW4fINNLX7OTsy5IM3G3xAzFc',
+    appId: '1:603668459865:ios:6f57e384de875fc84e1c48',
+    messagingSenderId: '603668459865',
+    projectId: 'healthyfy-85a54',
+    databaseURL: 'https://healthyfy-85a54-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'healthyfy-85a54.appspot.com',
+    iosClientId: '603668459865-sag0ape9bjuu6kbh7rd08746rgoa8rt2.apps.googleusercontent.com',
+    iosBundleId: 'com.healtyfy.healtyfy',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyClGUtLE3vcURCfi-9jcqf8jiIhbT4hJRk',
-    appId: '1:199756302480:ios:407f1f6b27bcca4f9df015',
-    messagingSenderId: '199756302480',
-    projectId: 'healtyfy-pal',
-    databaseURL: 'https://healtyfy-pal-default-rtdb.asia-southeast1.firebasedatabase.app',
-    storageBucket: 'healtyfy-pal.appspot.com',
-    iosClientId: '199756302480-iro3se0qdha57f0hfekd3rvm3h0se9ml.apps.googleusercontent.com',
-    iosBundleId: 'com.example.healtyfyPal',
+    apiKey: 'AIzaSyDWXKR7EJqW4fINNLX7OTsy5IM3G3xAzFc',
+    appId: '1:603668459865:ios:6f57e384de875fc84e1c48',
+    messagingSenderId: '603668459865',
+    projectId: 'healthyfy-85a54',
+    databaseURL: 'https://healthyfy-85a54-default-rtdb.asia-southeast1.firebasedatabase.app',
+    storageBucket: 'healthyfy-85a54.appspot.com',
+    iosClientId: '603668459865-sag0ape9bjuu6kbh7rd08746rgoa8rt2.apps.googleusercontent.com',
+    iosBundleId: 'com.healtyfy.healtyfy',
   );
 }
