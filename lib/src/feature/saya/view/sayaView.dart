@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -13,8 +14,9 @@ class SayaView extends StatefulHookConsumerWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _SayaViewState();
 }
-
 class _SayaViewState extends ConsumerState<SayaView> {
+  GlobalKey sayaKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,45 +27,43 @@ class _SayaViewState extends ConsumerState<SayaView> {
             height: ScreenSize.screenHeight(context) * 0.17,
             width: ScreenSize.screenWidth(context),
             padding: const EdgeInsets.all(15),
-            decoration:
-                const BoxDecoration(color: Color(AppColors.bgPrimarySoft)),
+            decoration: const BoxDecoration(
+              color: Color(AppColors.bgPrimarySoft)
+            ),
             child: SafeArea(
               child: Center(
-                  child: Text(
-                'Saya',
-                style: GoogleFonts.poppins(
+                child: Text(
+                  'Saya',
+                  style: GoogleFonts.poppins(
                     color: const Color(AppColors.bgWhite),
                     fontSize: 16,
-                    fontWeight: FontWeight.w600),
-              )),
+                    fontWeight: FontWeight.w600
+                  ),
+                )
+              ),
             ),
           ),
-          const SizedBox(
-            height: 46,
-          ),
+          const SizedBox(height: 46,),
           Expanded(
             child: Column(
               children: [
-                Icon(
-                  MdiIcons.account,
-                  size: 130,
-                ),
-                const SizedBox(
-                  height: 7,
-                ),
+                Icon(MdiIcons.account, size: 130,),
+                const SizedBox(height: 7,),
                 Text(
                   'Naufal',
                   style: GoogleFonts.poppins(
-                      fontSize: 16, fontWeight: FontWeight.w500),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500
+                  ),
                 ),
                 Text(
-                  'Naufal@gmail.com',
+                  'Naufal@tolol.com',
                   style: GoogleFonts.poppins(
-                      fontSize: 16, fontWeight: FontWeight.w500),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500
+                  ),
                 ),
-                const SizedBox(
-                  height: 43,
-                ),
+                const SizedBox(height: 43,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -73,34 +73,39 @@ class _SayaViewState extends ConsumerState<SayaView> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         decoration: const BoxDecoration(
                             color: Color(AppColors.bgPrimary),
-                            borderRadius: BorderRadius.all(Radius.circular(6))),
+                            borderRadius: BorderRadius.all(Radius.circular(6))
+                        ),
                         child: Text(
                           'Ubah Profile',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                              color: Colors.white
+                          ),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      width: 22,
-                    ),
+                    const SizedBox(width: 22,),
                     GestureDetector(
+                      onTap: () {
+                        ref.read(authRepositoryProvider).signOut(sayaKey);
+                      },
                       child: Container(
                         width: 135,
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         decoration: const BoxDecoration(
                             color: Color(AppColors.bgPrimary),
-                            borderRadius: BorderRadius.all(Radius.circular(6))),
+                            borderRadius: BorderRadius.all(Radius.circular(6))
+                        ),
                         child: Text(
                           'Logout',
                           textAlign: TextAlign.center,
                           style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                              color: Colors.white
+                          ),
                         ),
                       ),
                     )
