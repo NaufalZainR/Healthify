@@ -72,6 +72,7 @@ class _AppBarWidgetState extends ConsumerState<AppBarWidget> {
             shrinkWrap: true,
             itemCount: widget.tabItem.length,
             scrollDirection: Axis.horizontal,
+            
           ),
         ),
       ),
