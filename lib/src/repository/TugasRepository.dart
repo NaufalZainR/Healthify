@@ -5,20 +5,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:healtyfy/src/feature/tantangan/model/TugasModel.dart';
 import 'package:healtyfy/src/utils/Snackbar.dart';
 
-class TugasRepository {
+class TugasRepository{
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
   final DatabaseReference dbReference = FirebaseDatabase.instance.ref();
 
   List<TugasModel> listTugas = [];
-  String filesImage = '';
+  List<String> filesImage = [];
 
-  Future<List<TugasModel>> fetchDataTugas(
-      GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
+  Future<List<TugasModel>> fetchDataTugas(GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
     Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
 
     listTugas.clear();
-    try {
+    try{
       data?.forEach((key, value) {
         var fetch = TugasModel(
           id: key,
@@ -35,13 +34,10 @@ class TugasRepository {
     return listTugas;
   }
 
-  Future<String> fetchDataImage(GlobalKey key, String path) async {
-    try {
-      filesImage = await storage
-          .ref()
-          .child('feature-requirement')
-          .child(path)
-          .getDownloadURL();
+  Future<List<String>> fetchDataImage(GlobalKey key, String path) async {
+    try{
+      String file = await storage.ref().child('feature-requirement').child(path).getDownloadURL();
+      filesImage.add(file);
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
     }

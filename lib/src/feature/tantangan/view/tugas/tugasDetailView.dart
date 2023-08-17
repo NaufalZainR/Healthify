@@ -9,7 +9,16 @@ import '../../../../utils/AppColors.dart';
 import '../../../../widgets/CustomBigTileWidget.dart';
 
 class TugasDetailView extends ConsumerStatefulWidget {
-  const TugasDetailView({super.key});
+  String imageUrl;
+  String title;
+  String deskripsi;
+
+  TugasDetailView({
+    super.key,
+    required this.imageUrl,
+    required this.title,
+    required this.deskripsi,
+  });
 
   @override
   ConsumerState createState() => _TugasDetailViewState();
@@ -27,6 +36,7 @@ class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 32,),
                     Container(
@@ -37,10 +47,14 @@ class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
                       ),
                       child: Row(
                         children: [
-                          Icon(MdiIcons.account, size: 80, color: Colors.white,),
+                          SizedBox(
+                              width: 80,
+                              height: 80,
+                              child: Image.network(widget.imageUrl)
+                          ),
                           const SizedBox(width: 25,),
                           Text(
-                            'Tidur minimal 8 jam',
+                            widget.title,
                             style: GoogleFonts.poppins(
                               fontSize: 15,
                               fontWeight: FontWeight.w500,
@@ -52,7 +66,7 @@ class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
                     ),
                     const SizedBox(height: 20,),
                     Text(
-                      'Manfaat tidur 8 jam per hari adalah membantu menurunkan berat badan serta kesehatan makin meningkat. Para ilmuwan menemukan, tidur dengan waktu yang cukup tak dapat hanya turunkan stres, tetapi juga mencegah risiko aka terkena tekanan darah tinggi serta kolesterol tinggi',
+                      widget.deskripsi,
                       style: GoogleFonts.poppins(
                         fontSize: 13,
                         fontWeight: FontWeight.normal

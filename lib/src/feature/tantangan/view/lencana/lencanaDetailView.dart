@@ -27,8 +27,13 @@ class LencanaDetailView extends ConsumerWidget {
                     padding: const EdgeInsets.all(10),
                     child: Row(
                       children: [
-                        Icon(MdiIcons.account, size: 80,),
-                        const SizedBox(width: 25,),
+                        Icon(
+                          MdiIcons.account,
+                          size: 80,
+                        ),
+                        const SizedBox(
+                          width: 25,
+                        ),
                         Flexible(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -54,7 +59,9 @@ class LencanaDetailView extends ConsumerWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 50,),
+                  const SizedBox(
+                    height: 50,
+                  ),
                   Align(
                     alignment: AlignmentDirectional.topStart,
                     child: Text(
@@ -65,18 +72,20 @@ class LencanaDetailView extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 25,),
+                  const SizedBox(
+                    height: 25,
+                  ),
                   Expanded(
                     child: ListView.separated(
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const TugasDetailView(),
-                                )
-                            );
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => const TugasDetailView(),
+                            //     )
+                            // );
                           },
                           child: CustomBigTileWidget(
                             title: 'Apasaja',
@@ -97,7 +106,9 @@ class LencanaDetailView extends ConsumerWidget {
                       physics: const BouncingScrollPhysics(),
                     ),
                   ),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Align(
                     alignment: AlignmentDirectional.bottomEnd,
                     child: GestureDetector(
@@ -106,27 +117,27 @@ class LencanaDetailView extends ConsumerWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => const LencanaGetView(),
-                            )
-                        );
+                            ));
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 36),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 36),
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(6)),
-                            color: Color(AppColors.bgPrimary)
-                        ),
+                            color: Color(AppColors.bgPrimary)),
                         child: Text(
                           'Selesai',
                           style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white
-                          ),
+                              color: Colors.white),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 40,),
+                  const SizedBox(
+                    height: 40,
+                  ),
                 ],
               ),
             ),
