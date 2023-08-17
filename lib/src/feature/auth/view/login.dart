@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/Providers.dart';
+import 'package:healtyfy/src/feature/auth/view/register.dart';
 import 'package:healtyfy/src/feature/auth/view/widget/textFieldWidget.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -77,7 +79,11 @@ class _LoginState extends ConsumerState<Login> {
               const SizedBox(height: 22,),
               GestureDetector(
                 onTap: () {
-
+                  ref.read(authRepositoryProvider).signInWithEmailAndPassword(
+                      loginKey,
+                      emailController.toString(),
+                      passwordController.toString()
+                  );
                 },
                 child: Container(
                   height: 54,
@@ -113,7 +119,10 @@ class _LoginState extends ConsumerState<Login> {
                   const SizedBox(width: 2,),
                   GestureDetector(
                     onTap: () {
-
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const Register()),
+                      );
                     },
                     child: Text(
                       'Daftar',
