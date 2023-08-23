@@ -3,24 +3,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../constants/Providers.dart';
 import '../utils/AppColors.dart';
 
 class CustomBigTileWidget extends StatefulHookConsumerWidget {
-  String imageUrl;
+  String imagePath;
   String title;
   String subTitle;
   String tabCheck;
   int score;
   String namaKategori;
+  bool done;
 
   CustomBigTileWidget({
-    this.imageUrl = '',
+    this.imagePath = '',
     super.key,
     required this.title,
     this.subTitle = '',
     required this.tabCheck,
     this.score = -1,
     this.namaKategori = '',
+    this.done = false,
   });
 
   @override
@@ -28,12 +31,15 @@ class CustomBigTileWidget extends StatefulHookConsumerWidget {
 }
 
 class _CustomBigTileWidgetState extends ConsumerState<CustomBigTileWidget> {
+  GlobalKey bigTileKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 2, color: const Color(AppColors.bgSoftGrey)),
-        borderRadius: const BorderRadius.all(Radius.circular(12))
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        color: Color(widget.done ? AppColors.bgSoftGrey : AppColors.bgWhite),
       ),
       child: Stack(
         children: [
@@ -44,8 +50,19 @@ class _CustomBigTileWidgetState extends ConsumerState<CustomBigTileWidget> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (widget.tabCheck == 'tantangan')...[
-                  // Icon(MdiIcons.account, size: 50,),
-                  Image.network(widget.imageUrl),
+                  FutureBuilder(
+                    future: ref.read(tugasRepositoryProvider).fetchDataImage(bigTileKey, widget.imagePath),
+                    builder: (context, snapshot) {
+                      if(snapshot.connectionState == ConnectionState.waiting){
+                        return const SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: Center(child: CircularProgressIndicator())
+                        );
+                      }
+                      return Image.network(snapshot.data!) ;
+                    },
+                  ),
                   const SizedBox(width: 15,),
                   Text(
                     widget.title,

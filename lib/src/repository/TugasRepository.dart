@@ -11,7 +11,8 @@ class TugasRepository{
   final DatabaseReference dbReference = FirebaseDatabase.instance.ref();
 
   List<TugasModel> listTugas = [];
-  List<String> filesImage = [];
+  String filesImage = '';
+  List userTugasList = [];
 
   Future<List<TugasModel>> fetchDataTugas(GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
     Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
@@ -34,13 +35,38 @@ class TugasRepository{
     return listTugas;
   }
 
-  Future<List<String>> fetchDataImage(GlobalKey key, String path) async {
+  Future<String> fetchDataImage(GlobalKey key, String path) async {
     try{
       String file = await storage.ref().child('feature-requirement').child(path).getDownloadURL();
-      filesImage.add(file);
+      filesImage = file;
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
     }
     return filesImage;
+  }
+
+  Future<List> userTugas(GlobalKey key) async {
+    try{
+      final snapshot = await dbReference.child("users").child(auth.currentUser!.uid).child('id_lencana').once();
+      Map<dynamic, dynamic>? data = snapshot.snapshot.value as Map?;
+
+      data?.forEach((key, value) {
+        var fetch = value['lencana'];
+        userTugasList.add(fetch);
+      });
+    } on FirebaseAuthException catch (e) {
+      Snackbar.snackbarShow(key.currentContext!, '$e');
+    }
+    return userTugasList;
+  }
+
+  Future<void> tugasSelesai(GlobalKey key, String idTugas) async {
+    try{
+      await dbReference.child("users").child(auth.currentUser!.uid).child('id_lencana').push().set({
+        'lencana': idTugas
+      });
+    } on FirebaseAuthException catch (e) {
+      Snackbar.snackbarShow(key.currentContext!, '$e');
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/widgets/AppBarBackWidget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -9,15 +10,17 @@ import '../../../../utils/AppColors.dart';
 import '../../../../widgets/CustomBigTileWidget.dart';
 
 class TugasDetailView extends ConsumerStatefulWidget {
-  String imageUrl;
+  String imagePath;
   String title;
   String deskripsi;
+  String idTugas;
 
   TugasDetailView({
     super.key,
-    required this.imageUrl,
+    required this.imagePath,
     required this.title,
     required this.deskripsi,
+    required this.idTugas
   });
 
   @override
@@ -25,6 +28,8 @@ class TugasDetailView extends ConsumerStatefulWidget {
 }
 
 class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
+  GlobalKey tugasDetailKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,10 +52,22 @@ class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
                       ),
                       child: Row(
                         children: [
-                          SizedBox(
-                              width: 80,
-                              height: 80,
-                              child: Image.network(widget.imageUrl)
+                          FutureBuilder(
+                            future: ref.read(tugasRepositoryProvider).fetchDataImage(tugasDetailKey, widget.imagePath),
+                            builder: (context, snapshot) {
+                              if(snapshot.connectionState == ConnectionState.waiting){
+                                return const SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: Center(child: CircularProgressIndicator())
+                                );
+                              }
+                              return SizedBox(
+                                  width: 80,
+                                  height: 80,
+                                  child: Image.network(snapshot.data!)
+                              );
+                            }
                           ),
                           const SizedBox(width: 25,),
                           Text(
@@ -76,6 +93,10 @@ class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
                     Align(
                       alignment: AlignmentDirectional.bottomEnd,
                       child: GestureDetector(
+                        onTap: () {
+                          ref.read(tugasRepositoryProvider).tugasSelesai(tugasDetailKey, widget.idTugas);
+                          Navigator.of(context).pop();
+                        },
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 36),
                           decoration: const BoxDecoration(
