@@ -43,6 +43,7 @@ class _EdukasiViewState extends ConsumerState<EdukasiView> {
                     title: 'Berita saat ini',
                     tabCheck: 'edukasi',
                     namaKategori: 'Berita',
+                    imagePath: '',
                 );
               },
               separatorBuilder: (context, index) {

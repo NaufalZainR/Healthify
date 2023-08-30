@@ -16,7 +16,7 @@ class CustomBigTileWidget extends StatefulHookConsumerWidget {
   bool done;
 
   CustomBigTileWidget({
-    this.imagePath = '',
+    required this.imagePath,
     super.key,
     required this.title,
     this.subTitle = '',

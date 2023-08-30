@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
+import '../feature/tantangan/model/LencanaModel.dart';
 import '../utils/AppColors.dart';
 
 class CustomGridBoxWidget extends ConsumerStatefulWidget {
   String namaLencana;
+  String imagePath;
 
-  CustomGridBoxWidget({super.key, required this.namaLencana});
+  CustomGridBoxWidget({
+    super.key,
+    required this.namaLencana,
+    required this.imagePath,
+  });
 
   @override
   ConsumerState createState() => _CustomGridBoxWidgetState();
 }
 
 class _CustomGridBoxWidgetState extends ConsumerState<CustomGridBoxWidget> {
+  GlobalKey customGridKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,14 +34,25 @@ class _CustomGridBoxWidgetState extends ConsumerState<CustomGridBoxWidget> {
       ),
       child: Column(
         children: [
-          Icon(
-            MdiIcons.account,
-            size: 60,
+          FutureBuilder(
+            future: ref.read(lencanaRepositoryProvider).fetchDataImage(customGridKey, widget.imagePath),
+            builder: (context, snapshot) {
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return const SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: Center(child: CircularProgressIndicator())
+                );
+              }
+              return Image.network(snapshot.data!) ;
+            },
           ),
           Text(
             widget.namaLencana,
             style: GoogleFonts.poppins(
-                fontSize: 11, fontWeight: FontWeight.normal),
+                fontSize: 11,
+                fontWeight: FontWeight.normal
+            ),
           )
         ],
       ),

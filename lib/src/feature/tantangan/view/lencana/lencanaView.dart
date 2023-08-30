@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/tantangan/view/lencana/lencanaDetailView.dart';
 import 'package:healtyfy/src/widgets/CustomGridBoxWidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,6 +19,11 @@ class LencanaView extends StatefulHookConsumerWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _LencanaViewState();
 }
 class _LencanaViewState extends ConsumerState<LencanaView> {
+  GlobalKey lencanaKey = GlobalKey();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseStorage storage = FirebaseStorage.instance;
+  final DatabaseReference dbReference = FirebaseDatabase.instance.ref();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -32,34 +41,42 @@ class _LencanaViewState extends ConsumerState<LencanaView> {
                   fontWeight: FontWeight.w600,
                 ),
               )),
-          Expanded(
-              flex: 10,
-              child: GridView.builder(
-                padding: const EdgeInsets.all(0),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10
-                ),
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => LencanaDetailView(),
-                          )
+          StreamBuilder(
+            stream: dbReference.child('list_lencana').onValue,
+            builder: (context, snapshot) {
+              ref.read(lencanaRepositoryProvider).fetchDataLencana(lencanaKey, snapshot);
+              final data = ref.read(lencanaRepositoryProvider).listLencana;
+              return Expanded(
+                  flex: 10,
+                  child: GridView.builder(
+                    padding: const EdgeInsets.all(0),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10
+                    ),
+                    itemBuilder: (context, index) {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LencanaDetailView(data: data[index]),
+                              )
+                          );
+                        },
+                        child: CustomGridBoxWidget(
+                            namaLencana: data[index].titleText,
+                            imagePath: data[index].photoPath,
+                        ),
                       );
                     },
-                    child: CustomGridBoxWidget(
-                        namaLencana: 'Testing'
-                    ),
-                  );
-                },
-                itemCount: 3,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-              )
+                    itemCount: data.length,
+                    scrollDirection: Axis.vertical,
+                    shrinkWrap: true,
+                  )
+              );
+            }
           )
         ],
       ),

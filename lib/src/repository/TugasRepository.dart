@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:healtyfy/src/feature/tantangan/model/TugasModel.dart';
 import 'package:healtyfy/src/utils/Snackbar.dart';
 
-class TugasRepository {
+class TugasRepository{
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
   final DatabaseReference dbReference = FirebaseDatabase.instance.ref();
@@ -14,12 +14,11 @@ class TugasRepository {
   String filesImage = '';
   List userTugasList = [];
 
-  Future<List<TugasModel>> fetchDataTugas(
-      GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
+  Future<List<TugasModel>> fetchDataTugas(GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
     Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
 
     listTugas.clear();
-    try {
+    try{
       data?.forEach((key, value) {
         var fetch = TugasModel(
           id: key,
@@ -37,12 +36,8 @@ class TugasRepository {
   }
 
   Future<String> fetchDataImage(GlobalKey key, String path) async {
-    try {
-      String file = await storage
-          .ref()
-          .child('feature-requirement')
-          .child(path)
-          .getDownloadURL();
+    try{
+      String file = await storage.ref().child('feature-requirement').child(path).getDownloadURL();
       filesImage = file;
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
@@ -51,14 +46,11 @@ class TugasRepository {
   }
 
   Future<List> userTugas(GlobalKey key) async {
-    try {
-      final snapshot = await dbReference
-          .child("users")
-          .child(auth.currentUser!.uid)
-          .child('id_tugas')
-          .once();
+    try{
+      final snapshot = await dbReference.child("users").child(auth.currentUser!.uid).child('id_tugas').once();
       Map<dynamic, dynamic>? data = snapshot.snapshot.value as Map?;
 
+      userTugasList.clear();
       data?.forEach((key, value) {
         var fetch = value['lencana'];
         userTugasList.add(fetch);
@@ -70,13 +62,10 @@ class TugasRepository {
   }
 
   Future<void> tugasSelesai(GlobalKey key, String idTugas) async {
-    try {
-      await dbReference
-          .child("users")
-          .child(auth.currentUser!.uid)
-          .child('id_tugas')
-          .push()
-          .set({'lencana': idTugas});
+    try{
+      await dbReference.child("users").child(auth.currentUser!.uid).child('id_tugas').push().set({
+        'lencana': idTugas
+      });
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
     }
