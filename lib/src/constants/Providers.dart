@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:healtyfy/src/repository/AuthRepository.dart';
 import 'package:healtyfy/src/repository/EdukasiRepository.dart';
 import 'package:healtyfy/src/repository/LencanaRepository.dart';
+import 'package:healtyfy/src/repository/ResepRepository.dart';
 import 'package:healtyfy/src/repository/TugasRepository.dart';
 
 final authCheckerProvider = StreamProvider((ref) {
@@ -22,4 +23,8 @@ final authRepositoryProvider = Provider((ref) {
 
 final edukasiRepositoryProvider = Provider((ref) {
   return EdukasiRepository();
+},);
+
+final resepRepositoryProvider = Provider((ref) {
+  return ResepRepository();
 },);
