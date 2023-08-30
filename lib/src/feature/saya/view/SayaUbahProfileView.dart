@@ -35,7 +35,7 @@ class _SayaUbahProfileViewState extends ConsumerState<SayaUbahProfileView> {
           GestureDetector(
             key: Key('changePhoto'),
             onTap: () {
-              ref.read(sayaRepositoryProvider).uploadPhoto(sayaKey);
+              ref.read(sayaRepositoryProvider).uploadPhoto(context);
               Navigator.of(context).pop();
             },
             child: Container(
@@ -66,7 +66,7 @@ class _SayaUbahProfileViewState extends ConsumerState<SayaUbahProfileView> {
           GestureDetector(
             onTap: () {
               if (formKey.currentState!.validate()) {
-                ref.read(sayaRepositoryProvider).changeUsername(sayaKey, usernameController.text);
+                ref.read(sayaRepositoryProvider).changeUsername(context, usernameController.text);
                 Snackbar.snackbarShow(context, 'Berhasil dirubah!');
                 FocusScope.of(context).unfocus();
                 Navigator.of(context).pop();
