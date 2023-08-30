@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/feature/tantangan/view/lencana/lencanaGetView.dart';
@@ -172,6 +173,24 @@ class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
                     child: GestureDetector(
                       onTap: () {
                         if(tugasDoneList.length != widget.data.idListTugas.length){
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                title: const Text('Error'),
+                                content: const Text(
+                                  'Semua tugas belum dikerjakan!'
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text("Oke"))
+                                ],
+                              );
+                            },
+                          );
                           return;
                         }
                         Navigator.push(
