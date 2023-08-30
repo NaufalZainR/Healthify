@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:healtyfy/src/feature/auth/view/login.dart';
 
@@ -34,6 +35,10 @@ class AuthRepository {
       );
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
     }
     return 'success';
   }
@@ -66,14 +71,22 @@ class AuthRepository {
   }
 
   Future<void> signOut(GlobalKey key) async {
-    await _auth.signOut().whenComplete(
-      () {
-        Navigator.pushReplacement(
-          key.currentState!.context,
-          MaterialPageRoute(builder: (context) => const Login()),
-        );
-      },
-    );
+    try {
+      await _auth.signOut().whenComplete(
+        () {
+          Navigator.pushReplacement(
+            key.currentState!.context,
+            MaterialPageRoute(builder: (context) => const Login()),
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      Snackbar.snackbarShow(key.currentContext!, '$e');
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+    }
   }
 
   Future<String> fetchUserImage(GlobalKey key, String path) async {
