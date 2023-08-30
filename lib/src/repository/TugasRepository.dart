@@ -4,10 +4,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:healtyfy/src/feature/tantangan/model/CatatanModel.dart';
+import 'package:healtyfy/src/feature/tantangan/model/MinumModel.dart';
 import 'package:healtyfy/src/feature/tantangan/model/RankModel.dart';
 import 'package:healtyfy/src/feature/tantangan/model/TugasModel.dart';
 import 'package:healtyfy/src/utils/Snackbar.dart';
+import 'package:intl/intl.dart';
 
 class TugasRepository{
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -21,6 +24,7 @@ class TugasRepository{
   List<RankModel> listRank = [];
   List<RankModel> listRankFilter = [];
   List<CatatanModel> listCatatan = [];
+  List<MinumModel> listMinum = [];
 
   Future<List<TugasModel>> fetchDataTugas(GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
     Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
@@ -173,6 +177,139 @@ class TugasRepository{
       Snackbar.snackbarShow(context, 'Berhasil dihapus');
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(context, '$e');
+    } catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+  Future<void> tambahMinum(BuildContext context, int value) async {
+    try {
+      await dbReference.child('users').child(auth.currentUser!.uid).child('minum').push().set({
+        'minumMl':value,
+        'time':DateFormat('dd-MM-yyyy').format(DateTime.now())
+      });
+
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Berhasil'),
+            content: Text(
+              'Berhasil menambahkan minum!'
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Oke"))
+            ],
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text(
+              '$e'
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Oke"))
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+  Future<void> fetchMinum(BuildContext context, AsyncSnapshot<DatabaseEvent> snapshot) async {
+    listMinum.clear();
+    try {
+      Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
+
+      data?.forEach((key, value) {
+        var fetch = MinumModel(
+          id: key,
+          minumMl: value['minumMl'],
+          time: value['time']
+        );
+        listMinum.add(fetch);
+      });
+      listMinum.sort((a, b) => b.time!.compareTo(a.time!),);
+    } on FirebaseAuthException catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text(
+              '$e'
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Oke"))
+            ],
+          );
+        },
+      );
+    } catch (e) {
+      debugPrint('$e');
+    }
+  }
+
+  Future<void> hapusMinum(BuildContext context, String id) async {
+    try {
+      await dbReference.child('users').child(auth.currentUser!.uid).child('minum').child(id).remove();
+
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Berhasil'),
+            content: Text(
+              'Berhasil menghapus minum!'
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Oke"))
+            ],
+          );
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      await showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: Text(
+              '$e'
+            ),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Oke"))
+            ],
+          );
+        },
+      );
     } catch (e) {
       debugPrint('$e');
     }

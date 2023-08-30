@@ -15,13 +15,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Healtyfy extends StatefulHookConsumerWidget {
   int index;
 
-  Healtyfy({super.key, this.index = 0});
+  Healtyfy({
+    super.key,
+    this.index = 0
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _HealtyfyState();
 }
 
 class _HealtyfyState extends ConsumerState<Healtyfy> {
+
   final FirebaseAuth auth = FirebaseAuth.instance;
   final DatabaseReference dbReference = FirebaseDatabase.instance.ref();
 
@@ -45,16 +49,12 @@ class _HealtyfyState extends ConsumerState<Healtyfy> {
   void repeatTask() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final getCurrentTime = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    final getSavedTime = prefs.getString('savedTime') ??
-        DateFormat('dd-MM-yyyy').format(DateTime.now());
+    final getSavedTime = prefs.getString('savedTime') ?? DateFormat('dd-MM-yyyy').format(DateTime.now());
 
     if (getCurrentTime.toString() != getSavedTime.toString()) {
       prefs.setString('savedTime', getCurrentTime.toString());
-      await dbReference
-          .child('users')
-          .child(auth.currentUser!.uid)
-          .child('id_tugas')
-          .remove();
+      await dbReference.child('users').child(auth.currentUser!.uid).child('id_tugas').remove();
+      await dbReference.child('users').child(auth.currentUser!.uid).child('minum').remove();
     }
   }
 
@@ -80,12 +80,21 @@ class _HealtyfyState extends ConsumerState<Healtyfy> {
             label: 'Tantangan',
           ),
           BottomNavigationBarItem(
-              icon: Icon(MdiIcons.squareEditOutline), label: 'Edukasi'),
+            icon: Icon(MdiIcons.squareEditOutline),
+            label: 'Edukasi'
+          ),
           BottomNavigationBarItem(
-              icon: Icon(MdiIcons.foodForkDrink), label: 'Resep'),
+            icon: Icon(MdiIcons.foodForkDrink),
+            label: 'Resep'
+          ),
           BottomNavigationBarItem(
-              icon: Icon(MdiIcons.calculator), label: 'Kalkulator'),
-          BottomNavigationBarItem(icon: Icon(MdiIcons.account), label: 'Saya'),
+            icon: Icon(MdiIcons.calculator),
+            label: 'Kalkulator'
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(MdiIcons.account),
+            label: 'Saya'
+          ),
         ],
       ),
     );
