@@ -8,7 +8,12 @@ import 'package:healtyfy/src/widgets/AppBarBackWidget.dart';
 import '../../../utils/AppColors.dart';
 
 class ForgotPassword extends ConsumerStatefulWidget {
-  const ForgotPassword({super.key});
+  String email;
+
+  ForgotPassword({
+    super.key,
+    required this.email
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _ForgotPasswordState();
@@ -19,6 +24,12 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
   GlobalKey<FormState> formKey = GlobalKey();
 
   TextEditingController emailController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    emailController.text = widget.email;
+  }
 
   @override
   Widget build(BuildContext context) {
