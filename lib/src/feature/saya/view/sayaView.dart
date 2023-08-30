@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
@@ -16,6 +18,8 @@ class SayaView extends StatefulHookConsumerWidget {
 }
 class _SayaViewState extends ConsumerState<SayaView> {
   GlobalKey sayaKey = GlobalKey();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final DatabaseReference dbReference = FirebaseDatabase.instance.ref();
 
   @override
   Widget build(BuildContext context) {
@@ -44,75 +48,98 @@ class _SayaViewState extends ConsumerState<SayaView> {
             ),
           ),
           const SizedBox(height: 46,),
-          Expanded(
-            child: Column(
-              children: [
-                Icon(MdiIcons.account, size: 130,),
-                const SizedBox(height: 7,),
-                Text(
-                  'Naufal',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500
-                  ),
-                ),
-                Text(
-                  'Naufal@tolol.com',
-                  style: GoogleFonts.poppins(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500
-                  ),
-                ),
-                const SizedBox(height: 43,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+          StreamBuilder(
+            stream: dbReference.child('users').child(auth.currentUser!.uid).onValue,
+            builder: (context, snapshot) {
+              Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
+              return Expanded(
+                child: Column(
                   children: [
-                    GestureDetector(
-                      child: Container(
-                        width: 135,
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: const BoxDecoration(
-                            color: Color(AppColors.bgPrimary),
-                            borderRadius: BorderRadius.all(Radius.circular(6))
-                        ),
-                        child: Text(
-                          'Ubah Profile',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white
-                          ),
-                        ),
+                    FutureBuilder(
+                      future: ref.read(authRepositoryProvider).fetchUserImage(sayaKey, data?['photo'] ?? ''),
+                      builder: (context, snapshot) {
+                        if(snapshot.connectionState == ConnectionState.waiting){
+                          return const SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: Center(child: CircularProgressIndicator())
+                          );
+                        }
+                        if (snapshot.connectionState == ConnectionState.none) {
+                          return Icon(MdiIcons.account, size: 130,);
+                        }
+                        return SizedBox(
+                          width: ScreenSize.screenWidth(context),
+                          child: snapshot.data! != '' ? Image.network(snapshot.data!, width: 130, height: 130,) : Icon(MdiIcons.account, size: 130,),) ;
+                      },
+                    ),
+                    const SizedBox(height: 7,),
+                    Text(
+                      auth.currentUser!.displayName.toString(),
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500
                       ),
                     ),
-                    const SizedBox(width: 22,),
-                    GestureDetector(
-                      onTap: () {
-                        ref.read(authRepositoryProvider).signOut(sayaKey);
-                      },
-                      child: Container(
-                        width: 135,
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: const BoxDecoration(
-                            color: Color(AppColors.bgPrimary),
-                            borderRadius: BorderRadius.all(Radius.circular(6))
-                        ),
-                        child: Text(
-                          'Logout',
-                          textAlign: TextAlign.center,
-                          style: GoogleFonts.poppins(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white
+                    Text(
+                      auth.currentUser!.email.toString(),
+                      style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
+                    const SizedBox(height: 43,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          child: Container(
+                            width: 135,
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: const BoxDecoration(
+                                color: Color(AppColors.bgPrimary),
+                                borderRadius: BorderRadius.all(Radius.circular(6))
+                            ),
+                            child: Text(
+                              'Ubah Profile',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white
+                              ),
+                            ),
                           ),
                         ),
-                      ),
+                        const SizedBox(width: 22,),
+                        GestureDetector(
+                          onTap: () {
+                            ref.read(authRepositoryProvider).signOut(sayaKey);
+                          },
+                          child: Container(
+                            width: 135,
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: const BoxDecoration(
+                                color: Color(AppColors.bgPrimary),
+                                borderRadius: BorderRadius.all(Radius.circular(6))
+                            ),
+                            child: Text(
+                              'Logout',
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.white
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
                     )
                   ],
-                )
-              ],
-            ),
+                ),
+              );
+            }
           ),
         ],
       ),
