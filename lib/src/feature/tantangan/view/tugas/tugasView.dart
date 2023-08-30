@@ -74,6 +74,7 @@ class _TugasViewState extends ConsumerState<TugasView> {
                                         imagePath: fetchTugas[index].photoPath ?? '',
                                         deskripsi: fetchTugas[index].deskripsi ?? '',
                                         idTugas: fetchTugas[index].id ?? '',
+                                        score: fetchTugas[index].score ?? 0,
                                       ),
                                     )
                                 );

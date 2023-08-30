@@ -137,6 +137,7 @@ class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
                                                 imagePath: fetchTugas[index].photoPath ?? '',
                                                 deskripsi: fetchTugas[index].deskripsi ?? '',
                                                 idTugas: fetchTugas[index].id ?? '',
+                                                score:  fetchTugas[index].score ?? 0,
                                               ),
                                             )
                                         );

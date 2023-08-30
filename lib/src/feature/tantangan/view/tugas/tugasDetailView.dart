@@ -14,13 +14,15 @@ class TugasDetailView extends ConsumerStatefulWidget {
   String title;
   String deskripsi;
   String idTugas;
+  int score;
 
   TugasDetailView({
     super.key,
     required this.imagePath,
     required this.title,
     required this.deskripsi,
-    required this.idTugas
+    required this.idTugas,
+    required this.score
   });
 
   @override
@@ -94,7 +96,7 @@ class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
                       alignment: AlignmentDirectional.bottomEnd,
                       child: GestureDetector(
                         onTap: () {
-                          ref.read(tugasRepositoryProvider).tugasSelesai(tugasDetailKey, widget.idTugas);
+                          ref.read(tugasRepositoryProvider).tugasSelesai(tugasDetailKey, widget.idTugas, widget.score);
                           Navigator.of(context).pop();
                         },
                         child: Container(
