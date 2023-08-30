@@ -42,39 +42,54 @@ class _LencanaViewState extends ConsumerState<LencanaView> {
                 ),
               )),
           StreamBuilder(
-            stream: dbReference.child('list_lencana').onValue,
+            stream: dbReference.child('users').child(auth.currentUser!.uid).child('id_lencana').onValue,
             builder: (context, snapshot) {
-              ref.read(lencanaRepositoryProvider).fetchDataLencana(lencanaKey, snapshot);
-              final data = ref.read(lencanaRepositoryProvider).listLencana;
-              return Expanded(
-                  flex: 10,
-                  child: GridView.builder(
-                    padding: const EdgeInsets.all(0),
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        crossAxisSpacing: 10,
-                        mainAxisSpacing: 10
-                    ),
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => LencanaDetailView(data: data[index]),
-                              )
+              return StreamBuilder(
+                stream: dbReference.child('list_lencana').onValue,
+                builder: (context, snapshot) {
+                  ref.read(lencanaRepositoryProvider).fetchDataLencana(lencanaKey, snapshot);
+                  final data = ref.read(lencanaRepositoryProvider).listLencana;
+
+                  ref.read(lencanaRepositoryProvider).userLencana(lencanaKey);
+                  final userLencanaList = ref.read(lencanaRepositoryProvider).userLencanaList;
+                  return Expanded(
+                      flex: 10,
+                      child: GridView.builder(
+                        padding: const EdgeInsets.all(0),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10
+                        ),
+                        itemBuilder: (context, index) {
+                          if (userLencanaList.contains(data[index].id)) {
+                            return CustomGridBoxWidget(
+                                namaLencana: data[index].titleText,
+                                imagePath: data[index].photoPath,
+                                done: true,
+                            );
+                          }
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LencanaDetailView(data: data[index]),
+                                  )
+                              );
+                            },
+                            child: CustomGridBoxWidget(
+                                namaLencana: data[index].titleText,
+                                imagePath: data[index].photoPath,
+                            ),
                           );
                         },
-                        child: CustomGridBoxWidget(
-                            namaLencana: data[index].titleText,
-                            imagePath: data[index].photoPath,
-                        ),
-                      );
-                    },
-                    itemCount: data.length,
-                    scrollDirection: Axis.vertical,
-                    shrinkWrap: true,
-                  )
+                        itemCount: data.length,
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                      )
+                  );
+                }
               );
             }
           )
