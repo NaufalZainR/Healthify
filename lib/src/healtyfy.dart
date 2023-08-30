@@ -8,6 +8,7 @@ import 'package:healtyfy/src/feature/saya/view/SayaView.dart';
 import 'package:healtyfy/src/feature/tantangan/view/TantanganView.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,8 +44,9 @@ class _HealtyfyState extends ConsumerState<Healtyfy> {
 
   void repeatTask() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final getCurrentTime = DateTime.now();
-    final getSavedTime = prefs.getString('savedTime') ?? DateTime.now();
+    final getCurrentTime = DateFormat('dd-MM-yyyy').format(DateTime.now());
+    final getSavedTime = prefs.getString('savedTime') ??
+        DateFormat('dd-MM-yyyy').format(DateTime.now());
 
     if (getCurrentTime.toString() != getSavedTime.toString()) {
       prefs.setString('savedTime', getCurrentTime.toString());

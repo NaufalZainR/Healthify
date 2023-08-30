@@ -219,7 +219,7 @@ class AuthRepository {
         },
       );
 
-      await _auth.signOut().whenComplete(() => Navigator.popUntil(context, ModalRoute.withName("/")));
+      await _auth.signOut().whenComplete(() => Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const Login()),));
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(context, '$e');
     } catch (e) {

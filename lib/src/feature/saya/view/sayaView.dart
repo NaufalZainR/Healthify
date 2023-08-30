@@ -170,7 +170,7 @@ class _SayaViewState extends ConsumerState<SayaView> {
                               );
                             },
                             teks: 'BMI Kamu',
-                            result: '${data?.values.first['result'].toDouble()}'
+                            result: '${data?.values.first['result'].toDouble() ?? 0}'
                           );
                         }
                       ),
@@ -189,7 +189,7 @@ class _SayaViewState extends ConsumerState<SayaView> {
                               );
                             },
                             teks: 'Kalori Kamu',
-                            result: '${data?.values.first['result'].toString()} kkal'
+                            result: '${data?.values.first['result'].toString() ?? 0} kkal'
                           );
                         }
                       ),

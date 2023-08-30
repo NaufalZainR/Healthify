@@ -12,11 +12,12 @@ class CustomGridBoxWidget extends ConsumerStatefulWidget {
   String imagePath;
   bool done;
 
-  CustomGridBoxWidget(
-      {super.key,
-      required this.namaLencana,
-      required this.imagePath,
-      this.done = false});
+  CustomGridBoxWidget({
+    super.key,
+    required this.namaLencana,
+    required this.imagePath,
+    this.done = false
+  });
 
   @override
   ConsumerState createState() => _CustomGridBoxWidgetState();
@@ -27,32 +28,36 @@ class _CustomGridBoxWidgetState extends ConsumerState<CustomGridBoxWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: widget.done ? const Color(AppColors.bgSoftGrey) : Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(13)),
         border: Border.all(width: 2, color: const Color(AppColors.bgSoftGrey)),
       ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FutureBuilder(
-            future: ref
-                .read(lencanaRepositoryProvider)
-                .fetchDataImage(customGridKey, widget.imagePath),
+            future: ref.read(lencanaRepositoryProvider).fetchDataImage(customGridKey, widget.imagePath),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
+              if(snapshot.connectionState == ConnectionState.waiting){
                 return const SizedBox(
                     width: 60,
                     height: 60,
-                    child: Center(child: CircularProgressIndicator()));
+                    child: Center(child: CircularProgressIndicator())
+                );
               }
-              return Image.network(snapshot.data!);
+              return Image.network(snapshot.data!) ;
             },
           ),
           Text(
             widget.namaLencana,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: GoogleFonts.poppins(
-                fontSize: 11, fontWeight: FontWeight.normal),
+                fontSize: 11,
+                fontWeight: FontWeight.normal
+            ),
           )
         ],
       ),
