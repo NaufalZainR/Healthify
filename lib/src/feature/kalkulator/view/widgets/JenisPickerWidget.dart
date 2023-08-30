@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class JenisPickerWidget extends ConsumerStatefulWidget {
@@ -33,13 +34,19 @@ class _JenisPickerWidgetState extends ConsumerState<JenisPickerWidget> {
           onTap: () {
             setState(() {
               widget.onTap(index);
+              jenisKelaminIndex = index;
             });
           },
           child: Container(
             width: 107,
-            decoration: BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(blurRadius: 17, color: Colors.black.withOpacity(0.25))
-            ]),
+            decoration: BoxDecoration(
+                color: index == jenisKelaminIndex
+                    ? const Color(AppColors.bgSoftGrey)
+                    : Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                      blurRadius: 17, color: Colors.black.withOpacity(0.25))
+                ]),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
