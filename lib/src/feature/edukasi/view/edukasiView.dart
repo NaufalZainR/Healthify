@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
+import 'package:healtyfy/src/feature/edukasi/view/EdukasiDetailView.dart';
 import 'package:healtyfy/src/widgets/CustomBigTileWidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -30,6 +31,30 @@ class _EdukasiViewState extends ConsumerState<EdukasiView> {
 
   var selectedTab = 0;
 
+  Widget showList(List<EdukasiModel> data, int index){
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EdukasiDetailView(
+              url: data[index].link,
+            )
+          )
+      );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 15),
+        child: CustomBigTileWidget(
+            title: data[index].title,
+            namaKategori: data[index].kategori,
+            tabCheck: 'edukasi',
+            imagePath: '',
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -55,48 +80,16 @@ class _EdukasiViewState extends ConsumerState<EdukasiView> {
                   padding: const EdgeInsets.all(0),
                   itemBuilder: (context, index) {
                     if (selectedTab == 0) {
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 15),
-                        child: CustomBigTileWidget(
-                            title: data[index].title,
-                            namaKategori: data[index].kategori,
-                            tabCheck: 'edukasi',
-                            imagePath: '',
-                        ),
-                      );
+                      return showList(data, index);
                     }
                     if (selectedTab == 1 && data[index].kategori.toLowerCase() == 'berita') {
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 15),
-                        child: CustomBigTileWidget(
-                            title: data[index].title,
-                            namaKategori: data[index].kategori,
-                            tabCheck: 'edukasi',
-                            imagePath: '',
-                        ),
-                      );
+                      return showList(data, index);
                     }
                     if (selectedTab == 2 && data[index].kategori.toLowerCase() == 'artikel') {
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 15),
-                        child: CustomBigTileWidget(
-                            title: data[index].title,
-                            namaKategori: data[index].kategori,
-                            tabCheck: 'edukasi',
-                            imagePath: '',
-                        ),
-                      );
+                      return showList(data, index);
                     }
                     if (selectedTab == 3 && data[index].kategori.toLowerCase() == 'video') {
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 15),
-                        child: CustomBigTileWidget(
-                            title: data[index].title,
-                            namaKategori: data[index].kategori,
-                            tabCheck: 'edukasi',
-                            imagePath: '',
-                        ),
-                      );
+                      return showList(data, index);
                     }
                     return const SizedBox();
                   },
