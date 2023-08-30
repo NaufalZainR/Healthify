@@ -27,6 +27,17 @@ class HitungBMIResult extends ConsumerWidget {
     );
   }
 
+  Widget customDecs(String text){
+    return Text(
+      text,
+      textAlign: TextAlign.center,
+      style: GoogleFonts.poppins(
+        fontSize: 14,
+        fontWeight: FontWeight.w500,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
@@ -71,14 +82,17 @@ class HitungBMIResult extends ConsumerWidget {
             if(hasil >= 30) CustomText('Obesitas', 0xffea1e63)
           ],
           const SizedBox(height: 14,),
-          Text(
-            'Selamat! Pertahankan BMI kamu dengan terus melakukan pola hidup sehat',
-            textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(
-              fontSize: 14,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          if(gender == 0)...[
+            if(hasil < 18.5) customDecs('Naikan berat badan kamu agar menjadi lebih sehat, Semangat!'),
+            if(hasil >= 18.5 && hasil < 24.9) customDecs('Selamat! Pertahankan BMI kamu dengan terus melakukan pola hidup sehat'),
+            if(hasil >= 25 && hasil < 29.9) customDecs('Turunkan berat badan kamu agar menjadi lebih sehat, jangan lupa untuk lebih sering berolahraga. Semagat!'),
+            if(hasil >= 30) customDecs('Turunkan berat badan kamu agar menjadi lebih sehat, jangan lupa untuk lebih sering berolahraga. Semagat!')
+          ] else...[
+            if(hasil < 18.5) customDecs('Naikan berat badan kamu agar menjadi lebih sehat, Semangat!'),
+            if(hasil >= 18.5 && hasil < 23.9) customDecs('Selamat! Pertahankan BMI kamu dengan terus melakukan pola hidup sehat'),
+            if(hasil >= 24 && hasil < 29.9) customDecs('Turunkan berat badan kamu agar menjadi lebih sehat, jangan lupa untuk lebih sering berolahraga. Semagat!'),
+            if(hasil >= 30) customDecs('Turunkan berat badan kamu agar menjadi lebih sehat, jangan lupa untuk lebih sering berolahraga. Semagat!')
+          ],
           const SizedBox(height: 14,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -23,90 +23,92 @@ class _HitungBMIState extends ConsumerState<HitungBMI> {
   var sliderValue = 170.0;
   var umurValue = 18;
   var beratValue = 55;
-  
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
       width: ScreenSize.screenWidth(context),
       color: Colors.white,
-      child: Column(
-        children: [
-          Text(
-            'Hitung BMI',
-            style: GoogleFonts.poppins(
-              fontSize: 16,
-              fontWeight: FontWeight.w600
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Text(
+              'Hitung BMI',
+              style: GoogleFonts.poppins(
+                fontSize: 16,
+                fontWeight: FontWeight.w600
+              ),
             ),
-          ),
-          JenisPickerWidget(
-            onTap: (value){
-              setState(() {
-                jenisKelaminIndex = value;
-              });
-            },
-          ),
-          TinggiPickerWidget(
-            onChanged: (value){
-              setState(() {
-                sliderValue = value;
-              });
-            },
-          ),
-          const SizedBox(height: 46,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              UmurPickerWidget(
-                onChanged: (value){
-                  setState(() {
-                    umurValue = value;
-                  });
-                },
-              ),
-              BeratPickerWidget(
-                onChanged: (value){
-                  setState(() {
-                    beratValue = value;
-                  });
-                },
-              ),
-            ],
-          ),
-          const SizedBox(height: 27,),
-          GestureDetector(
-            onTap: () {
-              var hitung = beratValue / ((sliderValue.toInt() / 100) * (sliderValue.toInt() / 100));
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HitungBMIResult(
-                      gender: jenisKelaminIndex,
-                      hasil: hitung.toInt(),
+            JenisPickerWidget(
+              onTap: (value){
+                setState(() {
+                  jenisKelaminIndex = value;
+                });
+              },
+            ),
+            TinggiPickerWidget(
+              onChanged: (value){
+                setState(() {
+                  sliderValue = value;
+                });
+              },
+            ),
+            const SizedBox(height: 46,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                UmurPickerWidget(
+                  onChanged: (value){
+                    setState(() {
+                      umurValue = value;
+                    });
+                  },
+                ),
+                BeratPickerWidget(
+                  onChanged: (value){
+                    setState(() {
+                      beratValue = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 27,),
+            GestureDetector(
+              onTap: () {
+                var hitung = beratValue / ((sliderValue.toInt() / 100) * (sliderValue.toInt() / 100));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HitungBMIResult(
+                        gender: jenisKelaminIndex,
+                        hasil: hitung.toInt(),
+                      ),
+                    )
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 11),
+                width: ScreenSize.screenWidth(context),
+                decoration: const BoxDecoration(
+                  color: Color(AppColors.bgPrimary),
+                  borderRadius: BorderRadius.all(Radius.circular(30))
+                ),
+                child: Center(
+                  child: Text(
+                    'Hitung',
+                    style: GoogleFonts.poppins(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white
                     ),
-                  )
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 11),
-              width: ScreenSize.screenWidth(context),
-              decoration: const BoxDecoration(
-                color: Color(AppColors.bgPrimary),
-                borderRadius: BorderRadius.all(Radius.circular(30))
-              ),
-              child: Center(
-                child: Text(
-                  'Hitung',
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

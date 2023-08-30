@@ -29,87 +29,89 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
       padding: const EdgeInsets.all(15),
       width: ScreenSize.screenWidth(context),
       color: Colors.white,
-      child: Column(
-        children: [
-          Text(
-            'Hitung Kalori Harian',
-            style: GoogleFonts.poppins(
-                fontSize: 16,
-                fontWeight: FontWeight.w600
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Text(
+              'Hitung Kalori Harian',
+              style: GoogleFonts.poppins(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600
+              ),
             ),
-          ),
-          JenisPickerWidget(
-            onTap: (value){
-              setState(() {
-                jenisKelaminIndex = value;
-              });
-            },
-          ),
-          TinggiPickerWidget(
-            onChanged: (value){
-              setState(() {
-                sliderValue = value;
-              });
-            },
-          ),
-          const SizedBox(height: 46,),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              UmurPickerWidget(
-                onChanged: (value){
-                  setState(() {
-                    umurValue = value;
-                  });
-                },
-              ),
-              BeratPickerWidget(
-                onChanged: (value){
-                  setState(() {
-                    beratValue = value;
-                  });
-                },
-              ),
-            ],
-          ),
-          const SizedBox(height: 27,),
-          GestureDetector(
-            onTap: () {
-              late var hitung;
-              if(jenisKelaminIndex == 0){
-                hitung = (88.4 + 13.4 * beratValue) + (4.8 * sliderValue.toInt()) - (5.68 * umurValue);
-                debugPrint('DEBUG ${hitung}');
-              } else {
-                hitung = (447.6 + 9.25 * beratValue) + (3.10 * sliderValue.toInt()) - (4.33 * umurValue);
-                debugPrint('DEBUG ${hitung}');
-              }
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => HitungKaloriResult(hasil: hitung,),
-                  )
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 11),
-              width: ScreenSize.screenWidth(context),
-              decoration: const BoxDecoration(
-                  color: Color(AppColors.bgPrimary),
-                  borderRadius: BorderRadius.all(Radius.circular(30))
-              ),
-              child: Center(
-                child: Text(
-                  'Hitung',
-                  style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.white
+            JenisPickerWidget(
+              onTap: (value){
+                setState(() {
+                  jenisKelaminIndex = value;
+                });
+              },
+            ),
+            TinggiPickerWidget(
+              onChanged: (value){
+                setState(() {
+                  sliderValue = value;
+                });
+              },
+            ),
+            const SizedBox(height: 46,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                UmurPickerWidget(
+                  onChanged: (value){
+                    setState(() {
+                      umurValue = value;
+                    });
+                  },
+                ),
+                BeratPickerWidget(
+                  onChanged: (value){
+                    setState(() {
+                      beratValue = value;
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(height: 27,),
+            GestureDetector(
+              onTap: () {
+                late var hitung;
+                if(jenisKelaminIndex == 0){
+                  hitung = (88.4 + 13.4 * beratValue) + (4.8 * sliderValue.toInt()) - (5.68 * umurValue);
+                  debugPrint('DEBUG ${hitung}');
+                } else {
+                  hitung = (447.6 + 9.25 * beratValue) + (3.10 * sliderValue.toInt()) - (4.33 * umurValue);
+                  debugPrint('DEBUG ${hitung}');
+                }
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HitungKaloriResult(hasil: hitung,),
+                    )
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 11),
+                width: ScreenSize.screenWidth(context),
+                decoration: const BoxDecoration(
+                    color: Color(AppColors.bgPrimary),
+                    borderRadius: BorderRadius.all(Radius.circular(30))
+                ),
+                child: Center(
+                  child: Text(
+                    'Hitung',
+                    style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white
+                    ),
                   ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
