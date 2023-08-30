@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
+import 'package:healtyfy/src/constants/ScreenSize.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../feature/tantangan/model/LencanaModel.dart';
@@ -12,12 +13,11 @@ class CustomGridBoxWidget extends ConsumerStatefulWidget {
   String imagePath;
   bool done;
 
-  CustomGridBoxWidget({
-    super.key,
-    required this.namaLencana,
-    required this.imagePath,
-    this.done = false
-  });
+  CustomGridBoxWidget(
+      {super.key,
+      required this.namaLencana,
+      required this.imagePath,
+      this.done = false});
 
   @override
   ConsumerState createState() => _CustomGridBoxWidgetState();
@@ -38,16 +38,20 @@ class _CustomGridBoxWidgetState extends ConsumerState<CustomGridBoxWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           FutureBuilder(
-            future: ref.read(lencanaRepositoryProvider).fetchDataImage(customGridKey, widget.imagePath),
+            future: ref
+                .read(lencanaRepositoryProvider)
+                .fetchDataImage(customGridKey, widget.imagePath),
             builder: (context, snapshot) {
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return const SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: Center(child: CircularProgressIndicator())
-                );
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return SizedBox(
+                    width: ScreenSize.screenWidth(context) * 0.07,
+                    height: ScreenSize.screenHeight(context) * 0.07,
+                    child: Center(child: CircularProgressIndicator()));
               }
-              return Image.network(snapshot.data!) ;
+              return Image.network(
+                snapshot.data!,
+                height: ScreenSize.screenHeight(context) * 0.07,
+              );
             },
           ),
           Text(
@@ -55,9 +59,7 @@ class _CustomGridBoxWidgetState extends ConsumerState<CustomGridBoxWidget> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.poppins(
-                fontSize: 11,
-                fontWeight: FontWeight.normal
-            ),
+                fontSize: 11, fontWeight: FontWeight.normal),
           )
         ],
       ),

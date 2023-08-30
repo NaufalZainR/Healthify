@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../../constants/Providers.dart';
+import '../../../../constants/ScreenSize.dart';
 import '../../../../utils/AppColors.dart';
 
 class ProfilWidget extends HookConsumerWidget {
@@ -11,7 +12,7 @@ class ProfilWidget extends HookConsumerWidget {
   int score;
   String username;
   String photoPath;
-  int photoSize;
+  double photoSize;
 
   ProfilWidget({
     super.key,
@@ -61,12 +62,18 @@ class ProfilWidget extends HookConsumerWidget {
             },
           ),
         const SizedBox(height: 5,),
-        Text(
-          username,
-          style: GoogleFonts.poppins(
-            color: const Color(AppColors.bgWhite),
-            fontSize: 16,
-            fontWeight: FontWeight.w500
+        SizedBox(
+          width: ScreenSize.screenWidth(context) * 0.2,
+          child: Text(
+            username,
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(
+              color: const Color(AppColors.bgWhite),
+              fontSize: 16,
+              fontWeight: FontWeight.w500
+            ),
           ),
         ),
         Text(

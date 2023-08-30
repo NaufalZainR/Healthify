@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/ScreenSize.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -27,8 +28,7 @@ class CustomBigTileWidget extends StatefulHookConsumerWidget {
   });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _CustomBigTileWidgetState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _CustomBigTileWidgetState();
 }
 
 class _CustomBigTileWidgetState extends ConsumerState<CustomBigTileWidget> {
@@ -50,73 +50,75 @@ class _CustomBigTileWidgetState extends ConsumerState<CustomBigTileWidget> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (widget.tabCheck == 'tantangan') ...[
+                if (widget.tabCheck == 'tantangan')...[
                   FutureBuilder(
-                    future: ref
-                        .read(tugasRepositoryProvider)
-                        .fetchDataImage(bigTileKey, widget.imagePath),
+                    future: ref.read(tugasRepositoryProvider).fetchDataImage(bigTileKey, widget.imagePath),
                     builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
+                      if(snapshot.connectionState == ConnectionState.waiting){
                         return const SizedBox(
                             width: 50,
                             height: 50,
-                            child: Center(child: CircularProgressIndicator()));
+                            child: Center(child: CircularProgressIndicator())
+                        );
                       }
-                      return Image.network(snapshot.data!);
+                      return Image.network(snapshot.data!) ;
                     },
                   ),
-                  const SizedBox(
-                    width: 15,
-                  ),
+                  const SizedBox(width: 15,),
                   Expanded(
                     child: Container(
-                      margin: const EdgeInsets.only(right: 30),
-                      child: Text(
-                        widget.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: GoogleFonts.poppins(
-                            fontSize: 15, fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                  ),
-                ] else if (widget.tabCheck == 'resep') ...[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 30),
-                          child: Text(
-                            widget.title,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.poppins(
-                                fontSize: 15, fontWeight: FontWeight.w500),
-                          ),
-                        ),
-                      ),
-                      Text(
-                        widget.subTitle,
-                        style: GoogleFonts.poppins(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w500,
-                            color: Color(AppColors.bgGrey)),
-                      ),
-                    ],
-                  ),
-                ] else ...[
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(right: 30),
+                      margin: const EdgeInsets.only(right: 38),
                       child: Text(
                         widget.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.poppins(
                           fontSize: 15,
-                          fontWeight: FontWeight.w500,
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    ),
+                  ),
+                ] else if(widget.tabCheck == 'resep')...[
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(right: ScreenSize.screenWidth(context) * 0.2),
+                          child: Text(
+                            widget.title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.poppins(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ),
+                        ),
+                        Text(
+                          widget.subTitle,
+                          style: GoogleFonts.poppins(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w500,
+                            color: Color(AppColors.bgGrey)
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ] else...[
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 38),
+                      child: Text(
+                        widget.title,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.poppins(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
@@ -126,24 +128,23 @@ class _CustomBigTileWidgetState extends ConsumerState<CustomBigTileWidget> {
             ),
           ),
           Positioned(
-              right: 0,
-              child: Container(
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                    color: Color(AppColors.bgPrimary),
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(12),
-                        bottomLeft: Radius.circular(12))),
-                child: Text(
-                  widget.tabCheck == 'edukasi' || widget.tabCheck == 'resep'
-                      ? widget.namaKategori
-                      : '${widget.score} Pt',
-                  style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600),
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                color: Color(AppColors.bgPrimary),
+                borderRadius: BorderRadius.only(topRight: Radius.circular(12), bottomLeft: Radius.circular(12))
+              ),
+              child: Text(
+                widget.tabCheck == 'edukasi' || widget.tabCheck == 'resep' ? widget.namaKategori : '${widget.score} Pt',
+                style: GoogleFonts.poppins(
+                  color: Colors.white,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600
                 ),
-              )),
+              ),
+            )
+          ),
         ],
       ),
     );

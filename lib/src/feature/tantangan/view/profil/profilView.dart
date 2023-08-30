@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/ScreenSize.dart';
 import 'package:healtyfy/src/feature/tantangan/view/widgets/profilWidget.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -31,21 +32,21 @@ class ProfilViewState extends ConsumerState<ProfilView> {
       padding: const EdgeInsets.all(15.0),
       child: Column(
         children: [
-          StreamBuilder(
-            stream: dbReference.child('users').onValue,
-            builder: (context, snapshot) {
-              ref.read(tugasRepositoryProvider).fetchUserRank(profilViewKey, snapshot);
-              final data = ref.read(tugasRepositoryProvider).listRank;
-              var getIndex = data.indexWhere((element) => element.username == auth.currentUser!.displayName);
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const SizedBox(
-                    width: 80,
-                    height: 80,
-                    child: Center(child: CircularProgressIndicator())
-                );
-              }
-              return Expanded(
-                child: Row(
+          Expanded(
+            child: StreamBuilder(
+              stream: dbReference.child('users').onValue,
+              builder: (context, snapshot) {
+                ref.read(tugasRepositoryProvider).fetchUserRank(profilViewKey, snapshot);
+                final data = ref.read(tugasRepositoryProvider).listRank;
+                var getIndex = data.indexWhere((element) => element.username == auth.currentUser!.displayName);
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const SizedBox(
+                      width: 80,
+                      height: 80,
+                      child: Center(child: CircularProgressIndicator())
+                  );
+                }
+                return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ProfilWidget(
@@ -56,21 +57,21 @@ class ProfilViewState extends ConsumerState<ProfilView> {
                       photoSize: 117,
                     ),
                   ],
-                ),
-              );
-            }
+                );
+              }
+            ),
           ),
-          StreamBuilder(
-            stream: dbReference.child('list_lencana').onValue,
-            builder: (context, snapshot) {
-              ref.read(lencanaRepositoryProvider).fetchDataLencana(lencanaKey, snapshot);
-              final data = ref.read(lencanaRepositoryProvider).listLencana;
+          Expanded(
+            flex: 2,
+            child: StreamBuilder(
+              stream: dbReference.child('list_lencana').onValue,
+              builder: (context, snapshot) {
+                ref.read(lencanaRepositoryProvider).fetchDataLencana(lencanaKey, snapshot);
+                final data = ref.read(lencanaRepositoryProvider).listLencana;
 
-              ref.read(lencanaRepositoryProvider).userLencana(lencanaKey);
-              final userLencanaList = ref.read(lencanaRepositoryProvider).userLencanaList;
-              return Expanded(
-                flex: 2,
-                child: Column(
+                ref.read(lencanaRepositoryProvider).userLencana(lencanaKey);
+                final userLencanaList = ref.read(lencanaRepositoryProvider).userLencanaList;
+                return Column(
                   children: [
                     Align(
                       alignment: Alignment.topLeft,
@@ -118,9 +119,9 @@ class ProfilViewState extends ConsumerState<ProfilView> {
                       shrinkWrap: true,
                     )
                   ],
-                ),
-              );
-            }
+                );
+              }
+            ),
           ),
         ],
       ),
