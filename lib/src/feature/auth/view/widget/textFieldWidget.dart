@@ -4,27 +4,37 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../../utils/AppColors.dart';
 
-class TextFieldWidget extends HookConsumerWidget {
+class TextFieldWidget extends ConsumerStatefulWidget {
+  TextEditingController controller;
+  String keyString;
   String labelTitle;
   String labelField;
   bool? obfuscate;
-  Function onChanged;
+  Function validatorCallback;
 
   TextFieldWidget({
     super.key,
+    required this.controller,
+    this.keyString = '',
     required this.labelTitle,
     required this.labelField,
     this.obfuscate = false,
-    required this.onChanged,
+    required this.validatorCallback,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ConsumerStatefulWidget> createState() => _TextFieldWidgetState();
+}
+
+class _TextFieldWidgetState extends ConsumerState<TextFieldWidget> {
+
+  @override
+  Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          labelTitle,
+          widget.labelTitle,
           style: GoogleFonts.poppins(
             fontSize: 18,
             color: const Color(AppColors.fontBlack),
@@ -32,14 +42,16 @@ class TextFieldWidget extends HookConsumerWidget {
           ),
         ),
         TextFormField(
-          obscureText: obfuscate!,
-          onChanged: (value) {
-            onChanged(value);
+          controller: widget.controller,
+          key: Key(widget.keyString),
+          obscureText: widget.obfuscate!,
+          validator: (value) {
+            return widget.validatorCallback(value);
           },
           decoration: InputDecoration(
             filled: true,
             fillColor: const Color(AppColors.bgTextField),
-            labelText: labelField,
+            labelText: widget.labelField,
             floatingLabelBehavior: FloatingLabelBehavior.never,
             border: const OutlineInputBorder(
               borderSide: BorderSide.none,

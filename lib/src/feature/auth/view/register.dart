@@ -18,9 +18,9 @@ class _RegisterState extends ConsumerState<Register> {
   GlobalKey registerKey = GlobalKey();
   GlobalKey<FormState> formKey = GlobalKey();
 
-  String? usernameController;
-  String? emailController;
-  String? passwordController;
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -43,44 +43,61 @@ class _RegisterState extends ConsumerState<Register> {
               ),
               const SizedBox(height: 23,),
               TextFieldWidget(
+                controller: usernameController,
+                keyString: 'username',
                 labelTitle: 'Username',
                 labelField: 'Masukkan username anda',
-                onChanged: (val){
-                  setState(() {
-                    usernameController = val;
-                  });
+                validatorCallback: (val){
+                  if (val.isEmpty) {
+                    return 'Username tidak boleh kosong!';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(height: 15,),
               TextFieldWidget(
+                controller: emailController,
+                keyString: 'email',
                 labelTitle: 'Email',
                 labelField: 'Masukkan email anda',
-                onChanged: (val){
-                  setState(() {
-                    emailController = val;
-                  });
+                validatorCallback: (val){
+                  if (val.isEmpty) {
+                    return 'Email tidak boleh kosong!';
+                  }
+                  if (!val.contains('@')) {
+                    return 'Masukkan email dengan benar!';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(height: 15,),
               TextFieldWidget(
+                controller: passwordController,
+                keyString: 'password',
                 labelTitle: 'Password',
                 labelField: 'Masukkan password anda',
                 obfuscate: true,
-                onChanged: (val){
-                  setState(() {
-                    passwordController = val;
-                  });
+                validatorCallback: (val){
+                  if (val.isEmpty) {
+                    return 'Password tidak boleh kosong!';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(height: 41,),
               GestureDetector(
                 onTap: () {
-                  ref.read(authRepositoryProvider).signUpWithEmailAndPassword(
-                      registerKey,
-                      emailController.toString(),
-                      passwordController.toString(),
-                      usernameController.toString()
-                  );
+                  if (formKey.currentState!.validate()) {
+                    ref.read(authRepositoryProvider).signUpWithEmailAndPassword(
+                        registerKey,
+                        emailController.text,
+                        passwordController.text,
+                        usernameController.text
+                    );
+                    usernameController.clear();
+                    emailController.clear();
+                    passwordController.clear();
+                  }
                 },
                 child: Container(
                   height: 54,

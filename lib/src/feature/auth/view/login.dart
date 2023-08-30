@@ -18,8 +18,8 @@ class _LoginState extends ConsumerState<Login> {
   GlobalKey loginKey = GlobalKey();
   GlobalKey<FormState> formKey = GlobalKey();
 
-  String? emailController;
-  String? passwordController;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -42,23 +42,32 @@ class _LoginState extends ConsumerState<Login> {
               ),
               const SizedBox(height: 23,),
               TextFieldWidget(
+                controller: emailController,
+                keyString: 'email',
                 labelTitle: 'Email',
                 labelField: 'Masukkan email anda',
-                onChanged: (val){
-                  setState(() {
-                    emailController = val;
-                  });
+                validatorCallback: (value){
+                  if (value.isEmpty) {
+                    return 'Email tidak boleh kosong!';
+                  }
+                  if (!value.contains('@')) {
+                    return 'Masukkan email dengan benar!';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(height: 15,),
               TextFieldWidget(
+                controller: passwordController,
+                keyString: 'password',
                 labelTitle: 'Password',
                 labelField: 'Masukkan password anda',
                 obfuscate: true,
-                onChanged: (val){
-                  setState(() {
-                    passwordController = val;
-                  });
+                validatorCallback: (value){
+                  if (value.isEmpty) {
+                    return 'Password tidak boleh kosong!';
+                  }
+                  return null;
                 },
               ),
               const SizedBox(height: 22,),
@@ -86,11 +95,15 @@ class _LoginState extends ConsumerState<Login> {
               const SizedBox(height: 22,),
               GestureDetector(
                 onTap: () {
-                  ref.read(authRepositoryProvider).signInWithEmailAndPassword(
-                      loginKey,
-                      emailController.toString(),
-                      passwordController.toString()
-                  );
+                  if (formKey.currentState!.validate()) {
+                    ref.read(authRepositoryProvider).signInWithEmailAndPassword(
+                        loginKey,
+                        emailController.text,
+                        passwordController.text
+                    );
+                    emailController.clear();
+                    passwordController.clear();
+                  }
                 },
                 child: Container(
                   height: 54,

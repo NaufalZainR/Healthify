@@ -16,51 +16,61 @@ class ForgotPassword extends ConsumerStatefulWidget {
 
 class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
   GlobalKey forgotPassKey = GlobalKey();
+  GlobalKey<FormState> formKey = GlobalKey();
 
-  String? emailController;
+  TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
+        key: formKey,
         child: Column(
           children: [
             const AppBarBackWidget(),
-            const SizedBox(
-              height: 20,
-            ),
+            const SizedBox(height: 20,),
             Padding(
               padding: const EdgeInsets.all(27.0),
               child: TextFieldWidget(
-                  labelTitle: 'Email',
-                  labelField: 'Masukkan email anda',
-                  onChanged: (val) {
-                    setState(() {
-                      emailController = val;
-                    });
-                  }),
+                controller: emailController,
+                keyString: 'email',
+                labelTitle: 'Email',
+                labelField: 'Masukkan email anda',
+                validatorCallback: (val){
+                  if (val.isEmpty) {
+                    return 'Email tidak boleh kosong!';
+                  }
+                  if (!val.contains('@')) {
+                    return 'Masukkan email dengan benar!';
+                  }
+                  return null;
+                },
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(27.0),
               child: GestureDetector(
                 onTap: () {
-                  ref
-                      .read(authRepositoryProvider)
-                      .forgotPass(forgotPassKey, emailController.toString());
+                  if (formKey.currentState!.validate()) {
+                    ref.read(authRepositoryProvider).forgotPass(forgotPassKey, emailController.text);
+                    emailController.clear();
+                  }
                 },
                 child: Container(
                   height: 54,
                   width: double.maxFinite,
                   decoration: const BoxDecoration(
-                      color: Color(AppColors.bgPrimary),
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
+                    color: Color(AppColors.bgPrimary),
+                    borderRadius: BorderRadius.all(Radius.circular(5))
+                  ),
                   child: Center(
                     child: Text(
                       'Kirim',
                       style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: const Color(AppColors.fontWhite)),
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: const Color(AppColors.fontWhite)
+                      ),
                     ),
                   ),
                 ),
