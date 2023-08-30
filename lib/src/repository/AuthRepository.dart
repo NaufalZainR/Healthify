@@ -12,8 +12,7 @@ class AuthRepository {
 
   Stream<User?> get authStateChange => _auth.authStateChanges();
 
-  Future<String> signInWithEmailAndPassword(
-      GlobalKey key, String email, String password) async {
+  Future<String> signInWithEmailAndPassword(GlobalKey key, String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
 
@@ -35,22 +34,19 @@ class AuthRepository {
     return 'success';
   }
 
-  Future<String> signUpWithEmailAndPassword(
-      GlobalKey key, String email, String password, String username) async {
+  Future<String> signUpWithEmailAndPassword(GlobalKey key, String email, String password, String username) async {
     try {
-      UserCredential userCredential =
-          await _auth.createUserWithEmailAndPassword(
+      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      if (userCredential.user != null) {
+      if(userCredential.user != null){
         await _dbReference.child("users").child(userCredential.user!.uid).set({
-          'username': username,
-          'email': email,
-          'score': 0,
-          'id_lencana': [],
-          'photo': ''
+          'username':username,
+          'email':email,
+          'score':0,
+          'photo':''
         });
 
         User? user = _auth.currentUser;
@@ -68,13 +64,11 @@ class AuthRepository {
   }
 
   Future<void> signOut(GlobalKey key) async {
-    await _auth.signOut().whenComplete(
-      () {
-        Navigator.pushReplacement(
-          key.currentState!.context,
-          MaterialPageRoute(builder: (context) => const Login()),
-        );
-      },
-    );
+    await _auth.signOut().whenComplete(() {
+      Navigator.pushReplacement(
+        key.currentState!.context,
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
+    },);
   }
 }

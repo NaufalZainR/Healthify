@@ -42,7 +42,7 @@ class _TugasViewState extends ConsumerState<TugasView> {
                 ),
               )),
           StreamBuilder(
-            stream: dbReference.child('users').child(auth.currentUser!.uid).child('id_lencana').onValue,
+            stream: dbReference.child('users').child(auth.currentUser!.uid).child('id_tugas').onValue,
             builder: (context, snapshot) {
               return StreamBuilder(
                   stream: dbReference.child('list_tugas').onValue,
