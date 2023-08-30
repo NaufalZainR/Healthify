@@ -3,6 +3,7 @@ import 'package:healtyfy/src/repository/AuthRepository.dart';
 import 'package:healtyfy/src/repository/EdukasiRepository.dart';
 import 'package:healtyfy/src/repository/LencanaRepository.dart';
 import 'package:healtyfy/src/repository/ResepRepository.dart';
+import 'package:healtyfy/src/repository/SayaRepository.dart';
 import 'package:healtyfy/src/repository/TugasRepository.dart';
 
 final authCheckerProvider = StreamProvider((ref) {
@@ -27,4 +28,8 @@ final edukasiRepositoryProvider = Provider((ref) {
 
 final resepRepositoryProvider = Provider((ref) {
   return ResepRepository();
+},);
+
+final sayaRepositoryProvider = Provider((ref) {
+  return SayaRepository();
 },);
