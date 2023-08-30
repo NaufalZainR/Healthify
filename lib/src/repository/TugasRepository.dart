@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:healtyfy/src/feature/tantangan/model/RankModel.dart';
 import 'package:healtyfy/src/feature/tantangan/model/TugasModel.dart';
 import 'package:healtyfy/src/utils/Snackbar.dart';
 
-class TugasRepository {
+class TugasRepository{
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseStorage storage = FirebaseStorage.instance;
   final DatabaseReference dbReference = FirebaseDatabase.instance.ref();
@@ -13,13 +16,13 @@ class TugasRepository {
   List<TugasModel> listTugas = [];
   String filesImage = '';
   List userTugasList = [];
+  List<RankModel> listRank = [];
 
-  Future<List<TugasModel>> fetchDataTugas(
-      GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
+  Future<List<TugasModel>> fetchDataTugas(GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
     Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
 
     listTugas.clear();
-    try {
+    try{
       data?.forEach((key, value) {
         var fetch = TugasModel(
           id: key,
@@ -37,12 +40,8 @@ class TugasRepository {
   }
 
   Future<String> fetchDataImage(GlobalKey key, String path) async {
-    try {
-      String file = await storage
-          .ref()
-          .child('feature-requirement')
-          .child(path)
-          .getDownloadURL();
+    try{
+      String file = await storage.ref().child('feature-requirement').child(path).getDownloadURL();
       filesImage = file;
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
@@ -51,12 +50,8 @@ class TugasRepository {
   }
 
   Future<List> userTugas(GlobalKey key) async {
-    try {
-      final snapshot = await dbReference
-          .child("users")
-          .child(auth.currentUser!.uid)
-          .child('id_tugas')
-          .once();
+    try{
+      final snapshot = await dbReference.child("users").child(auth.currentUser!.uid).child('id_tugas').once();
       Map<dynamic, dynamic>? data = snapshot.snapshot.value as Map?;
 
       userTugasList.clear();
@@ -71,20 +66,34 @@ class TugasRepository {
   }
 
   Future<void> tugasSelesai(GlobalKey key, String idTugas, int score) async {
-    try {
-      await dbReference
-          .child("users")
-          .child(auth.currentUser!.uid)
-          .child('id_tugas')
-          .push()
-          .set({'lencana': idTugas});
+    try{
+      await dbReference.child("users").child(auth.currentUser!.uid).child('id_tugas').push().set({
+        'lencana': idTugas
+      });
 
-      await dbReference
-          .child('users')
-          .child(auth.currentUser!.uid)
-          .update({'score': ServerValue.increment(score)});
+      await dbReference.child('users').child(auth.currentUser!.uid).update({
+        'score':ServerValue.increment(score)
+      });
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
     }
+  }
+
+  Future<List<RankModel>> fetchUserRank(GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
+    try {
+      Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
+
+      final jsonMap = jsonDecode(jsonEncode(data));
+      final models = (jsonMap as Map<String, dynamic>?)
+        ?.entries
+        .map((entry) => RankModel.fromJson(entry.key, entry.value))
+        .toList();
+
+      listRank = models ?? [];
+      listRank.sort((a, b) => b.score.compareTo(a.score),);
+    } on FirebaseAuthException catch (e) {
+      Snackbar.snackbarShow(key.currentContext!, '$e');
+    }
+    return listRank;
   }
 }
