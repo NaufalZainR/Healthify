@@ -3,8 +3,10 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
+import 'package:healtyfy/src/feature/kalkulator/view/kalori/HitungKaloriRiwayat.dart';
 import 'package:healtyfy/src/feature/saya/view/SayaUbahProfileView.dart';
 import 'package:healtyfy/src/feature/saya/view/widgets/CustomButtonWidget.dart';
+import 'package:healtyfy/src/feature/tantangan/view/tugas/tugasCatatanView.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -173,20 +175,36 @@ class _SayaViewState extends ConsumerState<SayaView> {
                         }
                       ),
                       const SizedBox(height: 8,),
-                      CustomButtonWidget(
-                        onTap: (){
-
-                        },
-                        teks: 'Kalori Kamu',
-                        result: '22.0'
+                      StreamBuilder(
+                        stream: dbReference.child('kalori_result').child(auth.currentUser!.uid).limitToLast(1).onValue,
+                        builder: (context, snapshot) {
+                          Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
+                          return CustomButtonWidget(
+                            onTap: (){
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const HitungKaloriRiwayat()
+                                )
+                              );
+                            },
+                            teks: 'Kalori Kamu',
+                            result: '${data?.values.first['result'].toString()} kkal'
+                          );
+                        }
                       ),
                       const SizedBox(height: 8,),
                       CustomButtonWidget(
                         onTap: (){
-
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const TugasCatatanView()
+                            )
+                          );
                         },
                         teks: 'Catatan Kamu',
-                        result: '22.0'
+                        result: ''
                       ),
                       const SizedBox(height: 8,),
                       CustomButtonWidget(
@@ -194,7 +212,7 @@ class _SayaViewState extends ConsumerState<SayaView> {
 
                         },
                         teks: 'Minum Kamu',
-                        result: '22.0'
+                        result: ''
                       ),
                     ],
                   ),

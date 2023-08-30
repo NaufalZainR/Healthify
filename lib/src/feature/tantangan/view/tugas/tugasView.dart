@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/tantangan/model/TugasModel.dart';
+import 'package:healtyfy/src/feature/tantangan/view/tugas/tugasCatatanView.dart';
 import 'package:healtyfy/src/feature/tantangan/view/tugas/tugasDetailView.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:healtyfy/src/widgets/CustomBigTileWidget.dart';
@@ -33,14 +34,66 @@ class _TugasViewState extends ConsumerState<TugasView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 16,),
-          Expanded(
-              child: Text(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
                 'Daftar Tugas',
                 style: GoogleFonts.poppins(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
-              )),
+              ),
+              Row(
+                children: [
+                  GestureDetector(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                      decoration: const BoxDecoration(
+                          color: Color(AppColors.bgPrimary),
+                          borderRadius: BorderRadius.all(Radius.circular(6))
+                      ),
+                      child: Text(
+                        'Minum',
+                        style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 6,),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const TugasCatatanView()
+                        )
+                      );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 3),
+                      decoration: const BoxDecoration(
+                          color: Color(AppColors.bgPrimary),
+                          borderRadius: BorderRadius.all(Radius.circular(6))
+                      ),
+                      child: Text(
+                        'Catatan',
+                        style: GoogleFonts.poppins(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 32,),
           StreamBuilder(
             stream: dbReference.child('users').child(auth.currentUser!.uid).child('id_tugas').onValue,
             builder: (context, snapshot) {
