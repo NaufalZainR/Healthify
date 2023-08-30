@@ -101,7 +101,7 @@ class _LoginState extends ConsumerState<Login> {
                   onTap: () {
                     if (formKey.currentState!.validate()) {
                       ref.read(authRepositoryProvider).signInWithEmailAndPassword(
-                          loginKey,
+                          context,
                           emailController.text,
                           passwordController.text
                       );

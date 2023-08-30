@@ -63,7 +63,7 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
               child: GestureDetector(
                 onTap: () {
                   if (formKey.currentState!.validate()) {
-                    ref.read(authRepositoryProvider).forgotPass(forgotPassKey, emailController.text);
+                    ref.read(authRepositoryProvider).forgotPass(context, emailController.text);
                     emailController.clear();
                   }
                 },

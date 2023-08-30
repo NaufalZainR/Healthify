@@ -15,7 +15,6 @@ class Register extends StatefulHookConsumerWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _RegisterState();
 }
-
 class _RegisterState extends ConsumerState<Register> {
   GlobalKey registerKey = GlobalKey();
   GlobalKey<FormState> formKey = GlobalKey();
@@ -36,40 +35,35 @@ class _RegisterState extends ConsumerState<Register> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: ScreenSize.screenHeight(context) * 0.2,
-                ),
+                SizedBox(height: ScreenSize.screenHeight(context) * 0.2,),
                 Text(
                   'Daftar',
                   style: GoogleFonts.poppins(
-                      fontSize: 27,
-                      color: const Color(AppColors.fontBlack),
-                      fontWeight: FontWeight.w600),
+                    fontSize: 27,
+                    color: const Color(AppColors.fontBlack),
+                    fontWeight: FontWeight.w600
+                  ),
                 ),
-                const SizedBox(
-                  height: 23,
-                ),
+                const SizedBox(height: 23,),
                 TextFieldWidget(
                   controller: usernameController,
                   keyString: 'username',
                   labelTitle: 'Username',
                   labelField: 'Masukkan username anda',
-                  validatorCallback: (val) {
+                  validatorCallback: (val){
                     if (val.isEmpty) {
                       return 'Username tidak boleh kosong!';
                     }
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15,),
                 TextFieldWidget(
                   controller: emailController,
                   keyString: 'email',
                   labelTitle: 'Email',
                   labelField: 'Masukkan email anda',
-                  validatorCallback: (val) {
+                  validatorCallback: (val){
                     if (val.isEmpty) {
                       return 'Email tidak boleh kosong!';
                     }
@@ -79,16 +73,14 @@ class _RegisterState extends ConsumerState<Register> {
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15,),
                 TextFieldWidget(
                   controller: passwordController,
                   keyString: 'password',
                   labelTitle: 'Password',
                   labelField: 'Masukkan password anda',
                   obfuscate: true,
-                  validatorCallback: (val) {
+                  validatorCallback: (val){
                     if (val.isEmpty) {
                       return 'Password tidak boleh kosong!';
                     }
@@ -98,19 +90,16 @@ class _RegisterState extends ConsumerState<Register> {
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 41,
-                ),
+                const SizedBox(height: 41,),
                 GestureDetector(
                   onTap: () {
                     if (formKey.currentState!.validate()) {
-                      ref
-                          .read(authRepositoryProvider)
-                          .signUpWithEmailAndPassword(
-                              registerKey,
-                              emailController.text,
-                              passwordController.text,
-                              usernameController.text);
+                      ref.read(authRepositoryProvider).signUpWithEmailAndPassword(
+                          context,
+                          emailController.text,
+                          passwordController.text,
+                          usernameController.text
+                      );
                       usernameController.clear();
                       emailController.clear();
                       passwordController.clear();
@@ -120,49 +109,48 @@ class _RegisterState extends ConsumerState<Register> {
                     height: 54,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
-                        color: Color(AppColors.bgPrimary),
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                      color: Color(AppColors.bgPrimary),
+                      borderRadius: BorderRadius.all(Radius.circular(5))
+                    ),
                     child: Center(
                       child: Text(
                         'Daftar',
                         style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(AppColors.fontWhite)),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(AppColors.fontWhite)
+                        ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 22,
-                ),
+                const SizedBox(height: 22,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Sudah punya akun?',
                       style: GoogleFonts.poppins(
-                          color: const Color(AppColors.fontBlack),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500),
+                        color: const Color(AppColors.fontBlack),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500
+                      ),
                     ),
-                    const SizedBox(
-                      width: 2,
-                    ),
+                    const SizedBox(width: 2,),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Login()),
+                          MaterialPageRoute(builder: (context) => const Login()),
                         );
                       },
                       child: Text(
                         'Login',
                         style: GoogleFonts.poppins(
-                            color: const Color(AppColors.fontGreen),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500),
+                          color: const Color(AppColors.fontGreen),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500
+                        ),
                       ),
                     )
                   ],

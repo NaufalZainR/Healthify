@@ -16,8 +16,8 @@ class AuthRepository {
   Stream<User?> get authStateChange => _auth.authStateChanges();
   String filesImage = '';
 
-  Future<String> signInWithEmailAndPassword(
-      GlobalKey key, String email, String password) async {
+  Future<void> signInWithEmailAndPassword(
+      BuildContext context, String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
 
@@ -30,21 +30,37 @@ class AuthRepository {
       }
 
       Navigator.pushReplacement(
-        key.currentState!.context,
+        context,
         MaterialPageRoute(builder: (context) => Healtyfy()),
       );
     } on FirebaseAuthException catch (e) {
-      Snackbar.snackbarShow(key.currentContext!, '$e');
+      if (e.code == 'wrong-password') {
+        await showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Email atau kata sandi anda salah!'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Oke"))
+              ],
+            );
+          },
+        );
+      }
     } catch (e) {
       if (kDebugMode) {
         print(e);
       }
     }
-    return 'success';
   }
 
-  Future<String> signUpWithEmailAndPassword(
-      GlobalKey key, String email, String password, String username) async {
+  Future<String> signUpWithEmailAndPassword(BuildContext context, String email,
+      String password, String username) async {
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
@@ -61,11 +77,28 @@ class AuthRepository {
       }
 
       Navigator.pushReplacement(
-        key.currentState!.context,
+        context,
         MaterialPageRoute(builder: (context) => Healtyfy()),
       );
     } on FirebaseAuthException catch (e) {
-      Snackbar.snackbarShow(key.currentContext!, '$e');
+      if (e.code == 'email-already-in-use') {
+        await showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Email sudah digunakan!'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Oke"))
+              ],
+            );
+          },
+        );
+      }
     }
     return 'success';
   }
@@ -98,16 +131,30 @@ class AuthRepository {
     return filesImage;
   }
 
-  Future<void> forgotPass(GlobalKey key, String email) async {
+  Future<void> forgotPass(BuildContext context, String email) async {
     try {
-      _auth.sendPasswordResetEmail(email: email);
+      await _auth.sendPasswordResetEmail(email: email);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        Snackbar.snackbarShow(key.currentContext!, 'Email tidak terdaftar!');
+        await showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Text('Error'),
+              content: const Text('Email tidak terdaftar!'),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Oke"))
+              ],
+            );
+          },
+        );
       }
-      Snackbar.snackbarShow(key.currentContext!, '$e');
     } catch (e) {
-      Snackbar.snackbarShow(key.currentContext!, '$e');
+      debugPrint('$e');
     }
   }
 }
