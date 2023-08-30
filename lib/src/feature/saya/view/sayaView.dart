@@ -83,14 +83,13 @@ class _SayaViewState extends ConsumerState<SayaView> {
                           return SizedBox(
                             width: ScreenSize.screenWidth(context),
                             child: snapshot.data! != ''
-                                ? CircleAvatar(
-                                    backgroundImage: Image.network(
-                                      snapshot.data!,
-                                      width: 130,
-                                      height: 130,
-                                    ).image,
-                                    radius: 60,
-                                  )
+                                ? SizedBox(
+                                    width: 130,
+                                    height: 130,
+                                    child: CircleAvatar(
+                                        backgroundImage:
+                                            Image.network(snapshot.data!)
+                                                .image))
                                 : Icon(
                                     MdiIcons.account,
                                     size: 130,
