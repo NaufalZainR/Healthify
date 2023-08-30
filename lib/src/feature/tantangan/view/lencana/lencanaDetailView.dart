@@ -25,8 +25,10 @@ class LencanaDetailView extends StatefulHookConsumerWidget {
   });
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() => _LencanaDetailViewState();
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _LencanaDetailViewState();
 }
+
 class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
   GlobalKey lencanaDetailKey = GlobalKey();
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -51,19 +53,29 @@ class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
                     child: Row(
                       children: [
                         FutureBuilder(
-                          future: ref.read(tugasRepositoryProvider).fetchDataImage(lencanaDetailKey, widget.data.photoPath),
+                          future: ref
+                              .read(tugasRepositoryProvider)
+                              .fetchDataImage(
+                                  lencanaDetailKey, widget.data.photoPath),
                           builder: (context, snapshot) {
-                            if(snapshot.connectionState == ConnectionState.waiting){
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
                               return const SizedBox(
                                   width: 80,
                                   height: 80,
-                                  child: Center(child: CircularProgressIndicator())
-                              );
+                                  child: Center(
+                                      child: CircularProgressIndicator()));
                             }
-                            return Image.network(snapshot.data!, width: 80, height: 80,) ;
+                            return Image.network(
+                              snapshot.data!,
+                              width: 80,
+                              height: 80,
+                            );
                           },
                         ),
-                        const SizedBox(width: 25,),
+                        const SizedBox(
+                          width: 25,
+                        ),
                         Flexible(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,7 +101,9 @@ class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 50,),
+                  const SizedBox(
+                    height: 50,
+                  ),
                   Align(
                     alignment: AlignmentDirectional.topStart,
                     child: Text(
@@ -100,93 +114,126 @@ class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 25,),
-                  StreamBuilder(
-                    stream: dbReference.child('users').child(auth.currentUser!.uid).child('id_tugas_lencana').onValue,
-                    builder: (context, snapshot) {
-                      return StreamBuilder(
-                          stream: dbReference.child('list_tugas_lencana').onValue,
-                          builder: (context, snapshot) {
-                            ref.read(tugasRepositoryProvider).fetchDataTugas(lencanaDetailKey, snapshot);
-                            final fetchTugas = ref.read(tugasRepositoryProvider).listTugas;
-
-                            ref.read(tugasRepositoryProvider).userTugasLencana(lencanaDetailKey);
-                            final userTugasList = ref.read(tugasRepositoryProvider).userTugasListLencana;
-                            return Expanded(
-                                child: ListView.separated(
-                                  itemBuilder: (context, index) {
-                                    if (!widget.data.idListTugas.contains(fetchTugas[index].id)) {
-                                      return Container();
-                                    }
-                                    if(userTugasList.contains(fetchTugas[index].id)){
-                                      tugasDoneList.contains(fetchTugas[index].id) ? [] : tugasDoneList.add(fetchTugas[index].id);
-                                      return CustomBigTileWidget(
-                                        imagePath: fetchTugas[index].photoPath ?? '',
-                                        title: fetchTugas[index].titleText.toString(),
-                                        score: fetchTugas[index].score!.toInt(),
-                                        done: true,
-                                        tabCheck: 'tantangan',
-                                      );
-                                    }
-                                    return GestureDetector(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => TugasDetailView(
-                                                title: fetchTugas[index].titleText ?? '',
-                                                imagePath: fetchTugas[index].photoPath ?? '',
-                                                deskripsi: fetchTugas[index].deskripsi ?? '',
-                                                idTugas: fetchTugas[index].id ?? '',
-                                                score:  fetchTugas[index].score ?? 0,
-                                                check: 'lencana',
-                                              ),
-                                            )
-                                        );
-                                      },
-                                      child: CustomBigTileWidget(
-                                        imagePath: fetchTugas[index].photoPath ?? '',
-                                        title: fetchTugas[index].titleText.toString(),
-                                        score: fetchTugas[index].score!.toInt(),
-                                        tabCheck: 'tantangan',
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return const SizedBox(
-                                      height: 15,
-                                    );
-                                  },
-                                  padding: const EdgeInsets.all(0),
-                                  itemCount: fetchTugas.length,
-                                  scrollDirection: Axis.vertical,
-                                  shrinkWrap: true,
-                                  physics: const BouncingScrollPhysics(),
-                                ));
-                          }
-                      );
-                    }
+                  const SizedBox(
+                    height: 25,
                   ),
-                  const SizedBox(height: 20,),
+                  StreamBuilder(
+                      stream: dbReference
+                          .child('users')
+                          .child(auth.currentUser!.uid)
+                          .child('id_tugas_lencana')
+                          .onValue,
+                      builder: (context, snapshot) {
+                        return StreamBuilder(
+                            stream:
+                                dbReference.child('list_tugas_lencana').onValue,
+                            builder: (context, snapshot) {
+                              ref
+                                  .read(tugasRepositoryProvider)
+                                  .fetchDataTugas(lencanaDetailKey, snapshot);
+                              final fetchTugas =
+                                  ref.read(tugasRepositoryProvider).listTugas;
+
+                              ref
+                                  .read(tugasRepositoryProvider)
+                                  .userTugasLencana(lencanaDetailKey);
+                              final userTugasList = ref
+                                  .read(tugasRepositoryProvider)
+                                  .userTugasListLencana;
+                              return Expanded(
+                                  child: ListView.separated(
+                                itemBuilder: (context, index) {
+                                  if (!widget.data.idListTugas
+                                      .contains(fetchTugas[index].id)) {
+                                    return Container();
+                                  }
+                                  if (userTugasList
+                                      .contains(fetchTugas[index].id)) {
+                                    tugasDoneList.contains(fetchTugas[index].id)
+                                        ? []
+                                        : tugasDoneList
+                                            .add(fetchTugas[index].id);
+                                    return CustomBigTileWidget(
+                                      imagePath:
+                                          fetchTugas[index].photoPath ?? '',
+                                      title: fetchTugas[index]
+                                          .titleText
+                                          .toString(),
+                                      score: fetchTugas[index].score!.toInt(),
+                                      done: true,
+                                      tabCheck: 'tantangan',
+                                    );
+                                  }
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                TugasDetailView(
+                                              title:
+                                                  fetchTugas[index].titleText ??
+                                                      '',
+                                              imagePath:
+                                                  fetchTugas[index].photoPath ??
+                                                      '',
+                                              deskripsi:
+                                                  fetchTugas[index].deskripsi ??
+                                                      '',
+                                              idTugas:
+                                                  fetchTugas[index].id ?? '',
+                                              score:
+                                                  fetchTugas[index].score ?? 0,
+                                              check: 'lencana',
+                                            ),
+                                          ));
+                                    },
+                                    child: CustomBigTileWidget(
+                                      imagePath:
+                                          fetchTugas[index].photoPath ?? '',
+                                      title: fetchTugas[index]
+                                          .titleText
+                                          .toString(),
+                                      score: fetchTugas[index].score!.toInt(),
+                                      tabCheck: 'tantangan',
+                                    ),
+                                  );
+                                },
+                                separatorBuilder: (context, index) {
+                                  return const SizedBox(
+                                    height: 15,
+                                  );
+                                },
+                                padding: const EdgeInsets.all(0),
+                                itemCount: fetchTugas.length,
+                                scrollDirection: Axis.vertical,
+                                shrinkWrap: true,
+                                physics: const BouncingScrollPhysics(),
+                              ));
+                            });
+                      }),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Align(
                     alignment: AlignmentDirectional.bottomEnd,
                     child: GestureDetector(
                       onTap: () {
-                        if(tugasDoneList.length != widget.data.idListTugas.length){
+                        if (tugasDoneList.length !=
+                            widget.data.idListTugas.length) {
                           showDialog(
                             context: context,
                             builder: (context) {
                               return AlertDialog(
                                 title: const Text('Error'),
-                                content: const Text(
-                                  'Semua tugas belum dikerjakan!'
-                                ),
+                                content:
+                                    const Text('Semua tugas belum dikerjakan!'),
                                 actions: [
                                   TextButton(
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text("Oke"))
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text("Oke"))
                                 ],
                               );
                             },
@@ -196,28 +243,29 @@ class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LencanaGetView(data: widget.data),
-                            )
-                        );
+                              builder: (context) =>
+                                  LencanaGetView(data: widget.data),
+                            ));
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 36),
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 36),
                         decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(6)),
-                            color: Color(AppColors.bgPrimary)
-                        ),
+                            color: Color(AppColors.bgPrimary)),
                         child: Text(
                           'Selesai',
                           style: GoogleFonts.poppins(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color: Colors.white
-                          ),
+                              color: Colors.white),
                         ),
                       ),
                     ),
                   ),
-                  const SizedBox(height: 40,),
+                  const SizedBox(
+                    height: 40,
+                  ),
                 ],
               ),
             ),

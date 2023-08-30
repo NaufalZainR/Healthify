@@ -49,7 +49,7 @@ class _HealtyfyState extends ConsumerState<Healtyfy> {
   void repeatTask() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final getCurrentTime = DateFormat('dd-MM-yyyy').format(DateTime.now());
-    final getSavedTime = prefs.getString('savedTime') ?? DateFormat('dd-MM-yyyy').format(DateTime.now());
+    final getSavedTime = prefs.getString('savedTime');
 
     if (getCurrentTime.toString() != getSavedTime.toString()) {
       prefs.setString('savedTime', getCurrentTime.toString());
