@@ -74,8 +74,8 @@ class _SayaViewState extends ConsumerState<SayaView> {
                             if (snapshot.connectionState ==
                                 ConnectionState.waiting) {
                               return const SizedBox(
-                                  width: 50,
-                                  height: 50,
+                                  width: 130,
+                                  height: 130,
                                   child: Center(
                                       child: CircularProgressIndicator()));
                             }
@@ -199,7 +199,7 @@ class _SayaViewState extends ConsumerState<SayaView> {
                                   },
                                   teks: 'BMI Kamu',
                                   result:
-                                      '${data?.values.first['result'].toDouble() ?? 0}');
+                                      '${data?.values.last['result'].toDouble() ?? 0}');
                             }),
                         const SizedBox(
                           height: 8,
@@ -223,33 +223,54 @@ class _SayaViewState extends ConsumerState<SayaView> {
                                   },
                                   teks: 'Kalori Kamu',
                                   result:
-                                      '${data?.values.first['result'].toString() ?? 0} kkal');
+                                      '${data?.values.last['result'].toString() ?? 0} kkal');
                             }),
                         const SizedBox(
                           height: 8,
                         ),
-                        CustomButtonWidget(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const TugasCatatanView()));
-                            },
-                            teks: 'Catatan Kamu',
-                            result: ''),
+                        StreamBuilder(
+                            stream: dbReference
+                                .child('catatan')
+                                .child(auth.currentUser!.uid)
+                                .onValue,
+                            builder: (context, snapshot) {
+                              Map<dynamic, dynamic>? data =
+                                  snapshot.data?.snapshot.value as Map?;
+                              return CustomButtonWidget(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const TugasCatatanView()));
+                                  },
+                                  teks: 'Catatan Kamu',
+                                  result: '${data?.length}');
+                            }),
                         const SizedBox(
                           height: 8,
                         ),
-                        CustomButtonWidget(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const MinumView()));
-                            },
-                            teks: 'Minum Kamu',
-                            result: ''),
+                        StreamBuilder(
+                            stream: dbReference
+                                .child('users')
+                                .child(auth.currentUser!.uid)
+                                .child('minum')
+                                .onValue,
+                            builder: (context, snapshot) {
+                              Map<dynamic, dynamic>? data =
+                                  snapshot.data?.snapshot.value as Map?;
+                              return CustomButtonWidget(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const MinumView()));
+                                  },
+                                  teks: 'Minum Kamu',
+                                  result:
+                                      '${data?.values.last['minumMl'].toString() ?? 0} ml');
+                            }),
                       ],
                     ),
                   );

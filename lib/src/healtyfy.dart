@@ -54,7 +54,6 @@ class _HealtyfyState extends ConsumerState<Healtyfy> {
     if (getCurrentTime.toString() != getSavedTime.toString()) {
       prefs.setString('savedTime', getCurrentTime.toString());
       await dbReference.child('users').child(auth.currentUser!.uid).child('id_tugas').remove();
-      await dbReference.child('users').child(auth.currentUser!.uid).child('minum').remove();
     }
   }
 
