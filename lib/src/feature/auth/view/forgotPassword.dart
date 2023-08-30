@@ -43,6 +43,7 @@ class _ForgotPasswordState extends ConsumerState<ForgotPassword> {
             Padding(
               padding: const EdgeInsets.all(27.0),
               child: TextFieldWidget(
+                inputFormatters: [],
                 controller: emailController,
                 keyString: 'email',
                 labelTitle: 'Email',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/constants/ScreenSize.dart';
@@ -50,6 +51,9 @@ class _RegisterState extends ConsumerState<Register> {
                   keyString: 'username',
                   labelTitle: 'Username',
                   labelField: 'Masukkan username anda',
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(12)
+                  ],
                   validatorCallback: (val){
                     if (val.isEmpty) {
                       return 'Username tidak boleh kosong!';
@@ -63,6 +67,7 @@ class _RegisterState extends ConsumerState<Register> {
                   keyString: 'email',
                   labelTitle: 'Email',
                   labelField: 'Masukkan email anda',
+                  inputFormatters: [],
                   validatorCallback: (val){
                     if (val.isEmpty) {
                       return 'Email tidak boleh kosong!';
@@ -80,6 +85,7 @@ class _RegisterState extends ConsumerState<Register> {
                   labelTitle: 'Password',
                   labelField: 'Masukkan password anda',
                   obfuscate: true,
+                  inputFormatters: [],
                   validatorCallback: (val){
                     if (val.isEmpty) {
                       return 'Password tidak boleh kosong!';

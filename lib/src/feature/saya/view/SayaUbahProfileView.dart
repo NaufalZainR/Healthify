@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
@@ -54,6 +55,9 @@ class _SayaUbahProfileViewState extends ConsumerState<SayaUbahProfileView> {
               keyString: 'username',
               labelTitle: 'Username',
               labelField: 'masukkan username baru',
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(12)
+              ],
               validatorCallback: (val){
                 if (val.isEmpty) {
                   return 'Username tidak boleh kosong!';

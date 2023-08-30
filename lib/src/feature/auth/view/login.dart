@@ -36,25 +36,23 @@ class _LoginState extends ConsumerState<Login> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(
-                  height: ScreenSize.screenHeight(context) * 0.2,
-                ),
+                SizedBox(height: ScreenSize.screenHeight(context) * 0.2,),
                 Text(
                   'Masuk',
                   style: GoogleFonts.poppins(
-                      fontSize: 27,
-                      color: const Color(AppColors.fontBlack),
-                      fontWeight: FontWeight.w600),
+                    fontSize: 27,
+                    color: const Color(AppColors.fontBlack),
+                    fontWeight: FontWeight.w600
+                  ),
                 ),
-                const SizedBox(
-                  height: 23,
-                ),
+                const SizedBox(height: 23,),
                 TextFieldWidget(
                   controller: emailController,
                   keyString: 'email',
                   labelTitle: 'Email',
                   labelField: 'Masukkan email anda',
-                  validatorCallback: (value) {
+                  inputFormatters: [],
+                  validatorCallback: (value){
                     if (value.isEmpty) {
                       return 'Email tidak boleh kosong!';
                     }
@@ -64,25 +62,22 @@ class _LoginState extends ConsumerState<Login> {
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15,),
                 TextFieldWidget(
                   controller: passwordController,
                   keyString: 'password',
                   labelTitle: 'Password',
                   labelField: 'Masukkan password anda',
                   obfuscate: true,
-                  validatorCallback: (value) {
+                  inputFormatters: [],
+                  validatorCallback: (value){
                     if (value.isEmpty) {
                       return 'Password tidak boleh kosong!';
                     }
                     return null;
                   },
                 ),
-                const SizedBox(
-                  height: 22,
-                ),
+                const SizedBox(height: 22,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -90,32 +85,29 @@ class _LoginState extends ConsumerState<Login> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => ForgotPassword(
-                                    email: emailController.text,
-                                  )),
+                          MaterialPageRoute(builder: (context) => ForgotPassword(email: emailController.text,)),
                         );
                       },
                       child: Text(
                         'Lupa Password?',
                         style: GoogleFonts.poppins(
-                            color: Color(AppColors.fontRed),
-                            fontSize: 13,
-                            fontWeight: FontWeight.normal),
+                          color: Color(AppColors.fontRed),
+                          fontSize: 13,
+                          fontWeight: FontWeight.normal
+                        ),
                       ),
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 22,
-                ),
+                const SizedBox(height: 22,),
                 GestureDetector(
                   onTap: () {
                     if (formKey.currentState!.validate()) {
-                      ref
-                          .read(authRepositoryProvider)
-                          .signInWithEmailAndPassword(context,
-                              emailController.text, passwordController.text);
+                      ref.read(authRepositoryProvider).signInWithEmailAndPassword(
+                          context,
+                          emailController.text,
+                          passwordController.text
+                      );
                       emailController.clear();
                       passwordController.clear();
                     }
@@ -124,56 +116,53 @@ class _LoginState extends ConsumerState<Login> {
                     height: 54,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
-                        color: Color(AppColors.bgPrimary),
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                      color: Color(AppColors.bgPrimary),
+                      borderRadius: BorderRadius.all(Radius.circular(5))
+                    ),
                     child: Center(
                       child: Text(
                         'Masuk',
                         style: GoogleFonts.poppins(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: const Color(AppColors.fontWhite)),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: const Color(AppColors.fontWhite)
+                        ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 22,
-                ),
+                const SizedBox(height: 22,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       'Kamu belum punya akun?',
                       style: GoogleFonts.poppins(
-                          color: const Color(AppColors.fontBlack),
-                          fontSize: 13,
-                          fontWeight: FontWeight.w500),
+                        color: const Color(AppColors.fontBlack),
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500
+                      ),
                     ),
-                    const SizedBox(
-                      width: 2,
-                    ),
+                    const SizedBox(width: 2,),
                     GestureDetector(
                       onTap: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => const Register()),
+                          MaterialPageRoute(builder: (context) => const Register()),
                         );
                       },
                       child: Text(
                         'Daftar',
                         style: GoogleFonts.poppins(
-                            color: const Color(AppColors.fontGreen),
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500),
+                          color: const Color(AppColors.fontGreen),
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500
+                        ),
                       ),
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 22,
-                ),
+                const SizedBox(height: 22,),
                 GestureDetector(
                   onTap: () {
                     ref.read(authRepositoryProvider).signInWithGoogle(context);
@@ -184,21 +173,23 @@ class _LoginState extends ConsumerState<Login> {
                     height: 54,
                     width: double.maxFinite,
                     decoration: const BoxDecoration(
-                        color: Color(AppColors.bgSoftGrey),
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                      color: Color(AppColors.bgSoftGrey),
+                      borderRadius: BorderRadius.all(Radius.circular(5))
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(MdiIcons.google),
-                        const SizedBox(
-                          width: 8,
+                        Icon(
+                          MdiIcons.google
                         ),
+                        const SizedBox(width: 8,),
                         Text(
                           'Masuk Dengan Google',
                           style: GoogleFonts.poppins(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color: const Color(AppColors.fontBlack)),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: const Color(AppColors.fontBlack)
+                          ),
                         ),
                       ],
                     ),

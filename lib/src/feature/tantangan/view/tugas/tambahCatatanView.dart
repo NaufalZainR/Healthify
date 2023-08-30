@@ -37,6 +37,7 @@ class TtambahCatatanViewState extends ConsumerState<TambahCatatanView> {
                       controller: catatanController,
                       labelTitle: 'Catatan',
                       labelField: 'Masukkan catatan',
+                      inputFormatters: [],
                       validatorCallback: (val) {
                         if (val.isEmpty) {
                           return 'Catatan tidak boleh kosong!';

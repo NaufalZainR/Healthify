@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -11,6 +12,7 @@ class TextFieldWidget extends ConsumerStatefulWidget {
   String labelField;
   bool? obfuscate;
   Function validatorCallback;
+  List<TextInputFormatter> inputFormatters;
 
   TextFieldWidget({
     super.key,
@@ -20,6 +22,7 @@ class TextFieldWidget extends ConsumerStatefulWidget {
     required this.labelField,
     this.obfuscate = false,
     required this.validatorCallback,
+    required this.inputFormatters,
   });
 
   @override
@@ -48,6 +51,7 @@ class _TextFieldWidgetState extends ConsumerState<TextFieldWidget> {
           validator: (value) {
             return widget.validatorCallback(value);
           },
+          inputFormatters: widget.inputFormatters,
           decoration: InputDecoration(
             filled: true,
             fillColor: const Color(AppColors.bgTextField),
