@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
+import 'package:healtyfy/src/feature/auth/view/forgotPassword.dart';
 import 'package:healtyfy/src/feature/auth/view/register.dart';
 import 'package:healtyfy/src/feature/auth/view/widget/textFieldWidget.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
@@ -65,6 +66,12 @@ class _LoginState extends ConsumerState<Login> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const ForgotPassword()),
+                      );
+                    },
                     child: Text(
                       'Lupa Password?',
                       style: GoogleFonts.poppins(
