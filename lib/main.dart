@@ -40,7 +40,7 @@ class Checker extends HookConsumerWidget {
     return authCheck.when(
         data: (data) {
           if(data == null) return const Login();
-          return const Healtyfy();
+          return Healtyfy();
         },
         error: (error, stackTrace) {
           return Container();

@@ -9,7 +9,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Healtyfy extends StatefulHookConsumerWidget {
-  const Healtyfy({super.key});
+  int index;
+
+  Healtyfy({
+    super.key,
+    this.index = 0
+  });
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _HealtyfyState();
@@ -25,7 +30,13 @@ class _HealtyfyState extends ConsumerState<Healtyfy> {
     const SayaView(),
   ];
 
-  var indexBar = 0;
+  late var indexBar;
+
+  @override
+  void initState() {
+    super.initState();
+    indexBar = widget.index;
+  }
 
   @override
   Widget build(BuildContext context) {

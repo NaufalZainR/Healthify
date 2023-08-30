@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/healtyfy.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:healtyfy/src/widgets/AppBarBackWidget.dart';
 import 'package:pretty_gauge/pretty_gauge.dart';
@@ -15,11 +16,14 @@ class HitungBMIResult extends ConsumerWidget {
     required this.hasil,
   }) : super(key: key);
 
-  Widget CustomText(String text, int color) {
+  Widget CustomText(String text, int color){
     return Text(
       text,
       style: GoogleFonts.poppins(
-          fontSize: 20, fontWeight: FontWeight.w600, color: Color(color)),
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: Color(color)
+      ),
     );
   }
 
@@ -29,17 +33,15 @@ class HitungBMIResult extends ConsumerWidget {
       body: Column(
         children: [
           const AppBarBackWidget(),
-          const SizedBox(
-            height: 80,
-          ),
+          const SizedBox(height: 80,),
           Text(
             'Nilai Kamu',
-            style:
-                GoogleFonts.poppins(fontSize: 32, fontWeight: FontWeight.w500),
+            style: GoogleFonts.poppins(
+              fontSize: 32,
+              fontWeight: FontWeight.w500
+            ),
           ),
-          const SizedBox(
-            height: 38,
-          ),
+          const SizedBox(height: 38,),
           PrettyGauge(
             gaugeSize: 300,
             minValue: 0,
@@ -57,22 +59,18 @@ class HitungBMIResult extends ConsumerWidget {
             currentValue: hasil.toDouble(),
             needleColor: Colors.blue,
           ),
-          if (gender == 0) ...[
-            if (hasil < 18.5) CustomText('Kurus', 0xfff24336),
-            if (hasil >= 18.5 && hasil < 24.9) CustomText('Normal', 0xff4cb050),
-            if (hasil >= 25 && hasil < 29.9)
-              CustomText('Kelebihan Berat Badan', 0xffff9700),
-            if (hasil >= 30) CustomText('Obesitas', 0xffea1e63)
-          ] else ...[
-            if (hasil < 18.5) CustomText('Kurus', 0xfff24336),
-            if (hasil >= 18.5 && hasil < 23.9) CustomText('Normal', 0xff4cb050),
-            if (hasil >= 24 && hasil < 29.9)
-              CustomText('Kelebihan Berat Badan', 0xffff9700),
-            if (hasil >= 30) CustomText('Obesitas', 0xffea1e63)
+          if(gender == 0)...[
+            if(hasil < 18.5) CustomText('Kurus', 0xfff24336),
+            if(hasil >= 18.5 && hasil < 24.9) CustomText('Normal', 0xff4cb050),
+            if(hasil >= 25 && hasil < 29.9) CustomText('Kelebihan Berat Badan', 0xffff9700),
+            if(hasil >= 30) CustomText('Obesitas', 0xffea1e63)
+          ] else...[
+            if(hasil < 18.5) CustomText('Kurus', 0xfff24336),
+            if(hasil >= 18.5 && hasil < 23.9) CustomText('Normal', 0xff4cb050),
+            if(hasil >= 24 && hasil < 29.9) CustomText('Kelebihan Berat Badan', 0xffff9700),
+            if(hasil >= 30) CustomText('Obesitas', 0xffea1e63)
           ],
-          const SizedBox(
-            height: 14,
-          ),
+          const SizedBox(height: 14,),
           Text(
             'Selamat! Pertahankan BMI kamu dengan terus melakukan pola hidup sehat',
             textAlign: TextAlign.center,
@@ -81,9 +79,7 @@ class HitungBMIResult extends ConsumerWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
-          const SizedBox(
-            height: 14,
-          ),
+          const SizedBox(height: 14,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -96,34 +92,44 @@ class HitungBMIResult extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: const BoxDecoration(
                       color: Color(AppColors.bgPrimary),
-                      borderRadius: BorderRadius.all(Radius.circular(6))),
+                      borderRadius: BorderRadius.all(Radius.circular(6))
+                  ),
                   child: Text(
                     'Hitung Ulang',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white
+                    ),
                   ),
                 ),
               ),
-              const SizedBox(
-                width: 22,
-              ),
+              const SizedBox(width: 22,),
               GestureDetector(
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Healtyfy(index: 1,)
+                    )
+                  );
+                },
                 child: Container(
                   width: 135,
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: const BoxDecoration(
-                      color: Color(AppColors.bgPrimary),
-                      borderRadius: BorderRadius.all(Radius.circular(6))),
+                    color: Color(AppColors.bgPrimary),
+                    borderRadius: BorderRadius.all(Radius.circular(6))
+                  ),
                   child: Text(
                     'Edukasi',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.poppins(
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white),
+                        color: Colors.white
+                    ),
                   ),
                 ),
               )

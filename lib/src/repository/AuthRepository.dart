@@ -30,7 +30,7 @@ class AuthRepository {
 
       Navigator.pushReplacement(
         key.currentState!.context,
-        MaterialPageRoute(builder: (context) => const Healtyfy()),
+        MaterialPageRoute(builder: (context) => Healtyfy()),
       );
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
@@ -57,7 +57,7 @@ class AuthRepository {
 
       Navigator.pushReplacement(
         key.currentState!.context,
-        MaterialPageRoute(builder: (context) => const Healtyfy()),
+        MaterialPageRoute(builder: (context) => Healtyfy()),
       );
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
