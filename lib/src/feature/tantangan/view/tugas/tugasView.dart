@@ -37,7 +37,7 @@ class _TugasViewState extends ConsumerState<TugasView> {
               child: Text(
                 'Daftar Tugas',
                 style: GoogleFonts.poppins(
-                  fontSize: 13,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
               )),

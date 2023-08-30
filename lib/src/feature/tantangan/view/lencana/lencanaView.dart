@@ -37,7 +37,7 @@ class _LencanaViewState extends ConsumerState<LencanaView> {
               child: Text(
                 'Daftar Lencana',
                 style: GoogleFonts.poppins(
-                  fontSize: 13,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),
               )),

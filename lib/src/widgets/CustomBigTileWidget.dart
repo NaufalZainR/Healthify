@@ -76,7 +76,7 @@ class _CustomBigTileWidgetState extends ConsumerState<CustomBigTileWidget> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.poppins(
-                            fontSize: 12, fontWeight: FontWeight.w500),
+                            fontSize: 15, fontWeight: FontWeight.w500),
                       ),
                     ),
                   ),
@@ -93,7 +93,7 @@ class _CustomBigTileWidgetState extends ConsumerState<CustomBigTileWidget> {
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: GoogleFonts.poppins(
-                                fontSize: 12, fontWeight: FontWeight.w500),
+                                fontSize: 15, fontWeight: FontWeight.w500),
                           ),
                         ),
                       ),
@@ -115,7 +115,7 @@ class _CustomBigTileWidgetState extends ConsumerState<CustomBigTileWidget> {
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: GoogleFonts.poppins(
-                          fontSize: 12,
+                          fontSize: 15,
                           fontWeight: FontWeight.w500,
                         ),
                       ),

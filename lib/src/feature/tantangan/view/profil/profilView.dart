@@ -53,6 +53,7 @@ class ProfilViewState extends ConsumerState<ProfilView> {
                       score: data[getIndex].score,
                       username: data[getIndex].username,
                       photoPath: data[getIndex].photoPath,
+                      photoSize: 117,
                     ),
                   ],
                 ),
@@ -76,7 +77,7 @@ class ProfilViewState extends ConsumerState<ProfilView> {
                       child: Text(
                         'Lencana Kamu',
                         style: GoogleFonts.poppins(
-                          fontSize: 13,
+                          fontSize: 18,
                           fontWeight: FontWeight.w600,
                           color: Colors.white
                         ),

@@ -168,7 +168,7 @@ class _SayaViewState extends ConsumerState<SayaView> {
                               );
                             },
                             teks: 'BMI Kamu',
-                            result: '${data?.values.first['result']}'
+                            result: '${data?.values.first['result'].toDouble()}'
                           );
                         }
                       ),
