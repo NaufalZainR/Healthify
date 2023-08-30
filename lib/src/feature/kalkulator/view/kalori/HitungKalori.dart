@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/kalori/HitungKaloriResult.dart';
 
 import '../../../../constants/ScreenSize.dart';
 import '../../../../utils/AppColors.dart';
+import '../../../../utils/Snackbar.dart';
 import '../widgets/BeratPickerWidget.dart';
 import '../widgets/JenisPickerWidget.dart';
 import '../widgets/TinggiPickerWidget.dart';
@@ -44,37 +46,37 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
             Text(
               'Hitung Kalori Harian',
               style: GoogleFonts.poppins(
-                  fontSize: 16, fontWeight: FontWeight.w600),
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600
+              ),
             ),
             JenisPickerWidget(
-              onTap: (value) {
+              onTap: (value){
                 setState(() {
                   jenisKelaminIndex = value;
                 });
               },
             ),
             TinggiPickerWidget(
-              onChanged: (value) {
+              onChanged: (value){
                 setState(() {
                   sliderValue = value;
                 });
               },
             ),
-            const SizedBox(
-              height: 46,
-            ),
+            const SizedBox(height: 46,),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 UmurPickerWidget(
-                  onChanged: (value) {
+                  onChanged: (value){
                     setState(() {
                       umurValue = value;
                     });
                   },
                 ),
                 BeratPickerWidget(
-                  onChanged: (value) {
+                  onChanged: (value){
                     setState(() {
                       beratValue = value;
                     });
@@ -82,13 +84,17 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 27,
-            ),
+            const SizedBox(height: 27,),
             DecoratedBox(
-              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-                BoxShadow(color: Color.fromARGB(62, 0, 0, 0), blurRadius: 4)
-              ]),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color.fromARGB(62, 0, 0, 0),
+                    blurRadius: 4
+                  )
+                ]
+              ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30),
                 child: DropdownButton(
@@ -107,69 +113,67 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
                   isExpanded: true,
                   underline: Container(),
                   style: GoogleFonts.poppins(
-                      fontSize: 17,
-                      color: Colors.black,
-                      fontWeight: FontWeight.w500),
+                    fontSize: 17,
+                    color: Colors.black,
+                    fontWeight: FontWeight.w500
+                  ),
                 ),
               ),
             ),
-            const SizedBox(
-              height: 27,
-            ),
+            const SizedBox(height: 27,),
             GestureDetector(
               onTap: () {
                 late var hitung;
-                if (jenisKelaminIndex == 0) {
-                  hitung = (88.4 + 13.4 * beratValue) +
-                      (4.8 * sliderValue.toInt()) -
-                      (5.68 * umurValue);
+                if(jenisKelaminIndex == 0){
+                  hitung = (88.4 + 13.4 * beratValue) + (4.8 * sliderValue.toInt()) - (5.68 * umurValue);
                   debugPrint('DEBUG ${hitung}');
                 } else {
-                  hitung = (447.6 + 9.25 * beratValue) +
-                      (3.10 * sliderValue.toInt()) -
-                      (4.33 * umurValue);
+                  hitung = (447.6 + 9.25 * beratValue) + (3.10 * sliderValue.toInt()) - (4.33 * umurValue);
                   debugPrint('DEBUG ${hitung}');
                 }
                 switch (dropdownValue) {
                   case 'Rebahan doang':
-                    hitung = hitung * 1;
+                  hitung = hitung * 1;
                     break;
                   case 'Aktivitas ringan':
-                    hitung = hitung * 1.4;
+                  hitung = hitung * 1.4;
                     break;
                   case 'Aktivitas menengah':
-                    hitung = hitung * 1.55;
+                  hitung = hitung * 1.55;
                     break;
                   case 'Aktivitas berat':
-                    hitung = hitung * 1.7;
+                  hitung = hitung * 1.7;
                     break;
                   case 'Aktivitas fisik':
-                    hitung = hitung * 1.9;
+                  hitung = hitung * 1.9;
                     break;
                   default:
-                    hitung = hitung * 1;
+                  hitung = hitung * 1;
                 }
+                ref.read(calculatorRepositoryProvider).saveKalori(context, (hitung.toInt()).toString());
+                Snackbar.snackbarShow(context, 'Berhasil dihitung!');
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HitungKaloriResult(
-                        hasil: hitung,
-                      ),
-                    ));
+                      builder: (context) => HitungKaloriResult(hasil: hitung,),
+                    )
+                );
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 11),
                 width: ScreenSize.screenWidth(context),
                 decoration: const BoxDecoration(
                     color: Color(AppColors.bgPrimary),
-                    borderRadius: BorderRadius.all(Radius.circular(30))),
+                    borderRadius: BorderRadius.all(Radius.circular(30))
+                ),
                 child: Center(
                   child: Text(
                     'Hitung',
                     style: GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.w500,
-                        color: Colors.white),
+                        color: Colors.white
+                    ),
                   ),
                 ),
               ),
