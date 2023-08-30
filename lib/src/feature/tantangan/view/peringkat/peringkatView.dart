@@ -13,6 +13,7 @@ class PeringkatView extends StatefulHookConsumerWidget {
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => PeringkatViewState();
 }
+
 class PeringkatViewState extends ConsumerState<PeringkatView> {
   GlobalKey peringkatKey = GlobalKey();
   final DatabaseReference dbReference = FirebaseDatabase.instance.ref();
@@ -22,96 +23,98 @@ class PeringkatViewState extends ConsumerState<PeringkatView> {
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: StreamBuilder(
-        stream: dbReference.child('users').onValue,
-        builder: (context, snapshot) {
-          ref.read(tugasRepositoryProvider).fetchUserRank(peringkatKey, snapshot);
-          final data = ref.read(tugasRepositoryProvider).listRank;
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SizedBox(
-                width: 60,
-                height: 60,
-                child: Center(child: CircularProgressIndicator())
-            );
-          }
-          return Column(
-            children: [
-              Expanded(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ProfilWidget(
-                      peringkat: 2,
-                      score: data[1].score,
-                      username: data[1].username,
-                      photoPath: data[1].photoPath,
-                    ),
-                    const SizedBox(width: 23,),
-                    ProfilWidget(
-                      peringkat: 1,
-                      score: data[0].score,
-                      username: data[0].username,
-                      photoPath: data[0].photoPath,
-                    ),
-                    const SizedBox(width: 23,),
-                    ProfilWidget(
-                      peringkat: 3,
-                      score: data[2].score,
-                      username: data[2].username,
-                      photoPath: data[2].photoPath,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                flex: 2,
-                child: ListView.separated(
-                  itemBuilder: (context, index) {
-                    return Material(
-                      borderRadius: const BorderRadius.all(Radius.circular(17)),
-                      child: ListTile(
-                        leading: Text(
-                          '#${index+1}',
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal
-                          ),
-                        ),
-                        title: Text(
-                          data[index].username,
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal
-                          ),
-                        ),
-                        trailing: Text(
-                          '${data[index].score} Pt',
-                          style: GoogleFonts.poppins(
-                            fontSize: 12,
-                            fontWeight: FontWeight.normal
-                          ),
-                        ),
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(17))
-                        ),
-                        minLeadingWidth: 15,
-                        tileColor: Colors.white,
-                        isThreeLine: false,
+          stream: dbReference.child('users').onValue,
+          builder: (context, snapshot) {
+            ref
+                .read(tugasRepositoryProvider)
+                .fetchUserRank(peringkatKey, snapshot);
+            final data = ref.read(tugasRepositoryProvider).listRank;
+            final dataFilter = ref.read(tugasRepositoryProvider).listRankFilter;
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const SizedBox(
+                  width: 60,
+                  height: 60,
+                  child: Center(child: CircularProgressIndicator()));
+            }
+            return Column(
+              children: [
+                Expanded(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ProfilWidget(
+                        peringkat: 2,
+                        score: data[1].score,
+                        username: data[1].username,
+                        photoPath: data[1].photoPath,
                       ),
-                    );
-                  },
-                  separatorBuilder: (context, index) {
-                    return const SizedBox(height: 15,);
-                  },
-                  itemCount: data.length,
-                  shrinkWrap: true,
-                  physics: const BouncingScrollPhysics(),
+                      const SizedBox(
+                        width: 23,
+                      ),
+                      ProfilWidget(
+                        peringkat: 1,
+                        score: data[0].score,
+                        username: data[0].username,
+                        photoPath: data[0].photoPath,
+                      ),
+                      const SizedBox(
+                        width: 23,
+                      ),
+                      ProfilWidget(
+                        peringkat: 3,
+                        score: data[2].score,
+                        username: data[2].username,
+                        photoPath: data[2].photoPath,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          );
-        }
-      ),
+                Expanded(
+                  flex: 2,
+                  child: ListView.separated(
+                    itemBuilder: (context, index) {
+                      return Material(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(17)),
+                        child: ListTile(
+                          leading: Text(
+                            '#${index + 4}',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12, fontWeight: FontWeight.normal),
+                          ),
+                          title: Text(
+                            dataFilter[index].username,
+                            style: GoogleFonts.poppins(
+                                fontSize: 12, fontWeight: FontWeight.normal),
+                          ),
+                          trailing: Text(
+                            '${dataFilter[index].score} Pt',
+                            style: GoogleFonts.poppins(
+                                fontSize: 12, fontWeight: FontWeight.normal),
+                          ),
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(17))),
+                          minLeadingWidth: 15,
+                          tileColor: Colors.white,
+                          isThreeLine: false,
+                        ),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(
+                        height: 15,
+                      );
+                    },
+                    itemCount: dataFilter.length,
+                    shrinkWrap: true,
+                    physics: const BouncingScrollPhysics(),
+                  ),
+                ),
+              ],
+            );
+          }),
     );
   }
 }

@@ -17,6 +17,7 @@ class TugasRepository{
   String filesImage = '';
   List userTugasList = [];
   List<RankModel> listRank = [];
+  List<RankModel> listRankFilter = [];
 
   Future<List<TugasModel>> fetchDataTugas(GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
     Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
@@ -79,7 +80,7 @@ class TugasRepository{
     }
   }
 
-  Future<List<RankModel>> fetchUserRank(GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
+  Future<void> fetchUserRank(GlobalKey key, AsyncSnapshot<DatabaseEvent> snapshot) async {
     try {
       Map<dynamic, dynamic>? data = snapshot.data?.snapshot.value as Map?;
 
@@ -91,9 +92,14 @@ class TugasRepository{
 
       listRank = models ?? [];
       listRank.sort((a, b) => b.score.compareTo(a.score),);
+
+      listRankFilter = listRank.toList();
+      listRankFilter.sort((a, b) => b.score.compareTo(a.score),);
+      listRankFilter.removeRange(0, 3);
     } on FirebaseAuthException catch (e) {
       Snackbar.snackbarShow(key.currentContext!, '$e');
+    } catch (e) {
+      debugPrint('$e');
     }
-    return listRank;
   }
 }
