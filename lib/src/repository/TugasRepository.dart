@@ -17,6 +17,7 @@ class TugasRepository{
   List<TugasModel> listTugas = [];
   String filesImage = '';
   List userTugasList = [];
+  List userTugasListLencana = [];
   List<RankModel> listRank = [];
   List<RankModel> listRankFilter = [];
   List<CatatanModel> listCatatan = [];
@@ -68,9 +69,39 @@ class TugasRepository{
     return userTugasList;
   }
 
+  Future<List> userTugasLencana(GlobalKey key) async {
+    try{
+      final snapshot = await dbReference.child("users").child(auth.currentUser!.uid).child('id_tugas_lencana').once();
+      Map<dynamic, dynamic>? data = snapshot.snapshot.value as Map?;
+
+      userTugasListLencana.clear();
+      data?.forEach((key, value) {
+        var fetch = value['lencana'];
+        userTugasListLencana.add(fetch);
+      });
+    } on FirebaseAuthException catch (e) {
+      Snackbar.snackbarShow(key.currentContext!, '$e');
+    }
+    return userTugasListLencana;
+  }
+
   Future<void> tugasSelesai(GlobalKey key, String idTugas, int score) async {
     try{
       await dbReference.child("users").child(auth.currentUser!.uid).child('id_tugas').push().set({
+        'lencana': idTugas
+      });
+
+      await dbReference.child('users').child(auth.currentUser!.uid).update({
+        'score':ServerValue.increment(score)
+      });
+    } on FirebaseAuthException catch (e) {
+      Snackbar.snackbarShow(key.currentContext!, '$e');
+    }
+  }
+
+  Future<void> tugasLencanaSelesai(GlobalKey key, String idTugas, int score) async {
+    try{
+      await dbReference.child("users").child(auth.currentUser!.uid).child('id_tugas_lencana').push().set({
         'lencana': idTugas
       });
 

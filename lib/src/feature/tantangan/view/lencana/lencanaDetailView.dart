@@ -101,16 +101,16 @@ class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
                   ),
                   const SizedBox(height: 25,),
                   StreamBuilder(
-                    stream: dbReference.child('users').child(auth.currentUser!.uid).child('id_tugas').onValue,
+                    stream: dbReference.child('users').child(auth.currentUser!.uid).child('id_tugas_lencana').onValue,
                     builder: (context, snapshot) {
                       return StreamBuilder(
-                          stream: dbReference.child('list_tugas').onValue,
+                          stream: dbReference.child('list_tugas_lencana').onValue,
                           builder: (context, snapshot) {
                             ref.read(tugasRepositoryProvider).fetchDataTugas(lencanaDetailKey, snapshot);
                             final fetchTugas = ref.read(tugasRepositoryProvider).listTugas;
 
-                            ref.read(tugasRepositoryProvider).userTugas(lencanaDetailKey);
-                            final userTugasList = ref.read(tugasRepositoryProvider).userTugasList;
+                            ref.read(tugasRepositoryProvider).userTugasLencana(lencanaDetailKey);
+                            final userTugasList = ref.read(tugasRepositoryProvider).userTugasListLencana;
                             return Expanded(
                                 child: ListView.separated(
                                   itemBuilder: (context, index) {
@@ -138,6 +138,7 @@ class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
                                                 deskripsi: fetchTugas[index].deskripsi ?? '',
                                                 idTugas: fetchTugas[index].id ?? '',
                                                 score:  fetchTugas[index].score ?? 0,
+                                                check: 'lencana',
                                               ),
                                             )
                                         );
