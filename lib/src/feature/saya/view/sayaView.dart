@@ -133,7 +133,7 @@ class _SayaViewState extends ConsumerState<SayaView> {
                           const SizedBox(width: 22,),
                           GestureDetector(
                             onTap: () {
-                              ref.read(authRepositoryProvider).signOut(sayaKey);
+                              ref.read(authRepositoryProvider).signOut(context);
                             },
                             child: Container(
                               width: 135,

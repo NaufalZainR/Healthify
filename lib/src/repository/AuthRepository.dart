@@ -16,7 +16,8 @@ class AuthRepository {
   Stream<User?> get authStateChange => _auth.authStateChanges();
   String filesImage = '';
 
-  Future<String> signInWithEmailAndPassword(GlobalKey key, String email, String password) async {
+  Future<String> signInWithEmailAndPassword(
+      GlobalKey key, String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
 
@@ -42,20 +43,18 @@ class AuthRepository {
     return 'success';
   }
 
-  Future<String> signUpWithEmailAndPassword(GlobalKey key, String email, String password, String username) async {
+  Future<String> signUpWithEmailAndPassword(
+      GlobalKey key, String email, String password, String username) async {
     try {
-      UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+      UserCredential userCredential =
+          await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      if(userCredential.user != null){
-        await _dbReference.child("users").child(userCredential.user!.uid).set({
-          'username':username,
-          'email':email,
-          'score':0,
-          'photo':''
-        });
+      if (userCredential.user != null) {
+        await _dbReference.child("users").child(userCredential.user!.uid).set(
+            {'username': username, 'email': email, 'score': 0, 'photo': ''});
 
         User? user = _auth.currentUser;
         user?.updateDisplayName(username);
@@ -71,16 +70,12 @@ class AuthRepository {
     return 'success';
   }
 
-  Future<void> signOut(GlobalKey key) async {
+  Future<void> signOut(BuildContext context) async {
     try {
-      await _auth.signOut().whenComplete(() {
-        Navigator.pushReplacement(
-          key.currentState!.context,
-          MaterialPageRoute(builder: (context) => const Login()),
-        );
-      },);
+      await _auth.signOut().whenComplete(
+          () => Navigator.popUntil(context, ModalRoute.withName("/")));
     } on FirebaseAuthException catch (e) {
-      Snackbar.snackbarShow(key.currentContext!, '$e');
+      Snackbar.snackbarShow(context, '$e');
     } catch (e) {
       if (kDebugMode) {
         print(e);
@@ -89,9 +84,10 @@ class AuthRepository {
   }
 
   Future<String> fetchUserImage(GlobalKey key, String path) async {
-    try{
+    try {
       if (path != '') {
-        String file = await storage.ref().child('users').child(path).getDownloadURL();
+        String file =
+            await storage.ref().child('users').child(path).getDownloadURL();
         filesImage = file;
       }
     } on FirebaseAuthException catch (e) {
@@ -105,7 +101,6 @@ class AuthRepository {
   Future<void> forgotPass(GlobalKey key, String email) async {
     try {
       _auth.sendPasswordResetEmail(email: email);
-
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         Snackbar.snackbarShow(key.currentContext!, 'Email tidak terdaftar!');
