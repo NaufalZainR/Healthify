@@ -7,6 +7,8 @@ import 'package:healtyfy/src/feature/auth/view/widget/textFieldWidget.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../../../constants/ScreenSize.dart';
+
 class Login extends StatefulHookConsumerWidget {
   const Login({super.key});
 
@@ -29,142 +31,136 @@ class _LoginState extends ConsumerState<Login> {
         key: formKey,
         child: Padding(
           padding: const EdgeInsets.all(27.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'Masuk',
-                style: GoogleFonts.poppins(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: ScreenSize.screenHeight(context) * 0.2,),
+                Text(
+                  'Masuk',
+                  style: GoogleFonts.poppins(
                     fontSize: 27,
                     color: const Color(AppColors.fontBlack),
-                    fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(
-                height: 23,
-              ),
-              TextFieldWidget(
-                controller: emailController,
-                keyString: 'email',
-                labelTitle: 'Email',
-                labelField: 'Masukkan email anda',
-                validatorCallback: (value) {
-                  if (value.isEmpty) {
-                    return 'Email tidak boleh kosong!';
-                  }
-                  if (!value.contains('@')) {
-                    return 'Masukkan email dengan benar!';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextFieldWidget(
-                controller: passwordController,
-                keyString: 'password',
-                labelTitle: 'Password',
-                labelField: 'Masukkan password anda',
-                obfuscate: true,
-                validatorCallback: (value) {
-                  if (value.isEmpty) {
-                    return 'Password tidak boleh kosong!';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(
-                height: 22,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ForgotPassword(
-                                  email: emailController.text,
-                                )),
-                      );
-                    },
-                    child: Text(
-                      'Lupa Password?',
-                      style: GoogleFonts.poppins(
+                    fontWeight: FontWeight.w600
+                  ),
+                ),
+                const SizedBox(height: 23,),
+                TextFieldWidget(
+                  controller: emailController,
+                  keyString: 'email',
+                  labelTitle: 'Email',
+                  labelField: 'Masukkan email anda',
+                  validatorCallback: (value){
+                    if (value.isEmpty) {
+                      return 'Email tidak boleh kosong!';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Masukkan email dengan benar!';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 15,),
+                TextFieldWidget(
+                  controller: passwordController,
+                  keyString: 'password',
+                  labelTitle: 'Password',
+                  labelField: 'Masukkan password anda',
+                  obfuscate: true,
+                  validatorCallback: (value){
+                    if (value.isEmpty) {
+                      return 'Password tidak boleh kosong!';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 22,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ForgotPassword(email: emailController.text,)),
+                        );
+                      },
+                      child: Text(
+                        'Lupa Password?',
+                        style: GoogleFonts.poppins(
                           color: Color(AppColors.fontRed),
                           fontSize: 13,
-                          fontWeight: FontWeight.normal),
-                    ),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 22,
-              ),
-              GestureDetector(
-                onTap: () {
-                  if (formKey.currentState!.validate()) {
-                    ref.read(authRepositoryProvider).signInWithEmailAndPassword(
-                        loginKey,
-                        emailController.text,
-                        passwordController.text);
-                    emailController.clear();
-                    passwordController.clear();
-                  }
-                },
-                child: Container(
-                  height: 54,
-                  width: double.maxFinite,
-                  decoration: const BoxDecoration(
+                          fontWeight: FontWeight.normal
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+                const SizedBox(height: 22,),
+                GestureDetector(
+                  onTap: () {
+                    if (formKey.currentState!.validate()) {
+                      ref.read(authRepositoryProvider).signInWithEmailAndPassword(
+                          loginKey,
+                          emailController.text,
+                          passwordController.text
+                      );
+                      emailController.clear();
+                      passwordController.clear();
+                    }
+                  },
+                  child: Container(
+                    height: 54,
+                    width: double.maxFinite,
+                    decoration: const BoxDecoration(
                       color: Color(AppColors.bgPrimary),
-                      borderRadius: BorderRadius.all(Radius.circular(5))),
-                  child: Center(
-                    child: Text(
-                      'Masuk',
-                      style: GoogleFonts.poppins(
+                      borderRadius: BorderRadius.all(Radius.circular(5))
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Masuk',
+                        style: GoogleFonts.poppins(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: const Color(AppColors.fontWhite)),
+                          color: const Color(AppColors.fontWhite)
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 22,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Kamu belum punya akun?',
-                    style: GoogleFonts.poppins(
+                const SizedBox(height: 22,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Kamu belum punya akun?',
+                      style: GoogleFonts.poppins(
                         color: const Color(AppColors.fontBlack),
                         fontSize: 13,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  const SizedBox(
-                    width: 2,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const Register()),
-                      );
-                    },
-                    child: Text(
-                      'Daftar',
-                      style: GoogleFonts.poppins(
+                        fontWeight: FontWeight.w500
+                      ),
+                    ),
+                    const SizedBox(width: 2,),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (context) => const Register()),
+                        );
+                      },
+                      child: Text(
+                        'Daftar',
+                        style: GoogleFonts.poppins(
                           color: const Color(AppColors.fontGreen),
                           fontSize: 13,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )
-                ],
-              )
-            ],
+                          fontWeight: FontWeight.w500
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
