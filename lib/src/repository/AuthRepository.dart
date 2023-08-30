@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:healtyfy/src/feature/auth/view/login.dart';
 
@@ -9,8 +10,10 @@ import '../utils/Snackbar.dart';
 class AuthRepository {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final DatabaseReference _dbReference = FirebaseDatabase.instance.ref();
+  final FirebaseStorage storage = FirebaseStorage.instance;
 
   Stream<User?> get authStateChange => _auth.authStateChanges();
+  String filesImage = '';
 
   Future<String> signInWithEmailAndPassword(GlobalKey key, String email, String password) async {
     try {
@@ -70,5 +73,15 @@ class AuthRepository {
         MaterialPageRoute(builder: (context) => const Login()),
       );
     },);
+  }
+
+  Future<String> fetchUserImage(GlobalKey key, String path) async {
+    try{
+      String file = await storage.ref().child('users').child(path).getDownloadURL();
+      filesImage = file;
+    } on FirebaseAuthException catch (e) {
+      Snackbar.snackbarShow(key.currentContext!, '$e');
+    }
+    return filesImage;
   }
 }
