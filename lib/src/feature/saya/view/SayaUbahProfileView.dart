@@ -53,14 +53,14 @@ class _SayaUbahProfileViewState extends ConsumerState<SayaUbahProfileView> {
             child: TextFieldWidget(
               controller: usernameController,
               keyString: 'username',
-              labelTitle: 'Username',
-              labelField: 'masukkan username baru',
+              labelTitle: 'Nama',
+              labelField: 'masukkan nama baru',
               inputFormatters: [
                 LengthLimitingTextInputFormatter(12)
               ],
               validatorCallback: (val){
                 if (val.isEmpty) {
-                  return 'Username tidak boleh kosong!';
+                  return 'Nama tidak boleh kosong!';
                 }
                 return null;
               },

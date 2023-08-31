@@ -168,7 +168,7 @@ class _SayaViewState extends ConsumerState<SayaView> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(6))),
                                 child: Text(
-                                  'Logout',
+                                  'Keluar',
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.poppins(
                                       fontSize: 12,
@@ -223,7 +223,7 @@ class _SayaViewState extends ConsumerState<SayaView> {
                                             builder: (context) =>
                                                 const HitungKaloriRiwayat()));
                                   },
-                                  teks: 'Kalori Kamu',
+                                  teks: 'Kalori Harian Kamu',
                                   result:
                                       '${data?.values.last['result'].toString() ?? 0} kkal');
                             }),

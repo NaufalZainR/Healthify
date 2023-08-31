@@ -49,14 +49,14 @@ class _RegisterState extends ConsumerState<Register> {
                 TextFieldWidget(
                   controller: usernameController,
                   keyString: 'username',
-                  labelTitle: 'Username',
-                  labelField: 'Masukkan username anda',
+                  labelTitle: 'Nama',
+                  labelField: 'Masukkan nama anda',
                   inputFormatters: [
                     LengthLimitingTextInputFormatter(12)
                   ],
                   validatorCallback: (val){
                     if (val.isEmpty) {
-                      return 'Username tidak boleh kosong!';
+                      return 'Nama tidak boleh kosong!';
                     }
                     return null;
                   },

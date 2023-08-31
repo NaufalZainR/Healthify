@@ -25,7 +25,7 @@ class HitungKaloriResult extends ConsumerWidget {
             const AppBarBackWidget(),
             const SizedBox(height: 99,),
             Text(
-              'Nilai Kamu',
+              'Kalori harian kamu',
               style: GoogleFonts.poppins(
                   fontSize: 32,
                   fontWeight: FontWeight.w500
