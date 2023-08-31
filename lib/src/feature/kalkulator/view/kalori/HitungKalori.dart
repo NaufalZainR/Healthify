@@ -35,6 +35,12 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
     'Aktivitas fisik',
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    getLastValue();
+  }
+
   void getLastValue() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     setState(() {
