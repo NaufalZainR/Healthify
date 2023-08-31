@@ -7,10 +7,12 @@ import '../../../../utils/AppColors.dart';
 
 class BeratPickerWidget extends ConsumerStatefulWidget {
   Function onChanged;
+  int value;
 
   BeratPickerWidget({
     super.key,
-    required this.onChanged
+    required this.onChanged,
+    required this.value,
   });
 
   @override
@@ -18,10 +20,11 @@ class BeratPickerWidget extends ConsumerStatefulWidget {
 }
 
 class _BeratPickerWidgetState extends ConsumerState<BeratPickerWidget> {
-  var beratValue = 55;
 
   @override
   Widget build(BuildContext context) {
+    var beratValue = widget.value;
+
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
@@ -49,6 +52,7 @@ class _BeratPickerWidgetState extends ConsumerState<BeratPickerWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               GestureDetector(
+                key: Key('beratMin'),
                 onTap: () {
                   setState(() {
                     if (beratValue <= 1)return;
@@ -75,6 +79,7 @@ class _BeratPickerWidgetState extends ConsumerState<BeratPickerWidget> {
               ),
               const SizedBox(width: 25,),
               GestureDetector(
+                key: Key('beratPlus'),
                 onTap: () {
                   setState(() {
                     beratValue++;

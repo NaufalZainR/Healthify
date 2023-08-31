@@ -56,7 +56,7 @@ class HitungBMIResult extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 38,),
-            PrettyGauge(
+            gender == 0 ? PrettyGauge(
               gaugeSize: 300,
               minValue: 0,
               maxValue: 40,
@@ -65,6 +65,22 @@ class HitungBMIResult extends ConsumerWidget {
                 GaugeSegment('Normal', 6.4, const Color(0xff4cb050)),
                 GaugeSegment('Gemuk', 5, const Color(0xffff9700)),
                 GaugeSegment('Obesitas', 10.1, const Color(0xffea1e63)),
+              ],
+              valueWidget: Text(
+                '$hasil',
+                style: const TextStyle(fontSize: 40),
+              ),
+              currentValue: hasil.toDouble(),
+              needleColor: Colors.blue,
+            ) : PrettyGauge(
+              gaugeSize: 300,
+              minValue: 0,
+              maxValue: 40,
+              segments: [
+                GaugeSegment('Kurus', 18.5, const Color(0xfff24336)),
+                GaugeSegment('Normal', 5.4, const Color(0xff4cb050)),
+                GaugeSegment('Gemuk', 5.9, const Color(0xffff9700)),
+                GaugeSegment('Obesitas', 10.2, const Color(0xffea1e63)),
               ],
               valueWidget: Text(
                 '$hasil',

@@ -7,10 +7,12 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class JenisPickerWidget extends ConsumerStatefulWidget {
   Function onTap;
+  int value;
 
   JenisPickerWidget({
     super.key,
-    required this.onTap
+    required this.onTap,
+    required this.value
   });
 
   @override
@@ -28,10 +30,10 @@ class _JenisPickerWidgetState extends ConsumerState<JenisPickerWidget> {
     'assets/images/female.png'
   ];
 
-  var jenisKelaminIndex = 0;
-
   @override
   Widget build(BuildContext context) {
+    var jenisKelaminIndex = widget.value;
+
     return GridView.builder(
       padding: EdgeInsets.all(ScreenSize.screenHeight(context) * 0.06),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

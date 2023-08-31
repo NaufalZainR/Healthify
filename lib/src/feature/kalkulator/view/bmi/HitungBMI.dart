@@ -8,6 +8,7 @@ import 'package:healtyfy/src/feature/kalkulator/view/widgets/BeratPickerWidget.d
 import 'package:healtyfy/src/feature/kalkulator/view/widgets/JenisPickerWidget.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/widgets/UmurPickerWidget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utils/AppColors.dart';
 import '../widgets/TinggiPickerWidget.dart';
@@ -28,6 +29,35 @@ class _HitungBMIState extends ConsumerState<HitungBMI> {
   GlobalKey hitungBMIKey = GlobalKey();
 
   @override
+  void initState() {
+    super.initState();
+    getLastValue();
+  }
+
+  void getLastValue() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      jenisKelaminIndex = pref.getInt('jenisKelaminIndexLast') ?? 0;
+      sliderValue = pref.getDouble('tinggiLast') ?? 170.0;
+      umurValue = pref.getInt('umurLast') ?? 18;
+      beratValue = pref.getInt('beratLast') ?? 55;
+    });
+  }
+
+  void setLastValue(int value, int check, double valueD) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (check == 1) {
+      pref.setInt('jenisKelaminIndexLast', value);
+    } else if (check == 2) {
+      pref.setDouble('tinggiLast', valueD);
+    } else if (check == 3) {
+      pref.setInt('umurLast', value);
+    } else if (check == 4) {
+      pref.setInt('beratLast', value);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(15),
@@ -44,16 +74,20 @@ class _HitungBMIState extends ConsumerState<HitungBMI> {
               ),
             ),
             JenisPickerWidget(
+              value: jenisKelaminIndex,
               onTap: (value){
                 setState(() {
                   jenisKelaminIndex = value;
+                  setLastValue(jenisKelaminIndex, 1, 0);
                 });
               },
             ),
             TinggiPickerWidget(
+              value: sliderValue,
               onChanged: (value){
                 setState(() {
                   sliderValue = value;
+                  setLastValue(0, 2, sliderValue);
                 });
               },
             ),
@@ -62,16 +96,20 @@ class _HitungBMIState extends ConsumerState<HitungBMI> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 UmurPickerWidget(
+                  value: umurValue,
                   onChanged: (value){
                     setState(() {
                       umurValue = value;
+                      setLastValue(umurValue, 3, 0);
                     });
                   },
                 ),
                 BeratPickerWidget(
+                  value: beratValue,
                   onChanged: (value){
                     setState(() {
                       beratValue = value;
+                      setLastValue(beratValue, 4, 0);
                     });
                   },
                 ),

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/kalori/HitungKaloriResult.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../constants/ScreenSize.dart';
 import '../../../../utils/AppColors.dart';
@@ -34,6 +35,29 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
     'Aktivitas fisik',
   ];
 
+  void getLastValue() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    setState(() {
+      jenisKelaminIndex = pref.getInt('jenisKelaminIndexLast') ?? 0;
+      sliderValue = pref.getDouble('tinggiLast') ?? 170.0;
+      umurValue = pref.getInt('umurLast') ?? 18;
+      beratValue = pref.getInt('beratLast') ?? 55;
+    });
+  }
+
+  void setLastValue(int value, int check, double valueD) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    if (check == 1) {
+      pref.setInt('jenisKelaminIndexLast', value);
+    } else if (check == 2) {
+      pref.setDouble('tinggiLast', valueD);
+    } else if (check == 3) {
+      pref.setInt('umurLast', value);
+    } else if (check == 4) {
+      pref.setInt('beratLast', value);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,16 +75,20 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
               ),
             ),
             JenisPickerWidget(
+              value: jenisKelaminIndex,
               onTap: (value){
                 setState(() {
                   jenisKelaminIndex = value;
+                  setLastValue(jenisKelaminIndex, 1, 0);
                 });
               },
             ),
             TinggiPickerWidget(
+              value: sliderValue,
               onChanged: (value){
                 setState(() {
                   sliderValue = value;
+                  setLastValue(0, 2, sliderValue);
                 });
               },
             ),
@@ -69,16 +97,20 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 UmurPickerWidget(
+                  value: umurValue,
                   onChanged: (value){
                     setState(() {
                       umurValue = value;
+                      setLastValue(umurValue, 3, 0);
                     });
                   },
                 ),
                 BeratPickerWidget(
+                  value: beratValue,
                   onChanged: (value){
                     setState(() {
                       beratValue = value;
+                      setLastValue(beratValue, 4, 0);
                     });
                   },
                 ),

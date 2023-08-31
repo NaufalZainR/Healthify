@@ -8,10 +8,12 @@ import '../../../../utils/AppColors.dart';
 
 class TinggiPickerWidget extends ConsumerStatefulWidget {
   Function onChanged;
+  double value;
 
   TinggiPickerWidget({
     super.key,
-    required this.onChanged
+    required this.onChanged,
+    required this.value
   });
 
   @override
@@ -19,10 +21,11 @@ class TinggiPickerWidget extends ConsumerStatefulWidget {
 }
 
 class _TinggiPickerWidgetState extends ConsumerState<TinggiPickerWidget> {
-  var sliderValue = 170.0;
 
   @override
   Widget build(BuildContext context) {
+    var sliderValue = widget.value;
+
     return Container(
       padding: const EdgeInsets.all(7),
       width: ScreenSize.screenWidth(context),
@@ -49,6 +52,7 @@ class _TinggiPickerWidgetState extends ConsumerState<TinggiPickerWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               GestureDetector(
+                key: Key('tinggiMin'),
                 onTap: () {
                   setState(() {
                     sliderValue--;
@@ -90,6 +94,7 @@ class _TinggiPickerWidgetState extends ConsumerState<TinggiPickerWidget> {
                 ),
               ),
               GestureDetector(
+                key: Key('tinggiPlus'),
                 onTap: () {
                   setState(() {
                     sliderValue++;
