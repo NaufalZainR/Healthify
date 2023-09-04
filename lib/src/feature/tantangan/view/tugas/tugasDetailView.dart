@@ -17,15 +17,14 @@ class TugasDetailView extends ConsumerStatefulWidget {
   int score;
   String check;
 
-  TugasDetailView({
-    super.key,
-    required this.imagePath,
-    required this.title,
-    required this.deskripsi,
-    required this.idTugas,
-    required this.score,
-    this.check = 'tugas'
-  });
+  TugasDetailView(
+      {super.key,
+      required this.imagePath,
+      required this.title,
+      required this.deskripsi,
+      required this.idTugas,
+      required this.score,
+      this.check = 'tugas'});
 
   @override
   ConsumerState createState() => _TugasDetailViewState();
@@ -42,80 +41,91 @@ class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
         children: [
           const AppBarBackWidget(),
           Expanded(
+            child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 32,),
+                    const SizedBox(
+                      height: 32,
+                    ),
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(22)),
-                        color: Color(AppColors.bgPrimary)
-                      ),
+                          borderRadius: BorderRadius.all(Radius.circular(22)),
+                          color: Color(AppColors.bgPrimary)),
                       child: Row(
                         children: [
                           FutureBuilder(
-                            future: ref.read(tugasRepositoryProvider).fetchDataImage(tugasDetailKey, widget.imagePath),
-                            builder: (context, snapshot) {
-                              if(snapshot.connectionState == ConnectionState.waiting){
-                                return const SizedBox(
-                                    width: 50,
-                                    height: 50,
-                                    child: Center(child: CircularProgressIndicator())
-                                );
-                              }
-                              return SizedBox(
-                                  width: 80,
-                                  height: 80,
-                                  child: Image.network(snapshot.data!)
-                              );
-                            }
+                              future: ref
+                                  .read(tugasRepositoryProvider)
+                                  .fetchDataImage(
+                                      tugasDetailKey, widget.imagePath),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const SizedBox(
+                                      width: 50,
+                                      height: 50,
+                                      child: Center(
+                                          child: CircularProgressIndicator()));
+                                }
+                                return SizedBox(
+                                    width: 80,
+                                    height: 80,
+                                    child: Image.network(snapshot.data!));
+                              }),
+                          const SizedBox(
+                            width: 25,
                           ),
-                          const SizedBox(width: 25,),
                           Text(
                             widget.title,
                             style: GoogleFonts.poppins(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white
-                            ),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.white),
                           )
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Text(
                       widget.deskripsi,
                       style: GoogleFonts.poppins(
-                        fontSize: 13,
-                        fontWeight: FontWeight.normal
-                      ),
+                          fontSize: 13, fontWeight: FontWeight.normal),
                     ),
-                    SizedBox(height: ScreenSize.screenHeight(context) * 0.4,),
+                    SizedBox(
+                      height: ScreenSize.screenHeight(context) * 0.4,
+                    ),
                     Align(
                       alignment: AlignmentDirectional.bottomEnd,
                       child: GestureDetector(
                         onTap: () {
                           widget.check == 'tugas'
-                            ? ref.read(tugasRepositoryProvider).tugasSelesai(tugasDetailKey, widget.idTugas, widget.score)
-                            : ref.read(tugasRepositoryProvider).tugasLencanaSelesai(tugasDetailKey, widget.idTugas, widget.score);
+                              ? ref.read(tugasRepositoryProvider).tugasSelesai(
+                                  tugasDetailKey, widget.idTugas, widget.score)
+                              : ref
+                                  .read(tugasRepositoryProvider)
+                                  .tugasLencanaSelesai(tugasDetailKey,
+                                      widget.idTugas, widget.score);
                           Navigator.of(context).pop();
                         },
                         child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 36),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 36),
                           decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(6)),
-                              color: Color(AppColors.bgPrimary)
-                          ),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(6)),
+                              color: Color(AppColors.bgPrimary)),
                           child: Text(
                             'Selesai',
                             style: GoogleFonts.poppins(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white
-                            ),
+                                color: Colors.white),
                           ),
                         ),
                       ),
@@ -123,6 +133,7 @@ class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
                   ],
                 ),
               ),
+            ),
           ),
         ],
       ),

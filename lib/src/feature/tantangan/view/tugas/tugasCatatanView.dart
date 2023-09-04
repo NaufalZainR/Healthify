@@ -70,6 +70,7 @@ class TtugasCatatanViewState extends ConsumerState<TugasCatatanView> {
                                   ),
                                 ),
                                 trailing: GestureDetector(
+                                  key: Key('delete'),
                                   onTap: () {
                                     ref.read(tugasRepositoryProvider).deleteCatatan(context, data[index].id!);
                                   },
@@ -94,6 +95,7 @@ class TtugasCatatanViewState extends ConsumerState<TugasCatatanView> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
+        key: Key('tambah'),
         backgroundColor: const Color(AppColors.bgPrimary),
         onPressed: () {
           Navigator.push(

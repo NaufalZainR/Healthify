@@ -69,6 +69,7 @@ class _MinumRiwayatViewState extends ConsumerState<MinumRiwayatView> {
                                 ],
                               ),
                               GestureDetector(
+                                key: Key('delete'),
                                 onTap: () {
                                   ref.read(tugasRepositoryProvider).hapusMinum(context, data[index].id!);
                                 },
