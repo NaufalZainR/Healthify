@@ -43,6 +43,14 @@ void main() async {
     await tester.pumpAndSettle();
   },);
 
+  testWidgets('Login google test', (tester) async {
+    await tester.pumpWidget(createWidgetTest());
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Masuk Dengan Google').last);
+    await tester.pumpAndSettle();
+  },);
+
   testWidgets('Register test', (tester) async {
     await tester.pumpWidget(createWidgetTest());
     await tester.pumpAndSettle();
@@ -299,7 +307,10 @@ void main() async {
     await tester.tap(find.text('Hitung').last);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Edukasi').last);
+    await tester.tap(find.text('Riwayat').last);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(Key('delete')).first);
     await tester.pumpAndSettle();
   },);
 
@@ -336,7 +347,10 @@ void main() async {
     await tester.tap(find.text('Hitung').last);
     await tester.pumpAndSettle();
 
-    await tester.tap(find.text('Resep').last);
+    await tester.tap(find.text('Riwayat').last);
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.byKey(Key('delete')).first);
     await tester.pumpAndSettle();
   },);
 

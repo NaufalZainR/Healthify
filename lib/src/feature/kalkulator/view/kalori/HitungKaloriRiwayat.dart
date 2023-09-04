@@ -11,8 +11,7 @@ class HitungKaloriRiwayat extends ConsumerStatefulWidget {
   const HitungKaloriRiwayat({super.key});
 
   @override
-  ConsumerState<ConsumerStatefulWidget> createState() =>
-      _HitungKaloriRiwayatState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _HitungKaloriRiwayatState();
 }
 
 class _HitungKaloriRiwayatState extends ConsumerState<HitungKaloriRiwayat> {
@@ -26,69 +25,57 @@ class _HitungKaloriRiwayatState extends ConsumerState<HitungKaloriRiwayat> {
       body: Column(
         children: [
           const AppBarBackWidget(),
-          const SizedBox(
-            height: 10,
-          ),
+          const SizedBox(height: 10,),
           Expanded(
             child: StreamBuilder(
-              stream: dbReference
-                  .child('kalori_result')
-                  .child(auth.currentUser!.uid)
-                  .onValue,
+              stream: dbReference.child('kalori_result').child(auth.currentUser!.uid).onValue,
               builder: (context, snapshot) {
-                ref
-                    .read(calculatorRepositoryProvider)
-                    .fetchKalori(context, snapshot);
-                final data =
-                    ref.read(calculatorRepositoryProvider).listSaveKalori;
+                ref.read(calculatorRepositoryProvider).fetchKalori(context, snapshot);
+                final data = ref.read(calculatorRepositoryProvider).listSaveKalori;
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Container();
                 }
                 return ListView.separated(
-                    padding: const EdgeInsets.all(0),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 34, vertical: 18),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      '${data[index].result!} KKAL',
-                                      style: GoogleFonts.poppins(
-                                          fontWeight: FontWeight.w500,
-                                          fontSize: 20),
+                  padding: const EdgeInsets.all(0),
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 34, vertical: 18),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  Text(
+                                    '${data[index].result!} KKAL',
+                                    style: GoogleFonts.poppins(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 20
                                     ),
-                                    const SizedBox(
-                                      width: 16,
-                                    ),
-                                  ],
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    ref
-                                        .read(calculatorRepositoryProvider)
-                                        .deleteKalori(context, data[index].id!);
-                                  },
-                                  child: Icon(MdiIcons.delete),
-                                ),
-                              ],
-                            ),
+                                  ),
+                                  const SizedBox(width: 16,),
+                                ],
+                              ),
+                              GestureDetector(
+                                key: Key('delete'),
+                                onTap: () {
+                                  ref.read(calculatorRepositoryProvider).deleteKalori(context, data[index].id!);
+                                },
+                                child: Icon(MdiIcons.delete),
+                              ),
+                            ],
                           ),
-                          const Divider(
-                            thickness: 2,
-                          )
-                        ],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return Container();
-                    },
-                    itemCount: data.length);
+                        ),
+                        const Divider(thickness: 2,)
+                      ],
+                    );
+                  },
+                  separatorBuilder: (context, index) {
+                    return Container();
+                  },
+                  itemCount: data.length
+                );
               },
             ),
           )
