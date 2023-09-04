@@ -44,15 +44,18 @@ class _CustomGridBoxWidgetState extends ConsumerState<CustomGridBoxWidget> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return SizedBox(
-                    width: ScreenSize.screenWidth(context) * 0.07,
-                    height: ScreenSize.screenHeight(context) * 0.07,
+                    width: ScreenSize.screenWidth(context) * 0.06,
+                    height: ScreenSize.screenHeight(context) * 0.06,
                     child: Center(child: CircularProgressIndicator()));
               }
               return Image.network(
                 snapshot.data!,
-                height: ScreenSize.screenHeight(context) * 0.07,
+                height: ScreenSize.screenHeight(context) * 0.06,
               );
             },
+          ),
+          const SizedBox(
+            height: 6,
           ),
           Text(
             widget.namaLencana,
