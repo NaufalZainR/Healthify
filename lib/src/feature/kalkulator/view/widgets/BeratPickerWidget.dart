@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -20,6 +21,10 @@ class BeratPickerWidget extends ConsumerStatefulWidget {
 }
 
 class _BeratPickerWidgetState extends ConsumerState<BeratPickerWidget> {
+
+  TextEditingController beratController = TextEditingController();
+
+  var editText = false;
 
   @override
   Widget build(BuildContext context) {
@@ -69,13 +74,48 @@ class _BeratPickerWidgetState extends ConsumerState<BeratPickerWidget> {
                 ),
               ),
               const SizedBox(width: 25,),
-              Text(
-                  '${beratValue.toInt()}',
+              editText ? SizedBox(
+                width: 30,
+                child: EditableText(
+                  controller: beratController,
+                  focusNode: FocusNode(),
+                  autofocus: true,
                   style: GoogleFonts.poppins(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.black
-                  )
+                    fontSize: 20,
+                    color: Colors.black
+                  ),
+                  keyboardType: TextInputType.number,
+                  cursorColor: Colors.black,
+                  backgroundCursorColor: Colors.black,
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(2),
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                  onChanged: (value) {
+                    setState(() {
+                      widget.onChanged(int.parse(value));
+                    });
+                  },
+                  onSubmitted: (value) {
+                    setState(() {
+                      editText = false;
+                    });
+                  },
+                ),
+              ) : GestureDetector(
+                onTap: () {
+                  setState(() {
+                    editText = true;
+                  });
+                },
+                child: Text(
+                    '${beratValue.toInt()}',
+                    style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.black
+                    )
+                ),
               ),
               const SizedBox(width: 25,),
               GestureDetector(
