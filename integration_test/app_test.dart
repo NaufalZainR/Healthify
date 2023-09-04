@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:healtyfy/main.dart';
 import 'package:healtyfy/src/feature/auth/view/login.dart';
+import 'package:healtyfy/src/feature/auth/view/register.dart';
 import 'package:healtyfy/src/healtyfy.dart';
 
 void main() async {
@@ -14,7 +15,7 @@ void main() async {
     return ProviderScope(
       child: MaterialApp(
         title: 'Flutter Test',
-        home: Healtyfy(),
+        home: Register(),
       ),
     );
   }
@@ -58,7 +59,7 @@ void main() async {
     await tester.tap(find.text('Daftar').last);
     await tester.pumpAndSettle();
 
-    await tester.enterText(find.byKey(Key('username')), 'hahatesting');
+    await tester.enterText(find.byKey(Key('username')), 'testing');
     await tester.testTextInput.receiveAction(TextInputAction.done);
     await tester.pumpAndSettle();
 
