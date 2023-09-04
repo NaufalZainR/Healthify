@@ -11,18 +11,13 @@ class UmurPickerWidget extends ConsumerStatefulWidget {
   Function onChanged;
   int value;
 
-  UmurPickerWidget({
-    super.key,
-    required this.onChanged,
-    required this.value
-  });
+  UmurPickerWidget({super.key, required this.onChanged, required this.value});
 
   @override
   ConsumerState createState() => _UmurPickerWidgetState();
 }
 
 class _UmurPickerWidgetState extends ConsumerState<UmurPickerWidget> {
-
   TextEditingController umurController = TextEditingController();
 
   var editText = false;
@@ -36,10 +31,7 @@ class _UmurPickerWidgetState extends ConsumerState<UmurPickerWidget> {
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [
-          BoxShadow(
-              blurRadius: 17,
-              color: Colors.black.withOpacity(0.25)
-          )
+          BoxShadow(blurRadius: 17, color: Colors.black.withOpacity(0.25))
         ],
       ),
       child: Column(
@@ -50,10 +42,11 @@ class _UmurPickerWidgetState extends ConsumerState<UmurPickerWidget> {
             style: GoogleFonts.poppins(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                color: const Color(AppColors.bgGrey)
-            ),
+                color: const Color(AppColors.bgGrey)),
           ),
-          const SizedBox(height: 11,),
+          const SizedBox(
+            height: 11,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -61,7 +54,7 @@ class _UmurPickerWidgetState extends ConsumerState<UmurPickerWidget> {
                 key: Key('umurMin'),
                 onTap: () {
                   setState(() {
-                    if (umurValue <= 1)return;
+                    if (umurValue <= 1) return;
                     umurValue--;
                     widget.onChanged(umurValue);
                   });
@@ -69,54 +62,57 @@ class _UmurPickerWidgetState extends ConsumerState<UmurPickerWidget> {
                 child: Container(
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(100)),
-                      color: Color(AppColors.bgPrimary)
+                      color: Color(AppColors.bgPrimary)),
+                  child: Icon(
+                    MdiIcons.minus,
+                    color: Colors.white,
                   ),
-                  child: Icon(MdiIcons.minus, color: Colors.white,),
                 ),
               ),
-              const SizedBox(width: 25,),
-              editText ? SizedBox(
-                width: 30,
-                child: EditableText(
-                  controller: umurController,
-                  focusNode: FocusNode(),
-                  autofocus: true,
-                  style: GoogleFonts.poppins(
-                    fontSize: 20,
-                    color: Colors.black
-                  ),
-                  keyboardType: TextInputType.number,
-                  cursorColor: Colors.black,
-                  backgroundCursorColor: Colors.black,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(2),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                  onChanged: (value) {
-                    setState(() {
-                      widget.onChanged(int.parse(value));
-                    });
-                  },
-                  onSubmitted: (value) {
-                    editText = false;
-                  },
-                ),
-              ) : GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      editText = true;
-                    });
-                  },
-                  child: Text(
-                      '${umurValue.toInt()}',
-                      style: GoogleFonts.poppins(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.black
-                      )
-                  ),
-                ),
-              const SizedBox(width: 25,),
+              const SizedBox(
+                width: 25,
+              ),
+              editText
+                  ? SizedBox(
+                      width: 30,
+                      child: EditableText(
+                        controller: umurController,
+                        focusNode: FocusNode(),
+                        autofocus: true,
+                        style: GoogleFonts.poppins(
+                            fontSize: 20, color: Colors.black),
+                        keyboardType: TextInputType.number,
+                        cursorColor: Colors.black,
+                        backgroundCursorColor: Colors.black,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(2),
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
+                        onSubmitted: (value) {
+                          setState(() {
+                            if (value.isNotEmpty) {
+                              widget.onChanged(int.parse(value));
+                            }
+                            editText = false;
+                          });
+                        },
+                      ),
+                    )
+                  : GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          editText = true;
+                        });
+                      },
+                      child: Text('${umurValue.toInt()}',
+                          style: GoogleFonts.poppins(
+                              fontSize: 20,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black)),
+                    ),
+              const SizedBox(
+                width: 25,
+              ),
               GestureDetector(
                 key: Key('umurPlus'),
                 onTap: () {
@@ -128,9 +124,11 @@ class _UmurPickerWidgetState extends ConsumerState<UmurPickerWidget> {
                 child: Container(
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(100)),
-                      color: Color(AppColors.bgPrimary)
+                      color: Color(AppColors.bgPrimary)),
+                  child: Icon(
+                    MdiIcons.plus,
+                    color: Colors.white,
                   ),
-                  child: Icon(MdiIcons.plus, color: Colors.white,),
                 ),
               ),
             ],

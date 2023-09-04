@@ -91,13 +91,11 @@ class _BeratPickerWidgetState extends ConsumerState<BeratPickerWidget> {
                     LengthLimitingTextInputFormatter(2),
                     FilteringTextInputFormatter.digitsOnly
                   ],
-                  onChanged: (value) {
-                    setState(() {
-                      widget.onChanged(int.parse(value));
-                    });
-                  },
                   onSubmitted: (value) {
                     setState(() {
+                      if (value.isNotEmpty) {
+                        widget.onChanged(int.parse(value));
+                      }
                       editText = false;
                     });
                   },

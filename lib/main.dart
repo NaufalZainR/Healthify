@@ -11,6 +11,7 @@ import 'firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
+    name: 'Healtyfy',
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const ProviderScope(child: MyApp()));
@@ -38,16 +39,16 @@ class Checker extends HookConsumerWidget {
     final authCheck = ref.watch(authCheckerProvider);
 
     return authCheck.when(
-        data: (data) {
-          if(data == null) return const Login();
-          return Healtyfy();
-        },
-        error: (error, stackTrace) {
-          return Container();
-        },
-        loading: () {
-          return Container();
-        },
+      data: (data) {
+        if (data == null) return const Login();
+        return Healtyfy();
+      },
+      error: (error, stackTrace) {
+        return Container();
+      },
+      loading: () {
+        return Container();
+      },
     );
   }
 }

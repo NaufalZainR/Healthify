@@ -1,49 +1,93 @@
 {
   "project_info": {
-    "project_number": "603668459865",
-    "firebase_url": "https://healthyfy-85a54-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "project_id": "healthyfy-85a54",
-    "storage_bucket": "healthyfy-85a54.appspot.com"
+    "project_number": "199756302480",
+    "firebase_url": "https://healtyfy-pal-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "healtyfy-pal",
+    "storage_bucket": "healtyfy-pal.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:603668459865:android:9f4e25146a2fc1ce4e1c48",
+        "mobilesdk_app_id": "1:199756302480:android:875a8d54bf10da059df015",
         "android_client_info": {
-          "package_name": "com.healtyfy.healtyfy"
+          "package_name": "com.example.healtyfy_pal"
         }
       },
       "oauth_client": [
         {
-          "client_id": "603668459865-3s8d0pbmcqdooamticgm99mlqfdvorr0.apps.googleusercontent.com",
+          "client_id": "199756302480-25bkeuk275jvtbph47p2i8io3mnt481s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.healtyfy.healtyfy",
-            "certificate_hash": "db2a962b356c1ffb6509d9b2ac9c4f32c9e72845"
+            "package_name": "com.example.healtyfy_pal",
+            "certificate_hash": "0c76ca9c796a24c9ff5f67e069f306a25cf474d4"
           }
         },
         {
-          "client_id": "603668459865-tve09enh59phej26spjf8p4nhvqt05lk.apps.googleusercontent.com",
+          "client_id": "199756302480-br5qibto823l695ak92ep9v2noh64ss3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.healtyfy_pal",
+            "certificate_hash": "a9cb127b9c2f410a33320b875f236f82c82dba73"
+          }
+        },
+        {
+          "client_id": "199756302480-1iuinlhqshst9fsg29v68peav0ds0nll.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBOKzJ-L5YsAYsXE2OZ1GCH7HbE2LoRTIM"
+          "current_key": "AIzaSyDBt87_5vhMFymmHCwZR5A0Av18I-Hh80A"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "603668459865-tve09enh59phej26spjf8p4nhvqt05lk.apps.googleusercontent.com",
+              "client_id": "199756302480-1iuinlhqshst9fsg29v68peav0ds0nll.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "603668459865-sag0ape9bjuu6kbh7rd08746rgoa8rt2.apps.googleusercontent.com",
+              "client_id": "199756302480-iro3se0qdha57f0hfekd3rvm3h0se9ml.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.healtyfy.healtyfy"
+                "bundle_id": "com.example.healtyfyPal"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:199756302480:android:ed7c38ba00cf46e59df015",
+        "android_client_info": {
+          "package_name": "com.healtyfy.healtyfy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "199756302480-1iuinlhqshst9fsg29v68peav0ds0nll.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBt87_5vhMFymmHCwZR5A0Av18I-Hh80A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "199756302480-1iuinlhqshst9fsg29v68peav0ds0nll.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "199756302480-iro3se0qdha57f0hfekd3rvm3h0se9ml.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.healtyfyPal"
               }
             }
           ]
