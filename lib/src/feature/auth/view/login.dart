@@ -66,13 +66,13 @@ class _LoginState extends ConsumerState<Login> {
                 TextFieldWidget(
                   controller: passwordController,
                   keyString: 'password',
-                  labelTitle: 'Password',
-                  labelField: 'Masukkan password anda',
+                  labelTitle: 'Kata Sandi',
+                  labelField: 'Masukkan kata sandi anda',
                   obfuscate: true,
                   inputFormatters: [],
                   validatorCallback: (value){
                     if (value.isEmpty) {
-                      return 'Password tidak boleh kosong!';
+                      return 'Kata sandi tidak boleh kosong!';
                     }
                     return null;
                   },
@@ -89,7 +89,7 @@ class _LoginState extends ConsumerState<Login> {
                         );
                       },
                       child: Text(
-                        'Lupa Password?',
+                        'Lupa Kata Sandi?',
                         style: GoogleFonts.poppins(
                           color: Color(AppColors.fontRed),
                           fontSize: 13,
