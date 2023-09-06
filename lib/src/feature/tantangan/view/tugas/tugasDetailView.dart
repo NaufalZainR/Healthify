@@ -72,8 +72,8 @@ class _TugasDetailViewState extends ConsumerState<TugasDetailView> {
                                           child: CircularProgressIndicator()));
                                 }
                                 return SizedBox(
-                                    width: 80,
-                                    height: 80,
+                                    width: 70,
+                                    height: 70,
                                     child: Image.network(snapshot.data!));
                               }),
                           const SizedBox(
