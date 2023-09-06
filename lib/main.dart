@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:healtyfy/src/constants/FirebaseNotif.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/auth/view/login.dart';
 import 'package:healtyfy/src/feature/auth/view/register.dart';
@@ -13,6 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseNotif().initNotifications();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -22,7 +24,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
