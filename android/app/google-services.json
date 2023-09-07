@@ -67,6 +67,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "199756302480-7vflupef42oout9ncshvbdob2o5i6fbl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.healtyfy.healtyfy",
+            "certificate_hash": "a9cb127b9c2f410a33320b875f236f82c82dba73"
+          }
+        },
+        {
           "client_id": "199756302480-1iuinlhqshst9fsg29v68peav0ds0nll.apps.googleusercontent.com",
           "client_type": 3
         }
