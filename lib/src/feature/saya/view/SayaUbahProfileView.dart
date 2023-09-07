@@ -30,72 +30,74 @@ class _SayaUbahProfileViewState extends ConsumerState<SayaUbahProfileView> {
     return Scaffold(
       body: Form(
         key: formKey,
-        child: Column(children: [
-          const AppBarBackWidget(),
-          const SizedBox(height: 46,),
-          GestureDetector(
-            key: Key('changePhoto'),
-            onTap: () {
-              ref.read(sayaRepositoryProvider).uploadPhoto(context);
-              Navigator.of(context).pop();
-            },
-            child: Container(
-              padding: const EdgeInsets.all(48),
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(100)),
-                color: Colors.black
-              ),
-              child: Icon(MdiIcons.cameraOutline, size: 36, color: Colors.white,),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: TextFieldWidget(
-              controller: usernameController,
-              keyString: 'username',
-              labelTitle: 'Nama',
-              labelField: 'masukkan nama baru',
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(12)
-              ],
-              validatorCallback: (val){
-                if (val.isEmpty) {
-                  return 'Nama tidak boleh kosong!';
-                }
-                return null;
-              },
-            ),
-          ),
-          const SizedBox(height: 43,),
-          GestureDetector(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                ref.read(sayaRepositoryProvider).changeUsername(context, usernameController.text);
-                Snackbar.snackbarShow(context, 'Berhasil dirubah!');
-                FocusScope.of(context).unfocus();
+        child: SingleChildScrollView(
+          child: Column(children: [
+            const AppBarBackWidget(),
+            const SizedBox(height: 46,),
+            GestureDetector(
+              key: Key('changePhoto'),
+              onTap: () {
+                ref.read(sayaRepositoryProvider).uploadPhoto(context);
                 Navigator.of(context).pop();
-              }
-            },
-            child: Container(
-              height: 37,
-              width: ScreenSize.screenWidth(context) * 0.35,
-              decoration: const BoxDecoration(
-                color: Color(AppColors.bgPrimary),
-                borderRadius: BorderRadius.all(Radius.circular(5))
+              },
+              child: Container(
+                padding: const EdgeInsets.all(48),
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(100)),
+                  color: Colors.black
+                ),
+                child: Icon(MdiIcons.cameraOutline, size: 36, color: Colors.white,),
               ),
-              child: Center(
-                child: Text(
-                  'Ubah',
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: const Color(AppColors.fontWhite)
+            ),
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: TextFieldWidget(
+                controller: usernameController,
+                keyString: 'username',
+                labelTitle: 'Nama',
+                labelField: 'masukkan nama baru',
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(12)
+                ],
+                validatorCallback: (val){
+                  if (val.isEmpty) {
+                    return 'Nama tidak boleh kosong!';
+                  }
+                  return null;
+                },
+              ),
+            ),
+            const SizedBox(height: 43,),
+            GestureDetector(
+              onTap: () {
+                if (formKey.currentState!.validate()) {
+                  ref.read(sayaRepositoryProvider).changeUsername(context, usernameController.text);
+                  Snackbar.snackbarShow(context, 'Berhasil dirubah!');
+                  FocusScope.of(context).unfocus();
+                  Navigator.of(context).pop();
+                }
+              },
+              child: Container(
+                height: 37,
+                width: ScreenSize.screenWidth(context) * 0.35,
+                decoration: const BoxDecoration(
+                  color: Color(AppColors.bgPrimary),
+                  borderRadius: BorderRadius.all(Radius.circular(5))
+                ),
+                child: Center(
+                  child: Text(
+                    'Ubah',
+                    style: GoogleFonts.poppins(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: const Color(AppColors.fontWhite)
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        ],),
+          ],),
+        ),
       ),
     );
   }

@@ -153,55 +153,62 @@ class _LencanaDetailViewState extends ConsumerState<LencanaDetailView> {
                                         ? []
                                         : tugasDoneList
                                             .add(fetchTugas[index].id);
-                                    return CustomBigTileWidget(
-                                      imagePath:
-                                          fetchTugas[index].photoPath ?? '',
-                                      title: fetchTugas[index]
-                                          .titleText
-                                          .toString(),
-                                      score: fetchTugas[index].score!.toInt(),
-                                      done: true,
-                                      tabCheck: 'tantangan',
+                                    return Container(
+                                      margin: const EdgeInsets.only(bottom: 15),
+                                      child: CustomBigTileWidget(
+                                        imagePath:
+                                            fetchTugas[index].photoPath ?? '',
+                                        title: fetchTugas[index]
+                                            .titleText
+                                            .toString(),
+                                        score: fetchTugas[index].score!.toInt(),
+                                        done: true,
+                                        tabCheck: 'tantangan',
+                                      ),
                                     );
                                   }
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                TugasDetailView(
-                                              title:
-                                                  fetchTugas[index].titleText ??
-                                                      '',
-                                              imagePath:
-                                                  fetchTugas[index].photoPath ??
-                                                      '',
-                                              deskripsi:
-                                                  fetchTugas[index].deskripsi ??
-                                                      '',
-                                              idTugas:
-                                                  fetchTugas[index].id ?? '',
-                                              score:
-                                                  fetchTugas[index].score ?? 0,
-                                              check: 'lencana',
-                                            ),
-                                          ));
-                                    },
-                                    child: CustomBigTileWidget(
-                                      imagePath:
-                                          fetchTugas[index].photoPath ?? '',
-                                      title: fetchTugas[index]
-                                          .titleText
-                                          .toString(),
-                                      score: fetchTugas[index].score!.toInt(),
-                                      tabCheck: 'tantangan',
+                                  return Container(
+                                    margin: const EdgeInsets.only(bottom: 15),
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  TugasDetailView(
+                                                title: fetchTugas[index]
+                                                        .titleText ??
+                                                    '',
+                                                imagePath: fetchTugas[index]
+                                                        .photoPath ??
+                                                    '',
+                                                deskripsi: fetchTugas[index]
+                                                        .deskripsi ??
+                                                    '',
+                                                idTugas:
+                                                    fetchTugas[index].id ?? '',
+                                                score:
+                                                    fetchTugas[index].score ??
+                                                        0,
+                                                check: 'lencana',
+                                              ),
+                                            ));
+                                      },
+                                      child: CustomBigTileWidget(
+                                        imagePath:
+                                            fetchTugas[index].photoPath ?? '',
+                                        title: fetchTugas[index]
+                                            .titleText
+                                            .toString(),
+                                        score: fetchTugas[index].score!.toInt(),
+                                        tabCheck: 'tantangan',
+                                      ),
                                     ),
                                   );
                                 },
                                 separatorBuilder: (context, index) {
                                   return const SizedBox(
-                                    height: 15,
+                                    height: 0,
                                   );
                                 },
                                 padding: const EdgeInsets.all(0),

@@ -44,13 +44,13 @@ class _CustomGridBoxWidgetState extends ConsumerState<CustomGridBoxWidget> {
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return SizedBox(
-                    width: ScreenSize.screenWidth(context) * 0.06,
-                    height: ScreenSize.screenHeight(context) * 0.06,
+                    width: ScreenSize.screenWidth(context) * 0.05,
+                    height: ScreenSize.screenHeight(context) * 0.05,
                     child: Center(child: CircularProgressIndicator()));
               }
               return Image.network(
                 snapshot.data!,
-                height: ScreenSize.screenHeight(context) * 0.06,
+                height: ScreenSize.screenHeight(context) * 0.05,
               );
             },
           ),
@@ -62,7 +62,7 @@ class _CustomGridBoxWidgetState extends ConsumerState<CustomGridBoxWidget> {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
             style: GoogleFonts.poppins(
-                fontSize: 11, fontWeight: FontWeight.normal),
+                fontSize: 10, fontWeight: FontWeight.normal),
           )
         ],
       ),
