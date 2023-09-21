@@ -31,6 +31,14 @@
           }
         },
         {
+          "client_id": "199756302480-osufk34skvufmabkt4sc0519849ed47j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.healtyfy_pal",
+            "certificate_hash": "db2a962b356c1ffb6509d9b2ac9c4f32c9e72845"
+          }
+        },
+        {
           "client_id": "199756302480-1iuinlhqshst9fsg29v68peav0ds0nll.apps.googleusercontent.com",
           "client_type": 3
         }

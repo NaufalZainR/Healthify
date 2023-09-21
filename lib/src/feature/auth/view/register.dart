@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/constants/ScreenSize.dart';
 import 'package:healtyfy/src/feature/auth/view/login.dart';
-import 'package:healtyfy/src/healtyfy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../../utils/AppColors.dart';
@@ -35,6 +34,7 @@ class _RegisterState extends ConsumerState<Register> {
           padding: const EdgeInsets.all(27.0),
           child: SingleChildScrollView(
             child: Column(
+              
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(

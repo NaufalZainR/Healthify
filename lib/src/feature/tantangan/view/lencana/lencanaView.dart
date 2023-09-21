@@ -7,10 +7,6 @@ import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/tantangan/view/lencana/lencanaDetailView.dart';
 import 'package:healtyfy/src/widgets/CustomGridBoxWidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-
-import '../../../../utils/AppColors.dart';
-import '../../../../widgets/CustomBigTileWidget.dart';
 
 class LencanaView extends StatefulHookConsumerWidget {
   const LencanaView({super.key});

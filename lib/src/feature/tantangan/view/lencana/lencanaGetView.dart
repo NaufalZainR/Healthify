@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/ScreenSize.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:healtyfy/src/widgets/AppBarBackWidget.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../../constants/Providers.dart';
 import '../../model/LencanaModel.dart';

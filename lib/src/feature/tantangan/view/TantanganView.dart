@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:healtyfy/src/constants/ScreenSize.dart';
 import 'package:healtyfy/src/feature/tantangan/view/lencana/lencanaView.dart';
 import 'package:healtyfy/src/feature/tantangan/view/peringkat/peringkatView.dart';
 import 'package:healtyfy/src/feature/tantangan/view/profil/profilView.dart';
 import 'package:healtyfy/src/feature/tantangan/view/tugas/tugasView.dart';
-import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:healtyfy/src/widgets/AppBarWidget.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

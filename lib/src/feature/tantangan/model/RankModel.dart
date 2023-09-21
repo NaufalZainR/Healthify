@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 class RankModel {
   final String id;

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:healtyfy/src/constants/FirebaseNotif.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/auth/view/login.dart';
-import 'package:healtyfy/src/feature/auth/view/register.dart';
 import 'package:healtyfy/src/healtyfy.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 

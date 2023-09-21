@@ -3,10 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:healtyfy/main.dart';
-import 'package:healtyfy/src/feature/auth/view/login.dart';
 import 'package:healtyfy/src/feature/auth/view/register.dart';
-import 'package:healtyfy/src/healtyfy.dart';
 
 void main() async {
   Widget createWidgetTest() {

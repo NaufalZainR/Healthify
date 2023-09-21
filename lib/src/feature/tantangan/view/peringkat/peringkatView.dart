@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/tantangan/view/widgets/profilWidget.dart';
-import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class PeringkatView extends StatefulHookConsumerWidget {
   const PeringkatView({super.key});

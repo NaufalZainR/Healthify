@@ -3,9 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/constants/ScreenSize.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-import '../feature/tantangan/model/LencanaModel.dart';
 import '../utils/AppColors.dart';
 
 class CustomGridBoxWidget extends ConsumerStatefulWidget {

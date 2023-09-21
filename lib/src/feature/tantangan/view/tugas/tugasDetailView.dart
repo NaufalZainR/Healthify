@@ -3,11 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/widgets/AppBarBackWidget.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 import '../../../../constants/ScreenSize.dart';
 import '../../../../utils/AppColors.dart';
-import '../../../../widgets/CustomBigTileWidget.dart';
 
 class TugasDetailView extends ConsumerStatefulWidget {
   String imagePath;

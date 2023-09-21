@@ -8,9 +8,6 @@ import 'package:healtyfy/src/feature/tantangan/view/tugas/tambahCatatanView.dart
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:healtyfy/src/widgets/AppBarBackWidget.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:path/path.dart';
-
-import '../../../../utils/Snackbar.dart';
 
 class TugasCatatanView extends ConsumerStatefulWidget {
   const TugasCatatanView({super.key});

@@ -14,7 +14,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 import '../../../constants/ScreenSize.dart';
 import '../../../utils/AppColors.dart';
-import '../../../widgets/AppBarWidget.dart';
 import '../../kalkulator/view/bmi/HitungBMIRiwayat.dart';
 
 class SayaView extends StatefulHookConsumerWidget {

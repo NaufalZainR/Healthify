@@ -7,7 +7,6 @@ import 'package:healtyfy/src/feature/kalkulator/view/bmi/HitungBMIResult.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/widgets/BeratPickerWidget.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/widgets/JenisPickerWidget.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/widgets/UmurPickerWidget.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../utils/AppColors.dart';

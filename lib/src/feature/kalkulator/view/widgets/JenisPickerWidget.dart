@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:healtyfy/src/constants/ScreenSize.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class JenisPickerWidget extends ConsumerStatefulWidget {
   Function onTap;
