@@ -88,7 +88,7 @@ class _BeratPickerWidgetState extends ConsumerState<BeratPickerWidget> {
                   cursorColor: Colors.black,
                   backgroundCursorColor: Colors.black,
                   inputFormatters: [
-                    LengthLimitingTextInputFormatter(2),
+                    LengthLimitingTextInputFormatter(3),
                     FilteringTextInputFormatter.digitsOnly
                   ],
                   onSubmitted: (value) {
