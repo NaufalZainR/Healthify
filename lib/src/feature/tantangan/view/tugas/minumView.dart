@@ -8,7 +8,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import '../../../../utils/AppColors.dart';
 
 class MinumView extends ConsumerStatefulWidget {
-  const MinumView({super.key});
+  const MinumView(this.index, {super.key});
+
+  final int index;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => MinumViewState();
@@ -27,33 +29,7 @@ class MinumViewState extends ConsumerState<MinumView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: pages.elementAt(indexPage),
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (value) {
-          setState(() {
-            indexPage = value;
-          });
-        },
-        currentIndex: indexPage,
-        backgroundColor: Colors.white,
-        selectedItemColor: const Color(AppColors.bgPrimary),
-        unselectedItemColor: const Color(AppColors.greyColor),
-        showUnselectedLabels: true,
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.cup),
-            label: 'Wadah',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.water),
-            label: 'Minum'
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.history),
-            label: 'Riwayat'
-          ),
-        ],
-      ),
+      body: pages.elementAt(widget.index),
     );
   }
 }

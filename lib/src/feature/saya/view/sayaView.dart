@@ -7,6 +7,7 @@ import 'package:healtyfy/src/feature/kalkulator/view/kalori/HitungKaloriRiwayat.
 import 'package:healtyfy/src/feature/saya/view/SayaUbahProfileView.dart';
 import 'package:healtyfy/src/feature/saya/view/widgets/CustomButtonWidget.dart';
 import 'package:healtyfy/src/feature/tantangan/view/tugas/minumView.dart';
+import 'package:healtyfy/src/feature/tantangan/view/tugas/minumView/minumLacakView.dart';
 import 'package:healtyfy/src/feature/tantangan/view/tugas/tugasCatatanView.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -277,7 +278,7 @@ class _SayaViewState extends ConsumerState<SayaView> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                const MinumView()));
+                                                const MinumView(1)));
                                   },
                                   teks: 'Minum Kamu',
                                   result:

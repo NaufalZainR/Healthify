@@ -67,12 +67,12 @@ class _MinumWadahViewState extends ConsumerState<MinumWadahView> {
                     },
                     child: Column(
                       children: [
-                        Icon(
-                          iconMinum[index],
-                          size: 60,
-                        ),
+                        // Icon(
+                        //   iconMinum[index],
+                        //   size: 60,
+                        // ),
                         Text(
-                          '${minumMl[index]}',
+                          '${minumMl[index]}ml',
                           style: GoogleFonts.poppins(
                               fontSize: 20, fontWeight: FontWeight.w600),
                         ),

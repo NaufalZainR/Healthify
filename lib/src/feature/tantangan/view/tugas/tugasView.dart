@@ -54,7 +54,7 @@ class _TugasViewState extends ConsumerState<TugasView> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const MinumView()));
+                              builder: (context) => const MinumView(1)));
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(

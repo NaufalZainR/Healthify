@@ -201,6 +201,7 @@ class TugasRepository{
               TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  Navigator.of(context).pop();
                 },
                 child: const Text("Oke"))
             ],
