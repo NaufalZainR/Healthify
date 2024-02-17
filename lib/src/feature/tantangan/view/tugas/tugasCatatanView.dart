@@ -41,6 +41,10 @@ class TtugasCatatanViewState extends ConsumerState<TugasCatatanView> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 6.0),
+                    child: TambahCatatanView(),
+                  ),
                   const SizedBox(height: 31,),
                   Expanded(
                     child: StreamBuilder(
@@ -90,19 +94,6 @@ class TtugasCatatanViewState extends ConsumerState<TugasCatatanView> {
             ),
           )
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        key: Key('tambah'),
-        backgroundColor: const Color(AppColors.bgPrimary),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const TambahCatatanView()
-            )
-          );
-        },
-        child: Icon(MdiIcons.plus,),
       ),
     );
   }
