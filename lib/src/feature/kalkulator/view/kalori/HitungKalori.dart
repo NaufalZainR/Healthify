@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/kalori/HitungKaloriResult.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -187,9 +186,6 @@ class _HitungKaloriState extends ConsumerState<HitungKalori> {
                   default:
                     hitung = hitung * 1;
                 }
-                ref
-                    .read(calculatorRepositoryProvider)
-                    .saveKalori(context, (hitung.toInt()).toString());
                 Snackbar.snackbarShow(context, 'Berhasil dihitung!');
                 Navigator.push(
                     context,

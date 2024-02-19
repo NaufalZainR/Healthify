@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/constants/ScreenSize.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/bmi/HitungBMIResult.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/widgets/BeratPickerWidget.dart';
@@ -118,7 +117,6 @@ class _HitungBMIState extends ConsumerState<HitungBMI> {
             GestureDetector(
               onTap: () {
                 var hitung = beratValue / ((sliderValue.toInt() / 100) * (sliderValue.toInt() / 100));
-                ref.read(calculatorRepositoryProvider).saveBMI(hitungBMIKey, double.parse(hitung.toStringAsFixed(1)), jenisKelaminIndex);
                 Navigator.push(
                     context,
                     MaterialPageRoute(

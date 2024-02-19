@@ -3,6 +3,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/feature/tantangan/view/tugas/tugasCatatanView.dart';
 import 'package:healtyfy/src/feature/tantangan/view/widgets/profilWidget.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -48,7 +49,7 @@ class ProfilViewState extends ConsumerState<ProfilView> {
                         height: 80,
                         child: Center(child: CircularProgressIndicator()));
                   }
-                  return Row(
+                  return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ProfilWidget(
@@ -57,6 +58,31 @@ class ProfilViewState extends ConsumerState<ProfilView> {
                         username: data[getIndex].username,
                         photoPath: data[getIndex].photoPath,
                         photoSize: 117,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const TugasCatatanView()));
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 15, vertical: 3),
+                          decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.all(Radius.circular(6))),
+                          child: Text(
+                            'Catatan',
+                            style: GoogleFonts.poppins(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w600,
+                                color: const Color(AppColors.bgPrimary)),
+                          ),
+                        ),
                       ),
                     ],
                   );

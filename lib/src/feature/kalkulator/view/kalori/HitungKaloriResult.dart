@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/kalori/HitungKaloriRiwayat.dart';
 import 'package:healtyfy/src/healtyfy.dart';
 
 import '../../../../utils/AppColors.dart';
 import '../../../../widgets/AppBarBackWidget.dart';
 
-class HitungKaloriResult extends ConsumerWidget {
+class HitungKaloriResult extends ConsumerStatefulWidget {
   double hasil;
 
   HitungKaloriResult({
@@ -16,7 +17,14 @@ class HitungKaloriResult extends ConsumerWidget {
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState createState() => _HitungKaloriState();
+}
+
+class _HitungKaloriState extends ConsumerState<HitungKaloriResult> {
+
+  @override
+  Widget build(BuildContext context) {
+    final hasil = widget.hasil.toInt();
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -33,7 +41,7 @@ class HitungKaloriResult extends ConsumerWidget {
             ),
             const SizedBox(height: 38,),
             Text(
-              '${hasil.toInt()} KKAL',
+              '$hasil KKAL',
               style: GoogleFonts.poppins(
                 fontSize: 40,
                 fontWeight: FontWeight.w500,
@@ -110,6 +118,9 @@ class HitungKaloriResult extends ConsumerWidget {
             ),
             GestureDetector(
               onTap: () {
+                ref
+                    .read(calculatorRepositoryProvider)
+                    .saveKalori(context, hasil.toString());
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -125,7 +136,7 @@ class HitungKaloriResult extends ConsumerWidget {
                     borderRadius: BorderRadius.all(Radius.circular(6))
                 ),
                 child: Text(
-                  'Riwayat',
+                  'Simpan',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.poppins(
                     fontSize: 12,

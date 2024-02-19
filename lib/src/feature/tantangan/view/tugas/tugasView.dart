@@ -47,56 +47,27 @@ class _TugasViewState extends ConsumerState<TugasView> {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MinumView(1)));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 3),
-                      decoration: const BoxDecoration(
-                          color: Color(AppColors.bgPrimary),
-                          borderRadius: BorderRadius.all(Radius.circular(6))),
-                      child: Text(
-                        'Minum',
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ),
-                    ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MinumView(1)));
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15, vertical: 3),
+                  decoration: const BoxDecoration(
+                      color: Color(AppColors.bgPrimary),
+                      borderRadius: BorderRadius.all(Radius.circular(6))),
+                  child: Text(
+                    'Minum',
+                    style: GoogleFonts.poppins(
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
                   ),
-                  const SizedBox(
-                    width: 6,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const TugasCatatanView()));
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 3),
-                      decoration: const BoxDecoration(
-                          color: Color(AppColors.bgPrimary),
-                          borderRadius: BorderRadius.all(Radius.circular(6))),
-                      child: Text(
-                        'Catatan',
-                        style: GoogleFonts.poppins(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),

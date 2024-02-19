@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:healtyfy/src/constants/Providers.dart';
 import 'package:healtyfy/src/feature/kalkulator/view/bmi/HitungBMIRiwayat.dart';
 import 'package:healtyfy/src/healtyfy.dart';
 import 'package:healtyfy/src/utils/AppColors.dart';
 import 'package:healtyfy/src/widgets/AppBarBackWidget.dart';
 import 'package:pretty_gauge/pretty_gauge.dart';
 
-class HitungBMIResult extends ConsumerWidget {
+class HitungBMIResult extends ConsumerStatefulWidget {
   final int gender;
   final double hasil;
 
@@ -16,6 +17,13 @@ class HitungBMIResult extends ConsumerWidget {
     required this.gender,
     required this.hasil,
   }) : super(key: key);
+
+  @override
+  ConsumerState createState() => _HitungBMIResultState();
+}
+
+class _HitungBMIResultState extends ConsumerState<HitungBMIResult> {
+  GlobalKey hitungBMIKey = GlobalKey();
 
   Widget CustomText(String text, int color) {
     return Text(
@@ -37,7 +45,10 @@ class HitungBMIResult extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
+    final gender = widget.gender;
+    final hasil = widget.hasil;
+
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
@@ -198,6 +209,9 @@ class HitungBMIResult extends ConsumerWidget {
                 ),
                 GestureDetector(
                   onTap: () {
+                    ref
+                        .read(calculatorRepositoryProvider)
+                        .saveBMI(hitungBMIKey, hasil, gender);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -210,7 +224,7 @@ class HitungBMIResult extends ConsumerWidget {
                         color: Color(AppColors.bgPrimary),
                         borderRadius: BorderRadius.all(Radius.circular(6))),
                     child: Text(
-                      'Riwayat',
+                      'Simpan',
                       textAlign: TextAlign.center,
                       style: GoogleFonts.poppins(
                           fontSize: 12,
