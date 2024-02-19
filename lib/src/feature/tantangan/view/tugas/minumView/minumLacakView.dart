@@ -25,24 +25,25 @@ class _MinumLacakViewState extends ConsumerState<MinumLacakView> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const AppBarBackWidget(),
-        const SizedBox(
-          height: 46,
-        ),
-        Expanded(
-          child: Column(
-            children: [
-              Text(
-                'Pelacakan Minum',
-                style: GoogleFonts.poppins(
-                    fontSize: 24, fontWeight: FontWeight.w600),
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              StreamBuilder(
+    return Scaffold(
+      body: Column(
+        children: [
+          const AppBarBackWidget(),
+          const SizedBox(
+            height: 46,
+          ),
+          Expanded(
+            child: Column(
+              children: [
+                Text(
+                  'Pelacakan Minum',
+                  style: GoogleFonts.poppins(
+                      fontSize: 24, fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                StreamBuilder(
                   stream: dbReference
                       .child('users')
                       .child(auth.currentUser!.uid)
@@ -59,6 +60,7 @@ class _MinumLacakViewState extends ConsumerState<MinumLacakView> {
                         }
                       },
                     );
+                    print('---$totalMinum');
                     return PrettyGauge(
                       gaugeSize: 300,
                       minValue: 0,
@@ -73,73 +75,111 @@ class _MinumLacakViewState extends ConsumerState<MinumLacakView> {
                       currentValue: totalMinum.toDouble(),
                       needleColor: Colors.blue,
                     );
-                  }),
-              const SizedBox(
-                height: 50,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MinumView(0),
+                  },
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    if (totalMinum >= 2500) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: const Text("Peringatan"),
+                            content: const Text(
+                                "Kamu sudah cukup minum untuk hari ini"),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => const MinumView(0),
+                                    ),
+                                  );
+                                  totalMinum = 0;
+                                },
+                                child: const Text("Tetap tambah"),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: const Text("Oke"),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MinumView(0),
+                        ),
+                      );
+                      totalMinum = 0;
+                    }
+                  },
+                  child: Container(
+                    width: 135,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: const BoxDecoration(
+                      color: Color(AppColors.bgPrimary),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(6),
+                      ),
                     ),
-                  );
-                },
-                child: Container(
-                  width: 135,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: const BoxDecoration(
-                    color: Color(AppColors.bgPrimary),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(6),
+                    child: Text(
+                      'Tambah',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
                     ),
-                  ),
-                  child: Text(
-                    'Tambah',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const MinumView(2),
+                const SizedBox(
+                  height: 24,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const MinumView(2),
+                      ),
+                    );
+                    totalMinum = 0;
+                  },
+                  child: Container(
+                    width: 135,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: const BoxDecoration(
+                      color: Color(AppColors.bgPrimary),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(6),
+                      ),
                     ),
-                  );
-                },
-                child: Container(
-                  width: 135,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  decoration: const BoxDecoration(
-                    color: Color(AppColors.bgPrimary),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(6),
+                    child: Text(
+                      'Riwayat',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.poppins(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
                     ),
-                  ),
-                  child: Text(
-                    'Riwayat',
-                    textAlign: TextAlign.center,
-                    style: GoogleFonts.poppins(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
                   ),
                 ),
-              ),
-            ],
-          ),
-        )
-      ],
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }
